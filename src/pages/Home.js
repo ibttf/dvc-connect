@@ -9,10 +9,10 @@ const Home = () => {
   const [language,setLanguage]=useState("english")
   const [spokenLanguage, setSpokenLanguage] = useState('chinese');
   const [dayOfTheWeek, setDayOfTheWeek] = useState('monday');
-  const [hours,setHours]=useState("0910")
+  const [hours,setHours]=useState("0900")
   const [currentUser, setCurrentUser] = useState(null);
 
-  
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -38,8 +38,6 @@ const Home = () => {
   return(
     <div>
       <Navbar />
-        <button onClick={()=>console.log(auth?.currentUser?.email)}>get current user</button>
-        <button onClick={()=>{signOut(auth); localStorage.clear()}}>Logout</button>
       <div className="w-10/12 mx-auto mb-24">
         {/* LANGAUGE TOGGLE */}
         <div className="grid grid-cols-4 text-center mt-12">
@@ -123,14 +121,22 @@ const Home = () => {
                           onChange={(e)=>setHours(e.target.value)}
                           className="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       >
-                        <option value="910">9:00 AM-10:00 AM</option>
-                        <option value="1011">10:00 AM-11:00 AM</option>
-                        <option value="1112">11:00 AM-12:00 PM</option>
-                        <option value="1201">12:00 PM-1:00 PM</option>
-                        <option value="0102">1:00 PM-2:00 PM</option>
-                        <option value="0203">2:00 PM-3:00 PM</option>
-                        <option value="0304">3:00 PM-4:00 PM</option>
-                        <option value="0405">4:00 PM-5:00 PM</option>
+                        <option value="0900">9:00 AM</option>
+                        <option value="0930">9:30 AM</option>
+                        <option value="1000">10:00 AM</option>
+                        <option value="1030">10:30 AM</option>
+                        <option value="1100">11:00 AM</option>
+                        <option value="1130">11:30 AM</option>
+                        <option value="1200">12:00 PM</option>
+                        <option value="1230">12:30 PM</option>
+                        <option value="0100">01:00 PM</option>
+                        <option value="0130">01:30 PM</option>
+                        <option value="0200">02:00 PM</option>
+                        <option value="0230">02:30 PM</option>
+                        <option value="0300">03:00 PM</option>
+                        <option value="0330">03:30 PM</option>
+                        <option value="0400">04:00 PM</option>
+                        <option value="0430">04:30 PM</option>
                       </select>
                       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                           <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
