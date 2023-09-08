@@ -3,10 +3,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { AiOutlineSearch, AiOutlineUser} from "react-icons/ai"
-import {VscThreeBars} from "react-icons/vsc"
-
-
 
 
 
@@ -63,15 +59,15 @@ const Navbar = ({}) => {
 
     <nav className="flex justify-between lg:py-6 lg:px-4 py-3 px-2 border-b-4 border-blue-600" style={{width: "100%"}}>
         <div>
-            <h1 className="text-lg font-extrabold text-blue-600 cursor-pointer" onClick={()=>window.location.reload()}>
+            <Link to="/" className="text-lg font-extrabold text-blue-600 cursor-pointer">
                 DVC Awesome Connect
-            </h1>
+            </Link>
         </div>
         <div className="w-fit grid grid-cols-2 gap-4">
-            <Link to="/about" className="font-semibold hover:underline" onClick={()=>navigate.push("/tutor-signin")}>
+            <Link to="/about" className="font-semibold hover:underline">
                 About
             </Link>
-            <Link to="/tutor-login" className="font-semibold hover:underline" onClick={()=>navigate.push("/tutor-signin")}>
+            <Link to="/tutor-login" className="font-semibold hover:underline">
                 Tutor?
             </Link>
         </div>
