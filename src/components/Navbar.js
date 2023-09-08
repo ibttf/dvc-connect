@@ -1,39 +1,31 @@
-"use client";
-
 import React, {useState, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signOut} from "firebase/auth";
 
-
-
-
-
-
+import { auth } from '../config/firebase';
 
 const Navbar = ({}) => {
-    const navigate=useNavigate();
-    const [open,setOpen]=useState(false);
     const [sticky,setSticky]=useState(false)
-    const [loginPopup,setLoginPopup]=useState(0); //0 for neither, 1 for login, 2 for signup
-    const [navbarExpand,setNavbarExpand]=useState(false);
-    const [location,setLocation]=useState(false);
-    const [rooms,setRooms]=useState(false)
-    const [movein,setMovein]=useState(false)
-    const [amenities,setAmenities]=useState(false);
-
-    //DYNAMIC STATE STUFF FOR THE SEARCH BAR INPUT
-    const [searchInput,setSearchInput]=useState("")
-    const [guests,setGuests]=useState(1);
-
+    const [currentUser,setCurrentUser]=useState(null)
   
-  
+
+
+
     useEffect(() => {
       const handleScroll = () => {
         setSticky(window.scrollY > 0);
       };
       window.addEventListener("scroll", handleScroll);
+      const unsubscribe = auth.onAuthStateChanged((user) => {
+        if (user) {
+          setCurrentUser(user);
+        } else {
+          setCurrentUser(null);
+        }
+      });
+      return () => unsubscribe();  // Cleanup subscription on unmount
     
       },[])
-
 
 
 
@@ -63,13 +55,21 @@ const Navbar = ({}) => {
                 DVC Awesome Connect
             </Link>
         </div>
-        <div className="w-fit grid grid-cols-2 gap-4">
+        <div className={`w-fit grid grid-cols-2 gap-4`}>
             <Link to="/about" className="font-semibold hover:underline">
                 About
             </Link>
+            {currentUser ? 
+            <button onClick={()=>{signOut(auth); localStorage.clear()}} className="font-semibold hover:underline">
+                Logout
+                
+            </button>
+            :
             <Link to="/tutor-login" className="font-semibold hover:underline">
                 Tutor?
             </Link>
+            }
+           
         </div>
     </nav>
 

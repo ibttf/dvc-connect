@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import {auth} from '../config/firebase'
-import { signInWithPopup, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
-import {BsGoogle} from "react-icons/bs";
+import {db, auth} from '../config/firebase'
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -123,7 +124,6 @@ function Login() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        console.log(email, password);
         setIsLoading(true);
         
         try {
@@ -150,28 +150,42 @@ function Login() {
         }
     };
 
-  async function handleSignup(e) {
-    e.preventDefault();
-    setIsLoading(true);
-
-    if (password !== passwordConfirmation) {
-        setErrors(["Password does not match"]);
-        setIsLoading(false);
-        return;
+    async function handleSignup(e) {
+        e.preventDefault();
+        setIsLoading(true);
+    
+        if (password !== passwordConfirmation) {
+            setErrors(["Password does not match"]);
+            setIsLoading(false);
+            return;
+        }
+    
+        try {
+            // Create user with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+    
+            // Store additional data in Firestore
+            await setDoc(doc(db, 'users', user.uid), {
+                fName: fName,
+                lName: lName,
+                workLocation: workLocation,
+                languagesSpoken: languagesSpoken,
+                selectedCells: selectedCells
+            });
+    
+            // Save token to local storage
+            const token = await user.getIdToken();
+            localStorage.setItem('accessToken', token);
+    
+            navigate("/");
+            window.location.reload();
+        } catch (err) {
+            console.error("Error during signup:", err);
+            setErrors([err.message]);
+            setIsLoading(false);
+        }
     }
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const token = await userCredential.user.getIdToken();
-        localStorage.setItem('accessToken', token);
-
-        navigate("/");
-        window.location.reload();
-    } catch (err) {
-        setErrors([err.message]);
-        setIsLoading(false);
-    }
-};
 
   const nextPage = (e) => {
     e.preventDefault();

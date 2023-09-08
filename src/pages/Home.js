@@ -1,8 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from "../components/Navbar"
-import { auth } from '../config/firebase';  // Assuming you have a firebase.js file set up with Firebase initialization
-import { signInWithPopup, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
+
+import { auth } from "../config/firebase";
+import { signOut} from "firebase/auth";
 import EditProfile from "./EditProfile"
 const Home = () => {
   const [language,setLanguage]=useState("english")
@@ -11,9 +12,7 @@ const Home = () => {
   const [hours,setHours]=useState("0910")
   const [currentUser, setCurrentUser] = useState(null);
 
-
-
-
+  
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -25,6 +24,7 @@ const Home = () => {
 
     return () => unsubscribe();  // Cleanup subscription on unmount
   }, []);
+
 
 
   if (currentUser){

@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
+import { getFirestore, updateDoc, doc, getDoc } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+import { db, auth } from "../config/firebase";
 
 
 function EditProfile() {
-
+    const navigate=useNavigate();
+    const [fName,setFName]=useState("")
+    const [lName,setLName]=useState("")
     const [workLocation, setWorkLocation] = useState('Math Lab');
     const [languagesSpoken, setLanguagesSpoken] = useState([]);
+    const [isLoading,setIsLoading]=useState(false);
 
     const handleLanguageChange = (event) => {
         const { value, checked } = event.target;
@@ -48,14 +54,60 @@ function EditProfile() {
     };
 
 
-    function handleEditProfile(e){
+    async function handleEditProfile(e) {
         e.preventDefault();
-        console.log("hello")
+        setIsLoading(true);
+    
+        const user = auth.currentUser;  // Get the current authenticated user
+        if (!user) {
+            console.error("No user is signed in");
+            return;
+        }
+    
+        const userDocRef = doc(db, 'users', user.uid);
+    
+        await updateDoc(userDocRef, {
+            fName: fName,
+            lName: lName,
+            workLocation: workLocation,
+            languagesSpoken: languagesSpoken,
+            selectedCells: selectedCells
+        });
+    
+        // Save token to local storage
+        const token = await user.getIdToken();
+        localStorage.setItem('accessToken', token);
+        setIsLoading(false);
+        navigate("/");
     }
-
 
     //get info based on use effect and use that to display what we currently have
 
+    useEffect(() => {
+        const unsubscribe = auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const db = getFirestore();
+                const uid = user.uid;  // Get UID from auth token
+                const userDocRef = doc(db, 'users', uid);
+                const userSnapshot = await getDoc(userDocRef);
+
+                if (userSnapshot.exists()) {
+                    setSelectedCells(userSnapshot.data().selectedCells);
+                    setWorkLocation(userSnapshot.data().workLocation)
+                    setLanguagesSpoken(userSnapshot.data().languagesSpoken)
+                } else {
+                    console.log("No such user!");
+                }
+            } else {
+                console.log("No user is signed in");
+            }
+        });
+
+
+
+    // Cleanup the listener on component unmount
+    return () => unsubscribe();
+}, []);
 
 
 
@@ -160,7 +212,7 @@ function EditProfile() {
 
             <div className="">
                 <button type="button" onClick={handleEditProfile} className="flex w-full justify-center rounded-md bg-gray-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600">
-                    Submit
+                    {isLoading ? "Loading" : "Submit"}
                     </button>
             </div>
         </form>
