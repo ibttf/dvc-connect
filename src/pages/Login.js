@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 
-function Login() {
+function Login(props) {
   const navigate = useNavigate();
   const [showLogin, setShowLogin] = useState(true);
   const [fName,setFName]=useState("")
@@ -167,6 +167,7 @@ function Login() {
     
             // Store additional data in Firestore
             await setDoc(doc(db, 'users', user.uid), {
+                email: email,
                 fName: fName,
                 lName: lName,
                 workLocation: workLocation,
@@ -228,8 +229,7 @@ useEffect(() => {
 }, []);
   return(
     <div>
-        <Navbar />
-        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white">
+        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
         
         <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-blue-600">
             {showLogin ? 
@@ -238,23 +238,48 @@ useEffect(() => {
         </h2>
         
         {showLogin ? 
-        <div className="mt-5 border-4 border-blue-600 bg-white p-8 rounded-xl lg:w-4/12 md:7/12 w-10/12 mx-auto">
+        <div className="mt-5 border-4 border-blue-600 p-8 rounded-xl lg:w-4/12 md:7/12 w-10/12 mx-auto">
             <form onSubmit={handleLogin} className="space-y-6">
             <div>
-                <div className={`h-12 pointer-events-none ${email.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                <input className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                        onChange={(e)=>setEmail(e.target.value)} id="email" name="email" type="email" autocomplete="email" required /> 
-                <label for="email" className={`block text-gray-700 relative -top-7 ${email.length > 0 ? "-top-12" : "peer-focus:-top-12"}  duration-300`}>Email address</label>  
-                </div>
+            <div className="h-12 pointer-events-none mt-2 text-md font-medium leading-6">
+                <input 
+                    className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    onChange={(e) => setEmail(e.target.value)} 
+                    id="email" 
+                    name="email" 
+                    type="email" 
+                    autoComplete="email" 
+                    required 
+                /> 
+                <label 
+                    htmlFor="email" 
+                    className={`block text-gray-700 relative ${email.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}
+                >
+                    Email address
+                </label>
             </div>
+        </div>
+
 
             <div>
-                <div className={`h-12 pointer-events-none ${password.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                <input className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                        onChange={(e)=>setPassword(e.target.value)} id="password" name="password" type="password" autocomplete="password" required /> 
-                <label for="password" className={`block text-gray-700 relative -top-7 ${password.length > 0 ? "-top-12" : "peer-focus:-top-12"}  duration-300`}>Password</label>  
-                </div>
-            </div>
+        <div className="h-12 pointer-events-none mt-2 text-md font-medium leading-6">
+            <input 
+                className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                onChange={(e) => setPassword(e.target.value)} 
+                id="password" 
+                name="password" 
+                type="password" 
+                autoComplete="password" 
+                required 
+            /> 
+            <label 
+                htmlFor="password" 
+                className={`block text-gray-700 relative ${password.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}
+            >
+                Password
+            </label>
+        </div>
+    </div>
             <div className="flex w-full justify-center items-center flex-wrap">
                 {errors.map((err, index) => (
                     <div key={index} className="text-red-600 py-4">{err}</div>
@@ -268,11 +293,13 @@ useEffect(() => {
                 {showLogin?
                 <>
                     Don't have an account? 
-                    <a href="#" onClick={()=>setShowLogin(!showLogin)}className="font-semibold leading-6 text-gray-600 hover:text-gray-500"> Sign up here.</a>
+                    <a href="#" onClick={()=>{setErrors([])
+                                                setShowLogin(!showLogin)}}className="font-semibold leading-6 text-gray-600 hover:text-gray-500"> Sign up here.</a>
                 </>:
                 <>
                     Already have an account? 
-                    <a href="#" onClick={()=>setShowLogin(!showLogin)} className="font-semibold leading-6 text-gray-600 hover:text-gray-500"> Sign in here.</a>
+                    <a href="#" onClick={()=>{setErrors([])
+                                                setShowLogin(!showLogin)}} className="font-semibold leading-6 text-gray-600 hover:text-gray-500"> Sign in here.</a>
                 </>}
 
             </p>
@@ -283,51 +310,51 @@ useEffect(() => {
 
                         
         
-        <div className="mt-5 border-4 border-blue-600 bg-white p-8 rounded-xl lg:w-4/12 md:7/12 w-10/12 mx-auto">
+        <div className="mt-5 border-4 border-blue-600 p-8 rounded-xl lg:w-4/12 md:7/12 w-10/12 mx-auto">
             <form className="space-y-6 ">
                 <div className="grid grid-cols-2 gap-4">
                     <div className={`h-12 pointer-events-none ${fName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md font-medium leading-6`}>
                         <input 
-                            className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                            className=" bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e) => setFName(e.target.value)} 
                             id="fName" 
                             name="fName" 
                             type="text" 
                             required
                         /> 
-                        <label htmlFor="fName" className={`block text-gray-700 relative -top-7 ${fName.length > 0 ? "-top-12" : "peer-focus:-top-12"} duration-300`}>First Name</label>  
+                        <label htmlFor="fName" className={`block text-gray-700 relative ${fName.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>First Name</label>
                     </div>
                     <div className={`h-12 pointer-events-none ${lName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md font-medium leading-6`}>
                         <input 
-                            className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                            className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e) => setLName(e.target.value)} 
                             id="lName" 
                             name="lName" 
                             type="text" 
                             required
                         /> 
-                        <label htmlFor="lName" className={`block text-gray-700 relative -top-7 ${lName.length > 0 ? "-top-12" : "peer-focus:-top-12"} duration-300`}>Last Name</label>  
+                        <label htmlFor="lName"  className={`block text-gray-700 relative ${lName.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Last Name</label>  
                     </div>
                 </div>
                 <div>
                     <div className={`h-12 pointer-events-none ${email.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                        <input className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        <input className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 onChange={(e)=>setEmail(e.target.value)} id="email" name="email" type="email" autocomplete="email" required /> 
-                        <label for="email" className={`block text-gray-700 relative -top-7 ${email.length > 0 ? "-top-12" : "peer-focus:-top-12"}  duration-300`}>Email address</label>  
+                        <label for="email"  className={`block text-gray-700 relative ${email.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Email address</label>  
                     </div>
                 </div>
                 <div>
                     <div className={`h-12 pointer-events-none ${password.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                    <input className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    <input className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e)=>setPassword(e.target.value)} id="password" name="password" type="password" autocomplete="password" required /> 
-                    <label for="password" className={`block text-gray-700 relative -top-7 ${password.length > 0 ? "-top-12" : "peer-focus:-top-12"}  duration-300`}>Password</label>  
+                    <label for="password"  className={`block text-gray-700 relative ${password.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Password</label>  
                     </div>
                 </div>
                 <div>
                     <div className={`h-12 pointer-events-none ${passwordConfirmation.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                    <input className="peer pointer-events-auto bg-white block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                    <input className="bg-blue-200 peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e)=>setPasswordConfirmation(e.target.value)} id="passwordConfirmation" name="passwordConfirmation" type="password" autocomplete="passwordConfirmation" required /> 
-                    <label for="passwordConfirmation" className={`block text-gray-700 relative -top-7 ${passwordConfirmation.length > 0 ? "-top-12" : "peer-focus:-top-12"}  duration-300`}>Confirm Password</label>  
+                    <label for="passwordConfirmation"  className={`block text-gray-700 relative ${passwordConfirmation.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Confirm Password</label>  
                     </div>
                 </div>
 
@@ -356,7 +383,7 @@ useEffect(() => {
         )}
 
         {step === 2 && (
-            <div className="mt-5 border-4 border-blue-600 bg-white p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
+            <div className="mt-5 border-4 border-blue-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
                 <form className="space-y-6">
                     <div className="grid grid-cols-4 items-center gap-4 w-full">
                         <h1 className="col-span-1">I work in the: </h1>
@@ -468,7 +495,7 @@ useEffect(() => {
         )}
 
         {step === 3 && (
-        <div className="mt-5 border-4 border-blue-600 bg-white p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto text-center">
+        <div className="mt-5 border-4 border-blue-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto text-center">
             <form className="space-y-6">
                 <h2 className="text-xl font-bold mb-4">Confirm Information</h2>
                 <p className="font-bold">Name: <span className="font-normal">{fName} {lName}</span></p>

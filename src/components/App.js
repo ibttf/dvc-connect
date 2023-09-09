@@ -1,35 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Routes, Route} from "react-router-dom"
 import Home from '../pages/Home';
 import Tutors from '../pages/Tutors';
 import Login from '../pages/Login';
 import About from "../pages/About"
+import Navbar from './Navbar';
 const App = () => {
+  const [language,setLanguage]=useState("english")
     return (
+      <div  className="bg-blue-200 min-h-screen">
         <Routes>
 
           <Route path="/about" element={
             <div className="">
-              <About />
+              <Navbar language={language} setLanguage={setLanguage}/>
+              <About/>
             </div>
           } />
-          <Route path="/:language/:day/:hours" element={
+          <Route path="/:day/:hours" element={
             <div className="">
-              <Tutors />
+              <Navbar language={language} setLanguage={setLanguage}/>
+              <Tutors language={language}/>
             </div>
           } />
           <Route path="/tutor-login" element={
             <div className="">
-              <Login />
+              <Navbar language={language} setLanguage={setLanguage}/>
+              <Login/>
             </div>
           } />
           <Route path="*" element={
             <div className="">
-              <Home />
+              <Navbar language={language} setLanguage={setLanguage}/>
+              <Home/>
             </div>
           } />
 
         </Routes>
+        </div>
     );
 }
 

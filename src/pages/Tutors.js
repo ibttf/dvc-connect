@@ -6,9 +6,10 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
 
 
-const Tutors = () => {
+const Tutors = (props) => {
   // Extract route parameters using useParams
-  let { language, day, hours } = useParams();
+  let { day, hours } = useParams();
+  let language=props.language;
   const [mainLanguage, setMainLanguage] = useState('english');
   const [results, setResults] = useState([]);
 
@@ -46,11 +47,20 @@ useEffect(() => {
           const timeSlot = parseHoursToTimeSlots(hours);
           
           // Convert the language and day parameter's first character to uppercase and the rest to lowercase
-          const formattedLanguage = capitalizeFirstLetter(language);
+          let formattedLanguage = capitalizeFirstLetter(language);
+          if (formattedLanguage === "English") {
+              formattedLanguage = "";
+          }
           const formattedDay = capitalizeFirstLetter(day);
 
-          // Fetch tutors based on language 
-          const q = query(collection(db, 'users'), where('languagesSpoken', 'array-contains', formattedLanguage));
+          // Set the initial query to users collection
+          let q = query(collection(db, 'users'));
+
+          // Modify the query based on the language only if it's not English
+          if (formattedLanguage !== "") {
+              q = query(collection(db, 'users'), where('languagesSpoken', 'array-contains', formattedLanguage));
+          }
+
           const querySnapshot = await getDocs(q);
 
           // Filter the fetched tutors based on availability
@@ -77,33 +87,18 @@ useEffect(() => {
   };
 
   fetchData();
-}, [language, day, hours]);
+}, [language]);
 
 
     return(
-      <div>
-        <Navbar />
-        <div className="w-10/12 mx-auto mb-24">
-          {/* LANGUAGE TOGGLE */}
-          <div className="grid grid-cols-4 text-center mt-12">
-            <div onClick={()=>setMainLanguage("english")} className={`${mainLanguage=="english" ? "bg-blue-600" : "bg-gray-100"} opacity-80 hover:opacity-100 cursor-pointer p-6 border-x-2 border-t-2 border-black font-semibold text-lg rounded-t-lg`}>
-              English
-            </div>
-            <div onClick={()=>setMainLanguage("chinese")} className={`${mainLanguage=="chinese" ? "bg-blue-600" : "bg-gray-100"} opacity-80 hover:opacity-100 cursor-pointer p-6 border-x-2 border-t-2 border-l-0 border-black font-semibold text-lg rounded-t-lg`}>
-              Chinese
-            </div>
-            <div onClick={()=>setMainLanguage("spanish")} className={`${mainLanguage=="spanish" ? "bg-blue-600" : "bg-gray-100"} opacity-80 hover:opacity-100 cursor-pointer p-6 border-x-2 border-t-2 border-l-0 border-black font-semibold text-lg rounded-t-lg`}>
-              Spanish
-            </div>
-            <div onClick={()=>setMainLanguage("korean")} className={`${mainLanguage=="korean" ? "bg-blue-600" : "bg-gray-100"} opacity-80 hover:opacity-100 cursor-pointer p-6 border-x-2 border-t-2 border-l-0 border-black font-semibold text-lg rounded-t-lg`}>
-              Korean
-            </div>
-          </div>
+      <div className="pb-24 bg-blue-200">
+        <div className="w-10/12 mx-auto my-12">
+
           <div className=" border-2 border-black rounded-b-md py-6 text-center text-xl">
             <h1>
-                Looking for  
+                Looking for tutors that speak
                 <span className='font-semibold text-2xl'> {language[0].toUpperCase()}{language.substring(1)} </span>
-                tutors on 
+                 on 
                 <span className='font-semibold text-2xl'> {day[0].toUpperCase()}{day.substring(1)} </span>
                 at 
                 <span className='font-semibold text-2xl'> {hours.substring(0,2)}:{hours.substring(2,4)}{["09","10","11"].includes(hours.substring(0,2)) ? "AM": "PM" }  </span>

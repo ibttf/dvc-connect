@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.mapboxgl-popup{
-  z-index:1000;
+.head{
+  background-color: rgb(191 219 254);
 }
 
 @layer components{
