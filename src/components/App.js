@@ -20,7 +20,7 @@ const App = () => {
           <Route path="/:day/:hours/:subject/:topic" element={
             <div className="">
               <Navbar language={language} setLanguage={setLanguage}/>
-              <Tutors language={language}/>
+              <Tutors key={language} language={language}/>
             </div>
           } />
           <Route path="/tutor-login" element={

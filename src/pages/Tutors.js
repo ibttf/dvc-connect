@@ -9,14 +9,17 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 const Tutors = (props) => {
   // Extract route parameters using useParams
   let { day, hours, subject, topic } = useParams();
-  let language=props.language;
-  const [mainLanguage, setMainLanguage] = useState('english');
+
   const [results, setResults] = useState([]);
 
-
   function capitalizeFirstLetter(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function formatHours(h) {
+    const formattedHours = `${h.substring(0,2)}:${h.substring(2,4)}`;
+    return ["09","10","11"].includes(h.substring(0,2)) ? `${formattedHours} AM` : `${formattedHours} PM`;
+}
 
   function parseHoursToTimeSlots(hours) {
     const hourString = hours.toString().padStart(4, '0');
@@ -43,101 +46,109 @@ const Tutors = (props) => {
 useEffect(() => {
   const fetchData = async () => {
       try {
-          // Parse the hour input into a time slot
           const timeSlot = parseHoursToTimeSlots(hours);
           
-          // Convert the language and day parameter's first character to uppercase and the rest to lowercase
-          let formattedLanguage = capitalizeFirstLetter(language);
+          let formattedLanguage = capitalizeFirstLetter(props.language);
+          let formattedSubject = capitalizeFirstLetter(subject);
+          let formattedTopic = topic !== "Any" ? capitalizeFirstLetter(topic) : "any";
           if (formattedLanguage === "English") {
               formattedLanguage = "";
           }
           const formattedDay = capitalizeFirstLetter(day);
-
-          // Set the initial query to users collection
-          let q = query(collection(db, 'users'));
-
-          // Modify the query based on the language only if it's not English
+          
+          // Fetch documents based on the language
+          let languageQuery = collection(db, 'users');
           if (formattedLanguage !== "") {
-              q = query(collection(db, 'users'), where('languagesSpoken', 'array-contains', formattedLanguage));
+              languageQuery = query(languageQuery, where('languagesSpoken', 'array-contains', formattedLanguage));
+          }
+          const languageResults = await getDocs(languageQuery);
+          const languageDocs = languageResults.docs;
+
+
+          // Subject Filter
+          const subjectResults = languageDocs.filter(doc => {
+            const data = doc.data();
+            return data && data.subjectsTaught && data.subjectsTaught.includes(formattedSubject);
+          });
+
+
+          // Topic Filter
+          let topicResults = [];
+          if (formattedTopic !== "any") {
+              topicResults = subjectResults.filter(doc => doc.data().topicsTaught.includes(formattedTopic));
+          } else {
+              topicResults = subjectResults;
           }
 
-          const querySnapshot = await getDocs(q);
 
-          // Filter the fetched tutors based on availability
-          const matchingDocs = querySnapshot.docs
-                .filter(doc => {
-                  const data = doc.data();
-                  const keyExists = `${formattedDay}-${timeSlot}` in data.selectedCells;
-                  console.log(`Key ${formattedDay}-${timeSlot} exists:`, keyExists);
-              
-                  if (keyExists) {
-                      return data.selectedCells[`${formattedDay}-${timeSlot}`];
-                  }
-                  return false;
-              })
-              .map(doc => ({
-                  id: doc.id,
-                  data: doc.data(),
-              }));
+          // Availability Filter
+          const matchingDocs = topicResults.filter(doc => {
+              const data = doc.data();
+              const keyExists = `${formattedDay}-${timeSlot}` in data.selectedCells;
+              if (keyExists) {
+                  return data.selectedCells[`${formattedDay}-${timeSlot}`];
+              }
+              return false;
+          });
 
+          // Set results
           setResults(matchingDocs);
+          
+
       } catch (error) {
           console.error('Error querying Firestore:', error);
       }
   };
 
   fetchData();
-}, [language]);
+}, [props.language, day, hours, subject, topic]);
 
+return(
+<div className="pb-24 bg-green-100">
 
-    return(
-      <div className="pb-24 bg-green-100">
-        <div className="w-10/12 mx-auto my-12">
+<h1 className="mx-auto w-fit lg:text-3xl text-xl font-semibold text-green-800 mt-12 leading-tight">
+  Looking for 
+  <span className='font-medium text-green-600'> {subject} </span>
+  tutors for
+  <span className='font-medium text-green-600'> {topic} </span>
+  that speak
+  <span className='font-medium text-green-600'> {capitalizeFirstLetter(props.language)} </span>
+  on 
+  <span className='font-medium text-green-600'> {capitalizeFirstLetter(day)}s </span>
+  at 
+  <span className='font-medium text-green-600'> {formatHours(hours)} </span>
+</h1>
 
-          <div className=" border-2 border-black rounded-b-md py-6 text-center text-xl">
-            <h1>
-                Looking for 
-                <span className='font-semibold text-2xl'> {subject} </span>
-                 tutors for
-                 <span className='font-semibold text-2xl'> {topic} </span>
-                 that speak
-                <span className='font-semibold text-2xl'> {language[0].toUpperCase()}{language.substring(1)} </span>
-                 on 
-                <span className='font-semibold text-2xl'> {day[0].toUpperCase()}{day.substring(1)}s </span>
-                at 
-                <span className='font-semibold text-2xl'> {hours.substring(0,2)}:{hours.substring(2,4)}{["09","10","11"].includes(hours.substring(0,2)) ? "AM": "PM" }  </span>
-            </h1>
-         {/* RESULTS */}
-         <div>
+<div className="lg:w-6/12 w-11/12 mx-auto my-6 bg-green-800 bg-opacity-50 rounded-lg shadow-lg">
 
-      <ul className="mx-64">
-      {results.map((result) => 
-        {
-          const { id, data } = result; // Destructuring if you have both id and data in your result.
-          return(
-          <div key={id} className="border p-4 shadow-sm w-full grid grid-cols-5 items-center justify-center my-2">
-              <AiOutlineUser
-                  className="rounded-full w-16 h-16 mx-auto mb-4 col-span-1 text-gray-700"
-              />
-              <div className="col-span-3 grid grid-cols-1 grid-rows-2 gap-2 text-center">
-                <h2 className="text-xl font-semibold text-gray-700">{data.fName} {data.lName}</h2>
-                <p className="text-gray-500 text-md">{data.workLocation}</p>
-              
-              </div>
-          </div>
-          )}
+  <div className="py-4 text-center text-xl">
+
+    {/* RESULTS */}
+    <div className="mt-6 space-y-4">
+      <ul>
+      {results.map((result) => {
+        console.log(result);
+        const id = result.id;  // instead of result.id
+        const data = result.data();  // instead of result.data
+        return(
+          <li key={id} className="border-b p-4 w-10/12 mx-auto grid grid-cols-5 items-center justify-center gap-2 rounded-md hover:bg-green-200 transition-all cursor-pointer">
+            <AiOutlineUser
+                className="w-12 h-12 mx-auto mb-4 col-span-1 text-gray-600"
+            />
+            <div className="col-span-3 grid grid-cols-1 grid-rows-2 gap-2 text-center">
+              <h2 className="text-lg font-medium text-gray-800">{data.fName} {data.lName}</h2>
+              <p className="text-gray-600 text-sm">{data.workLocation}</p>
+            </div>
+          </li>
+        )}
       )}
       </ul>
     </div>
-           
   </div>
-
-  
+</div>
 </div>
 
-
-</div>
-    )
+)
 }
 
 export default Tutors;
