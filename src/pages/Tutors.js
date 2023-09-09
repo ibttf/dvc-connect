@@ -3,12 +3,12 @@ import Navbar from '../components/Navbar';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
-import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
 const Tutors = (props) => {
   // Extract route parameters using useParams
-  let { day, hours } = useParams();
+  let { day, hours, subject, topic } = useParams();
   let language=props.language;
   const [mainLanguage, setMainLanguage] = useState('english');
   const [results, setResults] = useState([]);
@@ -91,15 +91,19 @@ useEffect(() => {
 
 
     return(
-      <div className="pb-24 bg-blue-200">
+      <div className="pb-24 bg-green-100">
         <div className="w-10/12 mx-auto my-12">
 
           <div className=" border-2 border-black rounded-b-md py-6 text-center text-xl">
             <h1>
-                Looking for tutors that speak
+                Looking for 
+                <span className='font-semibold text-2xl'> {subject} </span>
+                 tutors for
+                 <span className='font-semibold text-2xl'> {topic} </span>
+                 that speak
                 <span className='font-semibold text-2xl'> {language[0].toUpperCase()}{language.substring(1)} </span>
                  on 
-                <span className='font-semibold text-2xl'> {day[0].toUpperCase()}{day.substring(1)} </span>
+                <span className='font-semibold text-2xl'> {day[0].toUpperCase()}{day.substring(1)}s </span>
                 at 
                 <span className='font-semibold text-2xl'> {hours.substring(0,2)}:{hours.substring(2,4)}{["09","10","11"].includes(hours.substring(0,2)) ? "AM": "PM" }  </span>
             </h1>

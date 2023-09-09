@@ -8,7 +8,7 @@ import Navbar from './Navbar';
 const App = () => {
   const [language,setLanguage]=useState("english")
     return (
-      <div  className="bg-blue-200 min-h-screen">
+      <div  className="bg-green-100 min-h-screen h-max">
         <Routes>
 
           <Route path="/about" element={
@@ -17,7 +17,7 @@ const App = () => {
               <About/>
             </div>
           } />
-          <Route path="/:day/:hours" element={
+          <Route path="/:day/:hours/:subject/:topic" element={
             <div className="">
               <Navbar language={language} setLanguage={setLanguage}/>
               <Tutors language={language}/>
