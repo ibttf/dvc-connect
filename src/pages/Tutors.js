@@ -106,7 +106,7 @@ useEffect(() => {
 return(
 <div className="pb-24 bg-green-100">
 
-<h1 className="mx-auto w-fit lg:text-3xl text-xl font-semibold text-green-800 mt-12 leading-tight">
+<h1 className="mx-auto md:w-fit w-11/12 lg:text-3xl text-xs  font-semibold text-green-800 mt-12 leading-tight">
   Looking for 
   <span className='font-medium text-green-600'> {subject} </span>
   tutors for
@@ -124,20 +124,20 @@ return(
   <div className="py-4 text-center text-xl">
 
     {/* RESULTS */}
-    <div className="mt-6 space-y-4">
+    <div className="space-y-4">
       <ul>
       {results.map((result) => {
         console.log(result);
         const id = result.id;  // instead of result.id
         const data = result.data();  // instead of result.data
         return(
-          <li key={id} className="border-b p-4 w-10/12 mx-auto grid grid-cols-5 items-center justify-center gap-2 rounded-md hover:bg-green-200 transition-all cursor-pointer">
+          <li key={id} className="border-b md:p-4 p-2 w-10/12 mx-auto grid grid-cols-5 items-center justify-center gap-2 rounded-md hover:bg-green-200 transition-all cursor-pointer">
             <AiOutlineUser
-                className="w-12 h-12 mx-auto mb-4 col-span-1 text-gray-600"
+                className="md:w-12 md:h-12 w-6 h-6 mx-auto mb-4 col-span-1 text-gray-600"
             />
             <div className="col-span-3 grid grid-cols-1 grid-rows-2 gap-2 text-center">
-              <h2 className="text-lg font-medium text-gray-800">{data.fName} {data.lName}</h2>
-              <p className="text-gray-600 text-sm">{data.workLocation}</p>
+              <h2 className="md:text-lg text-sm font-medium text-gray-800">{data.fName} {data.lName}</h2>
+              <p className="text-gray-600 md:text-sm text-xs">{data.workLocation}</p>
             </div>
           </li>
         )}

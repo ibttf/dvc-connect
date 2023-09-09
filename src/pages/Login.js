@@ -262,14 +262,14 @@ useEffect(() => {
     <div>
         <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
         
-        <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-green-600">
+        <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-green-600">
             {showLogin ? 
             "Log In":
             "Create an Account"}
         </h2>
         
         {showLogin ? 
-        <div className="mt-5 border-4 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
+        <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
             <form onSubmit={handleLogin} className="space-y-6">
             <div>
             <div className="h-12 pointer-events-none mt-2 text-md font-medium leading-6">
@@ -320,7 +320,7 @@ useEffect(() => {
                 <button type="submit" className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isLoading? "Loading..." : "Sign in"}</button>
             </div>
             </form>
-            <p className="mt-10 text-center text-sm text-green-500">
+            <p className="mt-10 text-center md:text-sm text-xs text-green-500">
                 {showLogin?
                 <>
                     Don't have an account? 
@@ -341,7 +341,7 @@ useEffect(() => {
 
                         
         
-        <div className="mt-5 border-4 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
+        <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
             <form className="space-y-6 ">
                 <div className="grid grid-cols-2 gap-4">
                     <div className={`h-12 pointer-events-none ${fName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md font-medium leading-6`}>
@@ -414,21 +414,21 @@ useEffect(() => {
         )}
 
         {step === 2 && (
-            <div className="mt-5 border-4 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
+            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-80 mx-auto">
                 <form className="space-y-6">
-                <div className="grid grid-cols-4 items-center gap-4 w-full">
-                    <h1 className="col-span-1 font-semibold text-green-800">I work in the: </h1>
-                    <div className="relative col-span-3">
+                <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                    <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">I work in the: </h1>
+                    <div className="relative md:col-span-3 col-span-5">
                         <select 
-                            className="block appearance-none w-full bg-white border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                            className="md:text-md text-xs block appearance-none w-full bg-white border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
                             value={workLocation}
                             onChange={(e) => setWorkLocation(e.target.value)}
                         >
-                            <option value="Math Lab">Math Lab</option>
-                            <option value="English Lab">English Lab</option>
-                            <option value="Reading Lab">Reading Lab</option>
-                            <option value="Science Lab">Science Lab</option>
-                            <option value="Social Studies Lab">Social Studies Lab</option>
+                            <option className="" value="Math Lab">Math Lab</option>
+                            <option className="" value="English Lab">English Lab</option>
+                            <option className="" value="Reading Lab">Reading Lab</option>
+                            <option className="" value="Science Lab">Science Lab</option>
+                            <option className="" value="Social Studies Lab">Social Studies Lab</option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -438,11 +438,11 @@ useEffect(() => {
                     </div>
                 </div>
 
-                    <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">There, I teach: </h1>
-                        <div className="flex flex-wrap col-span-3 items-center">
+                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">There, I teach: </h1>
+                        <div className="flex flex-wrap md:col-span-3 col-span-5 items-center">
                             {["Math", "English", "Science"].map(subject => (
-                                <label key={subject} className="inline-flex items-center m-1 ">
+                                <label key={subject} className="md:text-md text-xs inline-flex items-center m-1 ">
                                     <input 
                                         type="checkbox" 
                                         className="hidden" 
@@ -462,16 +462,16 @@ useEffect(() => {
 
 
 
-                    <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">I am comfortable teaching: </h1>
-                        <div className="col-span-3 space-y-4">
+                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">I am comfortable teaching: </h1>
+                        <div className="md:col-span-3 col-span-5 space-y-4">
                             {Object.keys(subjectMapping).map(subject => (
                                 subjectsTaught.includes(subject) && (
-                                    <div key={subject} className="p-4 border rounded shadow-sm bg-white">
-                                        <h2 className="font-medium text-green-600 mb-3">{subject}</h2>
+                                    <div key={subject} className="md:p-4 p-1 rounded shadow-sm bg-white">
+                                        <h2 className="md:text-md text-xs font-medium text-green-600 mb-3">{subject}</h2>
                                         <div className="flex flex-wrap">
                                             {subjectMapping[subject].map(topic => (
-                                                <label key={topic} className="inline-flex items-center m-1">
+                                                <label key={topic} className="md:text-md text-xs inline-flex items-center m-1">
                                                     <input 
                                                         type="checkbox" 
                                                         className="hidden" 
@@ -479,7 +479,7 @@ useEffect(() => {
                                                         checked={selectedTopics.includes(topic)}
                                                         onChange={handleTopicChange}
                                                     />
-                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
+                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 md:text-md text-xxs
                                                         ${selectedTopics.includes(topic) ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'}
                                                     `}>
                                                         {topic}
@@ -501,11 +501,11 @@ useEffect(() => {
 
 
 
-                    <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">On top of English, I can speak: </h1>
-                        <div className="flex flex-wrap col-span-3 items-center">
+                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">On top of English, I can speak: </h1>
+                        <div className="flex flex-wrap md:col-span-3 col-span-5 items-center">
                             {["Chinese", "Korean", "Spanish"].map(language => (
-                                <label key={language} className="inline-flex items-center m-1 ">
+                                <label key={language} className="md:text-md text-xs inline-flex items-center m-1 ">
                                     <input 
                                         type="checkbox" 
                                         className="hidden" 
@@ -530,12 +530,12 @@ useEffect(() => {
 
 
 
-                    <div className="grid grid-cols-4 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">Hours Available: </h1>
-                        <div className="grid grid-cols-5 gap-4 mt-4 col-span-3 lg:text-md text-xs" onMouseUp={handleMouseUp}>
+                    <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                        <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">Hours Available: </h1>
+                        <div className="grid grid-cols-5 gap-4 mt-4 md:col-span-3 col-span-5 lg:text-md text-xs" onMouseUp={handleMouseUp}>
                             <div></div>
                             {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
-                                <div key={day} className="text-center font-semibold text-gray-700">
+                                <div key={day} className="md:text-md text-xxs text-center font-semibold text-gray-700">
                                     {day}
                                 </div>
                             ))}
@@ -549,7 +549,7 @@ useEffect(() => {
 
                                 return (
                                     <React.Fragment key={timeLabel}>
-                                        <div className="font-semibold text-gray-600">{timeLabel}</div>
+                                        <div className="md:text-md text-xxs font-semibold text-gray-600">{timeLabel}</div>
                                         {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
                                             <div 
                                                 key={day} 
@@ -585,24 +585,24 @@ useEffect(() => {
         )}
 
         {step === 3 && (
-            <div className="mt-5 border-4 border-green-600 p-8 rounded-xl shadow-lg lg:w-6/12 md:7/12 w-11/12 mx-auto text-center">
+            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl shadow-lg lg:w-6/12 md:7/12 w-11/12 mx-auto text-center">
                 <form className="space-y-6">
-                    <h2 className="text-2xl font-bold mb-4 underline">Confirm Information</h2>
-                    <p className="font-bold text-lg">Name: <span className="font-medium">{fName} {lName}</span></p>
-                    <p className="font-bold text-lg">Email: <span className="font-medium">{email}</span></p>
-                    <p className="font-bold text-lg">Work Location: <span className="font-medium">{workLocation}</span></p>
-                    <p className="font-bold text-lg">Subjects Taught: <span className="font-medium">{subjectsTaught.join(', ')}</span></p>
-                    <div className="font-bold text-lg mt-2">Topics:</div>
+                    <h2 className="md:text-2xl text-md font-bold mb-4 underline">Confirm Information</h2>
+                    <p className="font-bold md:text-lg text-xs">Name: <span className="font-medium">{fName} {lName}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Email: <span className="font-medium">{email}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Work Location: <span className="font-medium">{workLocation}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Subjects Taught: <span className="font-medium">{subjectsTaught.join(', ')}</span></p>
+                    <div className="font-bold md:text-lg text-xs mt-2">Topics:</div>
                     <ul className="font-medium text-gray-700 list-disc list-inside pl-5">
                         {subjectsTaught.map(subject => (
-                            <li key={subject} className="text-left">
+                            <li key={subject} className="text-left md:text-md text-xs">
                                 <span className="font-bold">{subject}:</span> {selectedTopics.filter(topic => subjectMapping[subject].includes(topic)).join(', ')}
                             </li>
                         ))}
                     </ul>
-                    <p className="font-bold text-lg mt-2">Languages Spoken: <span className="font-medium">{languagesSpoken.join(', ')}</span></p>
-                    <p className="font-bold text-lg mt-2">Hours Worked:</p>
-                    <pre className="font-medium text-gray-700 rounded-md p-2">{displaySelectedCells(selectedCells)}</pre>
+                    <p className="font-bold md:text-lg text-xs mt-2">Languages Spoken: <span className="font-medium">{languagesSpoken.join(', ')}</span></p>
+                    <p className="font-bold md:text-lg text-xs mt-2">Hours Worked:</p>
+                    <pre className="font-mono md:text-md text-xs text-gray-700 rounded-md p-2">{displaySelectedCells(selectedCells)}</pre>
                     <div className="grid grid-cols-2 gap-4 mt-4">
                         <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Back</button>
                         <button onClick={(e)=>handleSignup(e)} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Submit</button>

@@ -59,8 +59,8 @@ const Home = (props) => {
       setIsDayOfTheWeekDropdownVisible(false);
       setIsHoursDropdownVisible(false);
     }}>
-      <div className="w-11/12 flex justify-center mb-6">
-        <h2 class="mx-auto w-fit text-3xl font-semibold text-green-800">
+      <div className="md:w-11/12 sm:w-10/12 w-9/12 flex justify-center mb-6">
+        <h2 class="mx-auto w-fit lg:text-3xl text-xs font-semibold text-green-800">
           <span>Find a Tutor That Speaks</span>
           <div class="rw-words rw-words-1">
             <span>English</span>
@@ -73,16 +73,16 @@ const Home = (props) => {
       <div className="md:w-108 w-11/12 mx-auto bg-green-800 bg-opacity-50">
         {/* LANGUAGE TOGGLE */}
 
-        <div className="h-fit py-12">
-          <div className="w-9/12 mx-auto grid grid-cols-1 grid-rows-2 lg:gap-6 gap-3">
-            <div className="grid grid-cols-4 items-center bg-white py-4 px-8 rounded-lg">
-                <h1 className="text-md font-bold text-right col-span-1 flex w-full">
+        <div className="h-fit md:py-12 py-4">
+          <div className="md:w-9/12 w-11/12 mx-auto grid grid-cols-1 grid-rows-2 lg:gap-6 gap-3">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-4 py-1 px-8 rounded-lg">
+                <h1 className="lg:text-lg md:text-md text-xs font-bold text-right col-span-1 flex w-full">
                     Day:
                 </h1>
                 <div className="col-span-3">
                     <div className="relative">
                         <div 
-                            className=" block w-full  text-gray-900 py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                            className=" block w-full lg:text-lg md:text-md text-xs text-gray-900 py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                             onClick={(e) => {e.stopPropagation();
                                               setIsHoursDropdownVisible(false);
                                               setIsDayOfTheWeekDropdownVisible(!isDayOfTheWeekDropdownVisible)}}
@@ -99,7 +99,7 @@ const Home = (props) => {
                                 {["monday", "tuesday", "wednesday", "thursday", "friday"].map(day => (
                                     <div
                                         key={day}
-                                        className="py-2 px-4 hover:bg-gray-100 cursor-pointer "
+                                        className="py-2 px-4 hover:bg-gray-100 cursor-pointer  lg:text-lg md:text-md text-xs"
                                         onClick={() => {
                                             setDayOfTheWeek(day);
                                             setIsDayOfTheWeekDropdownVisible(false);
@@ -115,14 +115,14 @@ const Home = (props) => {
             </div>
 
 
-            <div className="grid grid-cols-4 items-center bg-white py-4 px-8 rounded-lg">
-                <h1 className="text-md font-semibold text-right col-span-1 flex w-full ">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-4 py-1 px-8 rounded-lg">
+                <h1 className="lg:text-lg md:text-md text-xs font-semibold text-right col-span-1 flex w-full ">
                     During:
                 </h1>
                 <div className="col-span-3">
                     <div className="relative">
                         <div 
-                            className="text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                            className="lg:text-lg md:text-md text-xs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                             onClick={(e) => {e.stopPropagation(); setIsDayOfTheWeekDropdownVisible(false); setIsHoursDropdownVisible(!isHoursDropdownVisible);}}
                         >
                             {hours.slice(0,2) + ":" + hours.slice(2) + (parseInt(hours) >= 1200 ? ' PM' : ' AM')}
@@ -133,7 +133,7 @@ const Home = (props) => {
                             </span>
                         </div>
                         {isHoursDropdownVisible && (
-                            <div className="absolute border border-green-600 mx-auto grid grid-cols-4 gap-0 w-max rounded mt-5 bg-white z-10 text-gray-600 whitespace-nowrap">
+                            <div className="absolute border border-green-600 mx-auto grid md:grid-cols-4 grid-cols-2 gap-0 w-max rounded mt-5 bg-white z-10 text-gray-600 whitespace-nowrap lg:text-lg md:text-md text-xxs">
                                 {["0900", "0930", "1000", "1030", "1100", "1130", "1200", "1230", "0100", "0130", "0200", "0230", "0300", "0330", "0400", "0430"].map(hour => (
                                     <div
                                         key={hour}
@@ -152,13 +152,13 @@ const Home = (props) => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-4 items-center bg-white py-4 px-8 rounded-lg">
-              <h1 className="text-md font-semibold text-right col-span-1 flex w-full">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-4 py-1 px-8 rounded-lg">
+              <h1 className="lg:text-lg md:text-md text-xs font-semibold text-right col-span-1 flex w-full">
                   Subject:
               </h1>
               <div className="col-span-3 relative">
                   <div 
-                      className="text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                      className="lg:text-lg md:text-md text-xs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                       onClick={(e) => {
                           e.stopPropagation();
                           setIsTopicDropdownVisible(false);
@@ -173,7 +173,7 @@ const Home = (props) => {
                             </span>
                   </div>
                   {isSubjectDropdownVisible && (
-                      <div className="absolute border border-green-600 mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
+                      <div className="lg:text-lg md:text-md text-xs absolute border border-green-600 mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
                           {["Math", "English", "Science"].map(subject => (
                               <div
                                   key={subject}
@@ -191,13 +191,13 @@ const Home = (props) => {
               </div>
           </div>
 
-            <div className="grid grid-cols-4 items-center bg-white py-4 px-8 rounded-lg">
-              <h1 className="text-md font-semibold text-right col-span-1 flex w-full">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-4 py-1 px-8 rounded-lg">
+              <h1 className="lg:text-lg md:text-md text-xs font-semibold text-right col-span-1 flex w-full">
                   Topic:
               </h1>
               <div className="col-span-3 relative">
                   <div 
-                      className="text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                      className="lg:text-lg md:text-md text-xs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                       onClick={(e) => {
                           e.stopPropagation();
                           setIsSubjectDropdownVisible(false);
@@ -212,7 +212,7 @@ const Home = (props) => {
                             </span>
                   </div>
                   {isTopicDropdownVisible && (
-                      <div className="absolute border border-green-600 mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
+                      <div className="lg:text-lg md:text-md text-xs absolute border border-green-600 mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
                           {
                               {
                                   'Math': ["Any", "Algebra", "Trigonometry", "Geometry", "Pre-Calc", "Calc 1", "Calc 2", "Calc 3", "Differential Equations", "Discrete Mathematics"],
@@ -241,9 +241,9 @@ const Home = (props) => {
 
 
           </div>
-          <div className="w-full text-center mt-12">
-            <Link to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} style={{width: "9em"}} className="grid grid-cols-8 items-center mx-auto text-lg font-semibold py-4 px-6 border-2 rounded-full border-green-700 bg-green-700 text-white hover:bg-green-900 hover:border-green-900 duration-100">
-              <AiOutlineSearch className="lg:w-6 lg:h-6 w-4 h-4 col-span-1"/><h2 className="text-center w-full col-span-7 lg:text-xl text-md"> Search</h2>
+          <div className="w-full text-center md:mt-12 mt-6">
+            <Link to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} style={{width: "9em"}} className="grid grid-cols-8 items-center mx-auto text-lg font-semibold md:py-4 md:px-6 py-2 px-12 border-2 rounded-full border-green-700 bg-green-700 text-white hover:bg-green-900 hover:border-green-900 duration-100">
+              <AiOutlineSearch className="lg:w-6 lg:h-6 w-4 h-4 col-span-1"/><h2 className="text-center w-full col-span-7 lg:text-xl md:text-md text-sm"> Search</h2>
             </Link>
           </div>
         </div>

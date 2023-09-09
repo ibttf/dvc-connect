@@ -179,31 +179,31 @@ function EditProfile() {
 
   return(
    
-    <div className="mt-5 border-4 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
-        <h1 className="font-bold text-center text-3xl mb-4 text-green-600">
+    <div className="md:mt-5 mt-2 md:border-4 border-2 border-green-600 md:p-8 p-3 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto">
+        <h1 className="font-bold text-center md:text-3xl text-md mb-4 text-green-600">
             Hi, {fName} {lName}
         </h1>
-        <h2 className="font-bold text-center mb-4 text-green-600">
+        <h2 className="md:font-bold font-semibold text-center md:text-md text-xs md:mb-4 mb-2 text-green-600">
             Edit Profile
         </h2>
         <form className="space-y-6">
-            <div className="grid grid-cols-4 items-center gap-4 w-full">
-                <h1 className="col-span-1 font-semibold text-green-800">First Name: </h1>
-                <input className="border rounded mt-2 p-2 w-full col-span-3" type="text" value={fName} onChange={(e)=>setFName(e.target.value)}></input>
+            <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">First Name: </h1>
+                <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={fName} onChange={(e)=>setFName(e.target.value)}></input>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4 w-full">
-                <h1 className="col-span-1 font-semibold text-green-800">Last Name: </h1>
-                <input className="border rounded mt-2 p-2 w-full col-span-3" type="text" value={lName} onChange={(e)=>setLName(e.target.value)}></input>
+            <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">Last Name: </h1>
+                <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={lName} onChange={(e)=>setLName(e.target.value)}></input>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4 w-full">
-                <h1 className="col-span-1 font-semibold text-green-800">Email: </h1>
-                <input className="border rounded mt-2 p-2 w-full col-span-3" type="text" value={email} onChange={(e)=>setEmail(e.target.value)}></input>
+            <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">Email: </h1>
+                <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={email} onChange={(e)=>setEmail(e.target.value)}></input>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4 w-full">
-                    <h1 className="col-span-1 font-semibold text-green-800">I work in the: </h1>
-                    <div className="relative col-span-3">
+            <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                    <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">I work in the: </h1>
+                    <div className="relative md:col-span-3 col-span-5">
                         <select 
-                            className="block appearance-none w-full bg-white border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                            className="md:text-md text-xxs block appearance-none w-full bg-white border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
                             value={workLocation}
                             onChange={(e) => setWorkLocation(e.target.value)}
                         >
@@ -221,9 +221,9 @@ function EditProfile() {
                     </div>
                 </div>
 
-                    <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">There, I teach: </h1>
-                        <div className="flex flex-wrap col-span-3 items-center">
+                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">There, I teach: </h1>
+                        <div className="flex flex-wrap md:col-span-3 col-span-5 items-center lg:text-lg md:text-md text-xxxs">
                             {["Math", "English", "Science"].map(subject => (
                                 <label key={subject} className="inline-flex items-center m-1 ">
                                     <input 
@@ -245,12 +245,12 @@ function EditProfile() {
 
 
 
-                    <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">I am comfortable teaching: </h1>
-                        <div className="col-span-3 space-y-4">
+                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">I am comfortable teaching: </h1>
+                        <div className="md:col-span-3 col-span-5 space-y-4 md:text-md text-xs">
                             {Object.keys(subjectMapping).map(subject => (
                                 subjectsTaught.includes(subject) && (
-                                    <div key={subject} className="p-4 border rounded shadow-sm bg-white">
+                                    <div key={subject} className="md:p-4  p-1 rounded shadow-sm bg-white">
                                         <h2 className="font-medium text-green-600 mb-3">{subject}</h2>
                                         <div className="flex flex-wrap">
                                             {subjectMapping[subject].map(topic => (
@@ -262,7 +262,7 @@ function EditProfile() {
                                                         checked={selectedTopics.includes(topic)}
                                                         onChange={handleTopicChange}
                                                     />
-                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
+                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 md:text-xs text-xxxs
                                                         ${selectedTopics.includes(topic) ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'}
                                                     `}>
                                                         {topic}
@@ -278,9 +278,9 @@ function EditProfile() {
 
 
 
-            <div className="grid grid-cols-4 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800">On top of English, I can speak: </h1>
-                        <div className="flex flex-wrap col-span-3 items-center">
+            <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
+                        <h1 className="lg:text-lg md:text-md text-xxxs col-span-1 font-semibold text-green-800">On top of English, I can speak: </h1>
+                        <div className="flex flex-wrap md:col-span-3 col-span-5 items-center lg:text-lg md:text-md text-xxxs">
                             {["Chinese", "Korean", "Spanish"].map(language => (
                                 <label key={language} className="inline-flex items-center m-1 ">
                                     <input 
@@ -300,65 +300,67 @@ function EditProfile() {
                         </div>
                     </div>
 
-            <div className="grid grid-cols-4 items-center gap-4 w-full">
-                <h1 className="col-span-1">Hours Available: </h1>
-                    <div className="grid grid-cols-5 gap-4 mt-4 col-span-3 lg:text-md text-xs" onMouseUp={handleMouseUp}>
-                        <div></div>
-                        {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
-                            <div key={day} className="text-center font-semibold text-gray-700">
-                                {day}
-                            </div>
-                        ))}
+                    <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
+                        <h1 className="col-span-1 font-semibold text-green-800 lg:text-lg md:text-md text-xxxs">Hours Available: </h1>
+                        <div className="grid grid-cols-5 gap-4 mt-4 md:md:col-span-3 col-span-5 col-span-5 lg:text-md text-xs" onMouseUp={handleMouseUp}>
+                            <div></div>
+                            {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
+                                <div key={day} className="lg:text-lg md:text-md text-xxxs text-center font-semibold text-gray-700">
+                                    {day}
+                                </div>
+                            ))}
 
-                        {Array.from({ length: 16 }, (_, i) => {
-                            let hour = 9 + Math.floor(i / 2);
-                            const period = hour >= 12 ? "PM" : "AM";
-                            if (hour > 12) hour -= 12; 
-                            const minute = i % 2 === 0 ? "00" : "30";
-                            const timeLabel = `${hour}:${minute}${period}`;
+                            {Array.from({ length: 16 }, (_, i) => {
+                                let hour = 9 + Math.floor(i / 2);
+                                const period = hour >= 12 ? "PM" : "AM";
+                                if (hour > 12) hour -= 12; 
+                                const minute = i % 2 === 0 ? "00" : "30";
+                                const timeLabel = `${hour}:${minute}${period}`;
 
-                            return (
-                                <React.Fragment key={timeLabel}>
-                                    <div className="font-semibold text-gray-600">{timeLabel}</div>
-                                    {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
-                                        <div 
-                                            key={day} 
-                                            className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${selectedCells[`${day}-${timeLabel}`] ? 'bg-green-400' : 'bg-white hover:bg-gray-100'}`}
-                                            onMouseDown={() => handleMouseDown(timeLabel, day)}
-                                            onMouseEnter={() => handleMouseEnter(timeLabel, day)}
-                                        ></div>
-                                    ))}
-                                </React.Fragment>
-                            );
-                        })}
+                                return (
+                                    <React.Fragment key={timeLabel}>
+                                        <div className="lg:text-lg md:text-md text-xxxs font-semibold text-gray-600">{timeLabel}</div>
+                                        {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
+                                            <div 
+                                                key={day} 
+                                                className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${selectedCells[`${day}-${timeLabel}`] ? 'bg-green-400' : 'bg-white hover:bg-gray-100'}`}
+                                                onMouseDown={() => handleMouseDown(timeLabel, day)}
+                                                onMouseEnter={() => handleMouseEnter(timeLabel, day)}
+                                            ></div>
+                                        ))}
+                                    </React.Fragment>
+                                );
+                            })}
+                        </div>
+
                     </div>
 
-            </div>
 
 
-
-            <div className="grid grid-cols-2 gap-0">
-                <button type="button" onClick={()=>setShowModal(true)} className="flex w-6/12 mx-auto justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+            <div className="w-full grid grid-cols-2 md:gap-0 gap-2">
+                <button type="button" onClick={()=>setShowModal(true)} className="md:text-md text-xxs flex md:w-6/12 w-10/12 mx-auto justify-center rounded-md bg-red-600 md:px-3 md:py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                     {isDeleteLoading ? "Loading" : "Delete Account"}
                 </button>
-                <button type="button" onClick={handleEditProfile} className="flex w-6/12 mx-auto justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                <button type="button" onClick={handleEditProfile} className="md:text-md text-xxs flex md:w-6/12 w-10/12 mx-auto justify-center rounded-md bg-green-600 md:px-3 md:py-1.5 font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                     {isLoading ? "Loading" : "Submit Changes"}
                     </button>
             </div>
             {showModal && (
                 <div className="fixed z-50 top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
-                    <div className="bg-white rounded-lg p-8">
-                        <h2>Are you sure?</h2>
-                        <p>Do you really want to delete your account? This action cannot be undone.</p>
+                    <div className="max-w-lg w-full bg-white rounded-2xl p-8 shadow-2xl transform transition-transform duration-300">
+                        <h2 className="text-2xl font-semibold mb-2">Are you sure?</h2>
+                        <p className="text-gray-600 mb-4">Do you really want to delete your account? This action cannot be undone.</p>
                         <div className="flex justify-end space-x-4 mt-4">
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400">
+                                className="px-4 py-2 rounded-lg bg-gray-300 hover:bg-gray-400 focus:outline-none focus:ring focus:ring-gray-300 transition-colors duration-200"
+                            >
                                 Cancel
                             </button>
                             <button
                                 onClick={confirmDelete}
-                                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700">
+                                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 focus:outline-none focus:ring focus:ring-red-500 transition-colors duration-200"
+                            >
                                 Confirm
                             </button>
                         </div>
