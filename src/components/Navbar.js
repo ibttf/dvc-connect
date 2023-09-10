@@ -30,63 +30,65 @@ const Navbar = (props) => {
 
 
     return (
-
-    <nav className="lg:text-lg md:text-md text-xxs flex justify-between lg:py-6 lg:px-4 py-3 px-2 border-b-4 border-green-600" onClick={()=>setIsLanguageDropdownVisible(false)} style={{width: "100%"}}>
-        <div className="flex items-center">
-            <Link to="/" className=" font-extrabold text-green-600 cursor-pointer">
-                DVC Connect
-            </Link>
-            <div className="relative mx-0 z-20">
-                <div 
-                    className={`text-md cursor-pointer px-2 font-semibold duration-100 hover:underline ${isLanguageDropdownVisible ? "underline": ""}`}
-                    onClick={(e) => {e.stopPropagation(); setIsLanguageDropdownVisible(!isLanguageDropdownVisible)}}
-                >
-                    {displayLanguage(props.language)}
-                    
-                </div>
-                {isLanguageDropdownVisible && (
-                    <div className="absolute top-full mt-2 w-max border rounded bg-white">
-                        {props.language !== "chinese" && (
-                            <div onClick={() => {props.setLanguage("chinese"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={china} />Chinese
-                            </div>
-                        )}
-                        {props.language !== "korean" && (
-                            <div onClick={() => {props.setLanguage("korean"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={korea} />Korean
-                            </div>
-                        )}
-                        {props.language !== "spanish" && (
-                            <div onClick={() => {props.setLanguage("spanish"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={mexico} />Spanish
-                            </div>
-                        )}
-                        {props.language !== "english" && (
-                            <div onClick={() => {props.setLanguage("english"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={us} />English
-                            </div>
-                        )}
+    <div className="border-b-4 border-green-600" onClick={()=>setIsLanguageDropdownVisible(false)}>
+        <nav className="md:w-11/12 w-full mx-auto lg:text-lg md:text-md text-xxs flex justify-between lg:py-6 lg:px-4 py-3 px-2 ">
+            
+            <div className="flex items-center">
+                <Link to="/" className=" font-extrabold text-green-600 cursor-pointer">
+                    DVC Connect
+                </Link>
+                <div className="relative mx-0 z-20">
+                    <div 
+                        className={`text-md cursor-pointer px-2 font-semibold duration-100 hover:underline ${isLanguageDropdownVisible ? "underline": ""}`}
+                        onClick={(e) => {e.stopPropagation(); setIsLanguageDropdownVisible(!isLanguageDropdownVisible)}}
+                    >
+                        {displayLanguage(props.language)}
+                        
                     </div>
-                )}
+                    {isLanguageDropdownVisible && (
+                        <div className="absolute top-full mt-2 w-max border rounded bg-white">
+                            {props.language !== "chinese" && (
+                                <div onClick={() => {props.setLanguage("chinese"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
+                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={china} />Chinese
+                                </div>
+                            )}
+                            {props.language !== "korean" && (
+                                <div onClick={() => {props.setLanguage("korean"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
+                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={korea} />Korean
+                                </div>
+                            )}
+                            {props.language !== "spanish" && (
+                                <div onClick={() => {props.setLanguage("spanish"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
+                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={mexico} />Spanish
+                                </div>
+                            )}
+                            {props.language !== "english" && (
+                                <div onClick={() => {props.setLanguage("english"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
+                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={us} />English
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-        <div className={`w-fit grid grid-cols-2 md:gap-4 gap-1 items-center`}>
-            <Link to="/about" className="font-bold hover:underline text-green-600">
-                About
-            </Link>
-            {currentUser ? 
-            <button onClick={()=>{signOut(auth); localStorage.clear()}} className="font-bold hover:underline text-green-600">
-                Logout
-                
-            </button>
-            :
-            <Link to="/tutor-login" className="font-bold hover:underline text-green-600">
-                TutorZone
-            </Link>
-            }
-           
-        </div>
-    </nav>
+            <div className={`grid grid-cols-2 md:gap-4 gap-1 items-center`}>
+                <Link to="/about" className="font-bold hover:underline text-green-600">
+                    About
+                </Link>
+                {currentUser ? 
+                <button onClick={()=>{signOut(auth); localStorage.clear()}} className="font-bold hover:underline text-green-600">
+                    Logout
+                    
+                </button>
+                :
+                <Link to="/tutor-login" className="font-bold hover:underline text-green-600">
+                    TutorZone
+                </Link>
+                }
+            
+            </div>
+        </nav>
+    </div>
 
 );
     
