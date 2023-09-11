@@ -30,8 +30,8 @@ const Navbar = (props) => {
 
 
     return (
-    <div className="border-b-4 border-green-600" onClick={()=>setIsLanguageDropdownVisible(false)}>
-        <nav className="md:w-11/12 w-full mx-auto lg:text-lg md:text-md text-xxs flex justify-between lg:py-6 lg:px-4 py-3 px-2 ">
+    <div className="lg:text-lg md:text-md text-xxs lg:py-6 lg:px-4 py-3 px-2 border-b-4 border-green-600" onClick={()=>setIsLanguageDropdownVisible(false)}>
+        <nav className="w-10/12 mx-auto flex justify-between ">
             
             <div className="flex items-center">
                 <Link to="/" className=" font-extrabold text-green-600 cursor-pointer">
