@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/Navbar';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
 import { AiOutlineUser } from 'react-icons/ai';
@@ -101,47 +100,72 @@ useEffect(() => {
   };
 
   fetchData();
-}, [props.language, day, hours, subject, topic]);
+}, []);
 
 return(
-<div className="pb-24 bg-green-100">
+<div className="pb-24">
 
-<h1 className="mx-auto md:w-fit w-11/12 lg:text-3xl text-xs  font-semibold text-green-800 mt-12 leading-tight">
-  Looking for 
-  <span className='font-medium text-green-600'> {subject} </span>
-  tutors for
-  <span className='font-medium text-green-600'> {topic} </span>
-  that speak
-  <span className='font-medium text-green-600'> {capitalizeFirstLetter(props.language)} </span>
-  on 
-  <span className='font-medium text-green-600'> {capitalizeFirstLetter(day)}s </span>
-  at 
-  <span className='font-medium text-green-600'> {formatHours(hours)} </span>
+<h1 className="mx-auto md:w-fit w-11/12 lg:text-3xl text-xs  text-green-800 mt-12 leading-tight">
+    {props.t("Looking for")} 
+  <span className='font-extrabold text-green-600'> {props.t(subject)} </span>
+    {props.t("tutors on")}
+  <span className='font-extrabold text-green-600'> {props.t(topic)} </span>
+  {props.t("who speak")}
+  <span className='font-extrabold text-green-600'> {props.t(capitalizeFirstLetter(props.language))} </span>
+  {props.t("on")}
+  <span className='font-extrabold text-green-600'> {props.t(capitalizeFirstLetter(day))} </span>
+  {props.t("at")}
+  <span className='font-extrabold text-green-600'> {formatHours(hours)} </span>
 </h1>
 
-<div className="lg:w-6/12 w-11/12 mx-auto my-6 bg-green-800 bg-opacity-50 rounded-lg shadow-lg">
+<div className="lg:w-6/12 w-11/12 mx-auto my-6 ">
 
   <div className="py-4 text-center text-xl">
 
     {/* RESULTS */}
+    <div class="w-full max-w-md mx-auto p-4 bg-green-800 bg-opacity-20 rounded-lg shadow md:px-12 dark:bg-gray-800 dark:border-gray-700">
+
+   <div class="flow-root">
+        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+          {results.length>0 ? 
+          results.map((result) => {
+          const id = result.id;  // instead of result.id
+          const data = result.data();  // instead of result.data
+          return(
+            <li key={id} className="py-3 sm:py-4">
+                <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                      {data.img ? 
+                      <img class="w-8 h-8 rounded-full" src={data.img} alt="Neil image" />
+                      :
+                      <AiOutlineUser size="24"/>
+                      }
+                        
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                            {data.fName} {data.lName}
+                        </p>
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                            {props.t(data.workLocation)}
+                        </p>
+                    </div>
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        
+                    </div>
+                </div>
+            </li>
+          )}
+        ): 
+        <h1 className="md:text-md text-xs text-green-800 font-semibold">{props.t("No tutors available")}</h1>
+        }
+
+        </ul>
+   </div>
+</div>
     <div className="space-y-4">
       <ul>
-      {results.map((result) => {
-        console.log(result);
-        const id = result.id;  // instead of result.id
-        const data = result.data();  // instead of result.data
-        return(
-          <li key={id} className="border-b md:p-4 p-2 w-10/12 mx-auto grid grid-cols-5 items-center justify-center gap-2 rounded-md hover:bg-green-200 transition-all cursor-pointer">
-            <AiOutlineUser
-                className="md:w-12 md:h-12 w-6 h-6 mx-auto mb-4 col-span-1 text-gray-600"
-            />
-            <div className="col-span-3 grid grid-cols-1 grid-rows-2 gap-2 text-center">
-              <h2 className="md:text-lg text-sm font-medium text-gray-800">{data.fName} {data.lName}</h2>
-              <p className="text-gray-600 md:text-sm text-xs">{data.workLocation}</p>
-            </div>
-          </li>
-        )}
-      )}
+
       </ul>
     </div>
   </div>
