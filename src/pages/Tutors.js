@@ -108,7 +108,7 @@ return(
 <h1 className="mx-auto md:w-fit w-11/12 lg:text-3xl text-xs  text-green-800 mt-12 leading-tight">
     {props.t("Looking for")} 
   <span className='font-extrabold text-green-600'> {props.t(subject)} </span>
-    {props.t("tutors on")}
+    {props.t("tutors for")}
   <span className='font-extrabold text-green-600'> {props.t(topic)} </span>
   {props.t("who speak")}
   <span className='font-extrabold text-green-600'> {props.t(capitalizeFirstLetter(props.language))} </span>
@@ -146,9 +146,9 @@ return(
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
                             {data.fName} {data.lName}
                         </p>
-                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                        <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate dark:text-gray-400 cursor-pointer">
                             {props.t(data.workLocation)}
-                        </p>
+                        </a>
                     </div>
                     <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                         
