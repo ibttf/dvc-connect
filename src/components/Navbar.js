@@ -1,94 +1,255 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { signOut} from "firebase/auth";
 import korea from "../styles/korea.png"
 import china from "../styles/china.png"
 import us from "../styles/us.png"
 import mexico from "../styles/mexico.png"
+import logo from "../styles/dvc.png"
 import { auth } from '../config/firebase';
 
 const Navbar = (props) => {
+    const navigate=useNavigate();
     const [currentUser,setCurrentUser]=useState(null)
     const [isLanguageDropdownVisible,setIsLanguageDropdownVisible]=useState(false);
-
+    const [isMobileDropdownVisible,setIsMobileDropdownVisible]=useState(false);
     useEffect(() => {
 
-      const unsubscribe = auth.onAuthStateChanged((user) => {
-        if (user) {
-          setCurrentUser(user);
-        } else {
-          setCurrentUser(null);
-        }
-      });
-      return () => unsubscribe();  // Cleanup subscription on unmount
-    
-      },[])
-
- 
-    // ===================
- 
+        // Function to update state based on window size
+        const handleResize = () => {
+          if (window.innerWidth > 1024) {
+            setIsMobileDropdownVisible(false);
+          }
+        };
+      
+        // Set initial state based on window size
+        handleResize();
+      
+        // Add event listener
+        window.addEventListener('resize', handleResize);
+      
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+          if (user) {
+            setCurrentUser(user);
+          } else {
+            setCurrentUser(null);
+          }
+        });
+      
+        // Cleanup event listener and subscription on unmount
+        return () => {
+          window.removeEventListener('resize', handleResize);
+          unsubscribe();
+        };
+      
+      }, []);
 
 
     return (
-    <div className="lg:text-lg md:text-md text-xxs lg:py-6 lg:px-4 py-3 px-2 border-b-4 border-green-600" onClick={()=>setIsLanguageDropdownVisible(false)}>
-        <nav className="w-10/12 mx-auto flex justify-between ">
-            
-            <div className="flex items-center">
-                <Link to="/" className=" font-extrabold text-green-600 cursor-pointer">
-                    DVC Connect
-                </Link>
-                <div className="relative mx-0 z-20">
-                    <div 
-                        className={`text-md cursor-pointer px-2 font-semibold duration-100 hover:underline ${isLanguageDropdownVisible ? "underline": ""}`}
-                        onClick={(e) => {e.stopPropagation(); setIsLanguageDropdownVisible(!isLanguageDropdownVisible)}}
-                    >
-                        {displayLanguage(props.language)}
-                        
-                    </div>
-                    {isLanguageDropdownVisible && (
-                        <div className="absolute top-full mt-2 w-max border rounded bg-white">
-                            {props.language !== "chinese" && (
-                                <div onClick={() => {props.setLanguage("chinese"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={china} />Chinese
-                                </div>
-                            )}
-                            {props.language !== "korean" && (
-                                <div onClick={() => {props.setLanguage("korean"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={korea} />Korean
-                                </div>
-                            )}
-                            {props.language !== "spanish" && (
-                                <div onClick={() => {props.setLanguage("spanish"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={mexico} />Spanish
-                                </div>
-                            )}
-                            {props.language !== "english" && (
-                                <div onClick={() => {props.setLanguage("english"); setIsLanguageDropdownVisible(false);}} className="flex items-center md:p-6 p-3 hover:bg-green-50 cursor-pointer font-semibold duration-100">
-                                    <img className="md:w-6 md:h-4 w-3 h-2 md:mr-2 mr-0.5" src={us} />English
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </div>
-            <div className={`grid grid-cols-2 md:gap-4 gap-1 items-center`}>
-                <Link to="/about" className="font-bold hover:underline text-green-600">
-                    About
-                </Link>
-                {currentUser ? 
-                <button onClick={()=>{signOut(auth); localStorage.clear()}} className="font-bold hover:underline text-green-600">
-                    Logout
+    <>
+
+    <nav onClick={(e)=>{setIsLanguageDropdownVisible(false); setIsMobileDropdownVisible(false)}} className="bg-white dark:bg-gray-900 shadow-sm">
+    <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="/" className="flex items-center">
+        <img
+            src={logo}
+            className="md:h-8 xxs:h-4 h-3 md:mr-3 mr-1"
+            alt="DVC Logo"
+        />
+        <span className="text-green-800 self-center md:text-2xl xxs:text-sm text-xs font-semibold whitespace-nowrap dark:text-white">
+            Connect
+        </span>
+        </a>
+        <div className="flex items-center md:order-2" onClick={(e)=>{e.stopPropagation(); setIsLanguageDropdownVisible(!isLanguageDropdownVisible)}}>
+        <button 
+            type="button"
+            data-dropdown-toggle="language-dropdown-menu"
+            className="inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 md:text-sm text-xs text-gray-800 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+        >
+
+            {displayLanguage(props.language)}
+        </button>
+        {/* Dropdown */}
+        <div 
+            className={`z-50 ${isLanguageDropdownVisible ? "absolute top-12" : "hidden"} my-4 md:text-base text-sm list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700`}
+            id="language-dropdown-menu"
+        >
+            <ul className="py-2 font-medium" role="none">
+            <li onClick={()=>{
+                                props.setLanguage("english")}}>
+                <a
+                href="#"
+                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem"
+                >
+                <div className="inline-flex items-center">
+                <img src={us}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
                     
-                </button>
+                    English (US)
+                </div>
+                </a>
+            </li>
+
+
+            <li onClick={()=>{
+                                props.setLanguage("spanish")}}>
+                <a
+                href="#"
+                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem"
+                >
+                <div className="inline-flex items-center">
+                <img src={mexico}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+                    Español
+                </div>
+                </a>
+            </li>
+            <li onClick={()=>{                                
+                                props.setLanguage("korean")}}>
+                <a
+                href="#"
+                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem"
+                >
+                <div className="inline-flex items-center">
+                <img src={korea}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+                    한국
+                </div>
+                </a>
+            </li>
+
+            <li onClick={()=>{
+                                props.setLanguage("chinese")}}>
+                <a
+                href="#"
+                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                role="menuitem"
+                >
+                <div className="inline-flex items-center">
+                <img src={china}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+                    中文 (繁體)
+                </div>
+                </a>
+            </li>
+            </ul>
+        </div>
+        <button onClick={(e)=>{e.stopPropagation(); setIsMobileDropdownVisible(!isMobileDropdownVisible)}}
+            data-collapse-toggle="navbar-language"
+            type="button"
+            className="inline-flex items-center p-2 md:w-10 md:h-10 w-8 h-8 justify-center md:text-sm text-xs text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            aria-controls="navbar-language"
+            aria-expanded="false"
+        >
+            <span className="sr-only">Open main menu</span>
+            <svg
+            className="w-5 h-5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 17 14"
+            >
+            <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M1 1h15M1 7h15M1 13h15"
+            />
+            </svg>
+        </button>
+        </div>
+        <div
+        className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
+        id="navbar-language"
+        >
+        <ul className="flex flex-col font-medium  md:p-0 p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+            <a
+                href="/"
+                className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+            >
+                Home
+            </a>
+            </li>
+            <li>
+            <a
+                href="/resources"
+                className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+            >
+                Resources
+            </a>
+            </li>
+
+            {currentUser ? 
+                <li>
+                    <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        Logout
+                    </button>
+                </li>
                 :
-                <Link to="/tutor-login" className="font-bold hover:underline text-green-600">
+                <li>
+                    <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                     TutorZone
-                </Link>
+                    </a>
+                </li>
                 }
-            
+
+        </ul>
+        </div>
+        {
+            isMobileDropdownVisible ? 
+            <div
+            className="items-center justify-between w-full md:hidden"
+            id="navbar-language"
+            >
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <li>
+                <a
+                    href="/"
+                    className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                    Home
+                </a>
+                </li>
+                <li>
+                <a
+                    href="/resources"
+                    className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                >
+                    Resources
+                </a>
+                </li>
+                {currentUser ? 
+                    <li>
+                        <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                            Logout
+                        </button>
+                    </li>
+                    :
+                    <li>
+                        <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        TutorZone
+                        </a>
+                    </li>
+                    }
+    
+            </ul>
             </div>
-        </nav>
+            :
+            <></>
+        }
+
     </div>
+    </nav>
+
+    </>
 
 );
     
@@ -96,26 +257,42 @@ function displayLanguage(language){
     switch(language) {
         case "english":
          return(
-            <img className="md:w-6 md:h-4 w-3 h-2" src={us} />
-           
+           <div className="inline-flex items-center">
+            <img src={us}
+            className="h-3.5 w-3.5 rounded-full mr-2" />
+                    
+            English (US)
+           </div>
          )
           
         case "chinese":
          return(
-            <img className="md:w-6 md:h-4 w-3 h-2" src={china} />
-           
+            <div className="inline-flex items-center">
+                <img src={china}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+                中文 (繁體)
+            </div>
          )
           
         case "spanish":
          return(
-            <img className="md:w-6 md:h-4 w-3 h-2" src={mexico} />
-           
+            <div className="inline-flex items-center">
+            <img src={mexico}
+                className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+            Español
+           </div>
          )
           
         case "korean":
          return(
-            <img className="md:w-6 md:h-4 w-3 h-2" src={korea} />
-           
+            <div className="inline-flex items-center">
+                <img src={korea}
+                    className="h-3.5 w-3.5 object-cover rounded-full mr-2" />
+                    
+                한국
+            </div>
          )
           
         default:
