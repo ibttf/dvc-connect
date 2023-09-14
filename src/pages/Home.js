@@ -59,7 +59,13 @@ const Home = (props) => {
     )
   }
   return(
-    <div className="lg:pb-24  lg:my-12 pb-12 my-6" onClick={()=>{
+    <div className="lg:pb-24  lg:my-12 pb-12 my-6"     
+    style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        height: '70vh'
+    }} onClick={()=>{
       setIsDayOfTheWeekDropdownVisible(false);
       setIsHoursDropdownVisible(false);
       setIsSubjectDropdownVisible(false);
