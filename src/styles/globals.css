@@ -1,4 +1,9 @@
 
+.mainShadow{
+	-webkit-box-shadow: 37px 58px 22px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 37px 58px 22px 0px rgba(0,0,0,0.75);
+	box-shadow: 37px 58px 22px 0px rgba(0,0,0,0.75);
+}
 .rw-words{
 	display: inline;
 	text-indent: 10px;
@@ -50,12 +55,3 @@
   100% { opacity: 0; }
 }
 
-.search-btn{
-	width: 6em;
-}
-/* MID AND BELOW */
-@media only screen and (max-width: 850px) {
-	.search-btn{
-		width: 9em;
-	}
-  }

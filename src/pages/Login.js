@@ -260,21 +260,21 @@ useEffect(() => {
 }, []);
   return(
     <div>
-        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8">
+        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white w-6/12 mx-auto my-12 rounded-4xl mainShadow">
         
-        <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-green-600">
+        <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-gray-900">
             {showLogin ? 
             "Log In":
             "Create an Account"}
         </h2>
         
         {showLogin ? 
-        <div className="mt-5 p-8 rounded-xl md:w-6/12 w-full md:px-0 px-2 mx-auto">
+        <div className="mt-5 p-8 rounded-xl md:w-8/12 w-full md:px-0 px-2 mx-auto">
             <form onSubmit={handleLogin} className="space-y-6">
             <div>
-            <div className="h-12 pointer-events-none mt-2 text-md font-medium leading-6">
+            <div className="h-12 pointer-events-none mt-2 text-md  leading-6">
                 <input 
-                    className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                    className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                     onChange={(e) => setEmail(e.target.value)} 
                     id="email" 
                     name="email" 
@@ -284,7 +284,7 @@ useEffect(() => {
                 /> 
                 <label 
                     htmlFor="email" 
-                    className={`block text-green-700 relative ${email.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}
+                    className={`block text-gray-700 relative ${email.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}
                 >
                     Email address
                 </label>
@@ -293,9 +293,9 @@ useEffect(() => {
 
 
             <div>
-        <div className="h-12 pointer-events-none mt-2 text-md font-medium leading-6">
+        <div className="h-12 pointer-events-none mt-2 text-md  leading-6">
             <input 
-                className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                 onChange={(e) => setPassword(e.target.value)} 
                 id="password" 
                 name="password" 
@@ -305,7 +305,7 @@ useEffect(() => {
             /> 
             <label 
                 htmlFor="password" 
-                className={`block text-green-700 relative ${password.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}
+                className={`block text-gray-700 relative ${password.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}
             >
                 Password
             </label>
@@ -317,20 +317,20 @@ useEffect(() => {
                 ))}
             </div>
             <div>
-                <button type="submit" className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isLoading? "Loading..." : "Sign in"}</button>
+                <button type="submit" className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isLoading? "Loading..." : "Sign in"}</button>
             </div>
             </form>
-            <p className="mt-10 text-center md:text-sm text-xs text-green-500">
+            <p className="mt-10 text-center md:text-sm text-xs">
                 {showLogin?
                 <>
                     Don't have an account? 
                     <a href="#" onClick={()=>{setErrors([])
-                                                setShowLogin(!showLogin)}}className="font-semibold leading-6 text-green-600 hover:text-green-500"> Sign up here.</a>
+                                                setShowLogin(!showLogin)}}className="font-semibold leading-6 text-gray-900 hover:text-gray-500 duration-100"> Sign up here.</a>
                 </>:
                 <>
                     Already have an account? 
                     <a href="#" onClick={()=>{setErrors([])
-                                                setShowLogin(!showLogin)}} className="font-semibold leading-6 text-green-600 hover:text-green-500"> Sign in here.</a>
+                                                setShowLogin(!showLogin)}} className="font-semibold leading-6 text-gray-900 hover:text-gray-500 duration-100"> Sign in here.</a>
                 </>}
 
             </p>
@@ -338,23 +338,23 @@ useEffect(() => {
         </div>:
         <div className="">
             <ol class="flex items-center w-4/12 mx-auto md:my-4 my-2">
-                <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${step == 1 ? "after:border-green-100" : "after:border-gray-100"}  after:border-4 after:inline-block`}>
-                    <span class={`flex items-center justify-center w-10 h-10 ${step == 1 ? "bg-green-100" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
-                        <svg class={`w-3.5 h-3.5 ${step == 1 ? "text-green-600" : "text-gray-500"} lg:w-4 lg:h-4 dark:text-green-300`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${step == 1 ? "after:border-green-25" : "after:border-gray-100"}  after:border-4 after:inline-block`}>
+                    <span class={`flex items-center justify-center w-10 h-10 ${step == 1 ? "bg-green-25 opacity-90" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
+                        <svg class={`w-3.5 h-3.5 ${step == 1 ? "text-gray-900" : "text-gray-500"} lg:w-4 lg:h-4 `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
                         </svg>
                     </span>
                 </li>
-                <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${step == 2 ? "after:border-green-100" : "after:border-gray-100"} after:border-4 after:inline-block dark:after:border-gray-700`}>
-                    <span class={`flex items-center justify-center w-10 h-10 ${step == 2 ? "bg-green-100" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
-                        <svg class={`w-4 h-4 ${step == 2 ? "text-green-500" : "text-gray-500"} lg:w-5 lg:h-5 dark:text-gray-100`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${step == 2 ? "after:border-green-25" : "after:border-gray-100"} after:border-4 after:inline-block`}>
+                    <span class={`flex items-center justify-center w-10 h-10 ${step == 2 ? "bg-green-25 opacity-90" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
+                        <svg class={`w-4 h-4 ${step == 2 ? "text-green-500" : "text-gray-500"} lg:w-5 lg:h-5 `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
                             <path d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"/>
                         </svg>
                     </span>
                 </li>
                 <li class="flex items-center w-fit">
-                    <span className={`flex items-center justify-center w-10 h-10 ${step == 3 ? "bg-green-100" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
-                        <svg class={`w-4 h-4 ${step == 3 ? "text-green-500" : "text-gray-500"} lg:w-5 lg:h-5 dark:text-gray-100`} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                    <span className={`flex items-center justify-center w-10 h-10 ${step == 3 ? "bg-green-25 opacity-90" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
+                        <svg class={`w-4 h-4 ${step == 3 ? "text-green-500" : "text-gray-500"} lg:w-5 lg:h-5 `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                             <path d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z"/>
                         </svg>
                     </span>
@@ -368,48 +368,48 @@ useEffect(() => {
 
             <form className="space-y-6 ">
                 <div className="grid grid-cols-2 gap-4">
-                    <div className={`h-12 pointer-events-none ${fName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md font-medium leading-6`}>
+                    <div className={`h-12 pointer-events-none ${fName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md  leading-6`}>
                         <input 
-                            className=" bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                            className="  peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e) => setFName(e.target.value)} 
                             id="fName" 
                             name="fName" 
                             type="text" 
                             required
                         /> 
-                        <label htmlFor="fName" className={`block text-green-700 relative ${fName.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>First Name</label>
+                        <label htmlFor="fName" className={`block text-gray-700 relative ${fName.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>First Name</label>
                     </div>
-                    <div className={`h-12 pointer-events-none ${lName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md font-medium leading-6`}>
+                    <div className={`h-12 pointer-events-none ${lName.length > 0 ? "text-xs" : "focus-within:text-xs"} mt-2 text-md  leading-6`}>
                         <input 
-                            className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                            className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e) => setLName(e.target.value)} 
                             id="lName" 
                             name="lName" 
                             type="text" 
                             required
                         /> 
-                        <label htmlFor="lName"  className={`block text-green-700 relative ${lName.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Last Name</label>  
+                        <label htmlFor="lName"  className={`block text-gray-700 relative ${lName.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Last Name</label>  
                     </div>
                 </div>
                 <div>
-                    <div className={`h-12 pointer-events-none ${email.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                        <input className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                    <div className={`h-12 pointer-events-none ${email.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md  leading-6`}>
+                        <input className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                                 onChange={(e)=>setEmail(e.target.value)} id="email" name="email" type="email" autocomplete="email" required /> 
-                        <label for="email"  className={`block text-green-700 relative ${email.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Email address</label>  
+                        <label for="email"  className={`block text-gray-700 relative ${email.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Email address</label>  
                     </div>
                 </div>
                 <div>
-                    <div className={`h-12 pointer-events-none ${password.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                    <input className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                    <div className={`h-12 pointer-events-none ${password.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md  leading-6`}>
+                    <input className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e)=>setPassword(e.target.value)} id="password" name="password" type="password" autocomplete="password" required /> 
-                    <label for="password"  className={`block text-green-700 relative ${password.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Password</label>  
+                    <label for="password"  className={`block text-gray-700 relative ${password.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Password</label>  
                     </div>
                 </div>
                 <div>
-                    <div className={`h-12 pointer-events-none ${passwordConfirmation.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md font-medium leading-6`}>
-                    <input className="bg-green-100 peer pointer-events-auto block w-full py-1.5 font-normal text-green-900 border-b-2 border-0 border-green-500 focus:border-green-900 focus:ring-0 placeholder:text-green-400 sm:text-sm sm:leading-6"
+                    <div className={`h-12 pointer-events-none ${passwordConfirmation.length>1 ? "text-xs" : "focus-within:text-xs"}  mt-2  text-md  leading-6`}>
+                    <input className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
                             onChange={(e)=>setPasswordConfirmation(e.target.value)} id="passwordConfirmation" name="passwordConfirmation" type="password" autocomplete="passwordConfirmation" required /> 
-                    <label for="passwordConfirmation"  className={`block text-green-700 relative ${passwordConfirmation.length > 0 ? "-top-12 text-xs" : "peer-focus:-top-12 peer-focus:text-xs -top-7"} duration-300`}>Confirm Password</label>  
+                    <label for="passwordConfirmation"  className={`block text-gray-700 relative ${passwordConfirmation.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Confirm Password</label>  
                     </div>
                 </div>
 
@@ -419,18 +419,18 @@ useEffect(() => {
                     ))}
                 </div>
                 <div>
-                    <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Next</button>
+                    <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Next</button>
                 </div>
             </form>
-            <p className="mt-10 text-center text-sm text-green-500">
+            <p className="mt-10 text-center text-sm text-gray-500">
                 {showLogin?
                 <>
                     Don't have an account? 
-                    <a href="#" onClick={()=>setShowLogin(!showLogin)}className="font-semibold leading-6 text-green-600 hover:text-green-500"> Sign up here.</a>
+                    <a href="#" onClick={()=>{setShowLogin(!showLogin); setErrors([])}}className="font-semibold leading-6 text-gray-900 hover:text-gray-500"> Sign up here.</a>
                 </>:
                 <>
                     Already have an account? 
-                    <a href="#" onClick={()=>setShowLogin(!showLogin)} className="font-semibold leading-6 text-green-600 hover:text-green-500"> Sign in here.</a>
+                    <a href="#" onClick={()=>{setShowLogin(!showLogin); setErrors([])}} className="font-semibold leading-6 text-gray-900 hover:text-gray-500"> Sign in here.</a>
                 </>}
 
             </p>
@@ -492,7 +492,7 @@ useEffect(() => {
                             {Object.keys(subjectMapping).map(subject => (
                                 subjectsTaught.includes(subject) && (
                                     <div key={subject} className="md:p-4 p-1 rounded shadow-sm bg-white">
-                                        <h2 className="md:text-md text-xs font-medium text-green-600 mb-3">{subject}</h2>
+                                        <h2 className="md:text-md text-xs  text-gray-900 mb-3">{subject}</h2>
                                         <div className="flex flex-wrap">
                                             {subjectMapping[subject].map(topic => (
                                                 <label key={topic} className="md:text-md text-xs inline-flex items-center m-1">
@@ -596,10 +596,10 @@ useEffect(() => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                             Back
                         </button>
-                        <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                        <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                             Next
                         </button>
                     </div>
@@ -612,24 +612,24 @@ useEffect(() => {
             <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl shadow-lg lg:w-6/12 md:7/12 w-11/12 mx-auto text-center">
                 <form className="space-y-6">
                     <h2 className="md:text-2xl text-md font-bold mb-4 underline">Confirm Information</h2>
-                    <p className="font-bold md:text-lg text-xs">Name: <span className="font-medium">{fName} {lName}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Email: <span className="font-medium">{email}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Work Location: <span className="font-medium">{workLocation}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Subjects Taught: <span className="font-medium">{subjectsTaught.join(', ')}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Name: <span className="">{fName} {lName}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Email: <span className="">{email}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Work Location: <span className="">{workLocation}</span></p>
+                    <p className="font-bold md:text-lg text-xs">Subjects Taught: <span className="">{subjectsTaught.join(', ')}</span></p>
                     <div className="font-bold md:text-lg text-xs mt-2">Topics:</div>
-                    <ul className="font-medium text-gray-700 list-disc list-inside pl-5">
+                    <ul className=" text-gray-700 list-disc list-inside pl-5">
                         {subjectsTaught.map(subject => (
                             <li key={subject} className="text-left md:text-md text-xs">
                                 <span className="font-bold">{subject}:</span> {selectedTopics.filter(topic => subjectMapping[subject].includes(topic)).join(', ')}
                             </li>
                         ))}
                     </ul>
-                    <p className="font-bold md:text-lg text-xs mt-2">Languages Spoken: <span className="font-medium">{languagesSpoken.join(', ')}</span></p>
+                    <p className="font-bold md:text-lg text-xs mt-2">Languages Spoken: <span className="">{languagesSpoken.join(', ')}</span></p>
                     <p className="font-bold md:text-lg text-xs mt-2">Hours Worked:</p>
                     <pre className="font-mono md:text-md text-xs text-gray-700 rounded-md p-2">{displaySelectedCells(selectedCells)}</pre>
                     <div className="grid grid-cols-2 gap-4 mt-4">
-                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Back</button>
-                        <button onClick={(e)=>handleSignup(e)} className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Submit</button>
+                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Back</button>
+                        <button onClick={(e)=>handleSignup(e)} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Submit</button>
                     </div>
                 </form>
                 <div className="flex w-full justify-center items-center flex-wrap mt-4">

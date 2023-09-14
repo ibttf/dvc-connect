@@ -105,28 +105,27 @@ useEffect(() => {
 return(
 <div className="pb-24">
 
-<h1 className="mx-auto md:w-fit w-11/12 lg:text-3xl text-xs  text-green-800 mt-12 leading-tight">
-    {props.t("Looking for")} 
-  <span className='font-extrabold text-green-600'> {props.t(subject)} </span>
-    {props.t("tutors for")}
-  <span className='font-extrabold text-green-600'> {props.t(topic)} </span>
-  {props.t("who speak")}
-  <span className='font-extrabold text-green-600'> {props.t(capitalizeFirstLetter(props.language))} </span>
-  {props.t("on")}
-  <span className='font-extrabold text-green-600'> {props.t(capitalizeFirstLetter(day))} </span>
-  {props.t("at")}
-  <span className='font-extrabold text-green-600'> {formatHours(hours)} </span>
-</h1>
 
-<div className="lg:w-6/12 w-11/12 mx-auto my-6 ">
+<div className="lg:w-8/12 w-11/12 mx-auto my-6 ">
 
   <div className="py-4 text-center text-xl">
 
     {/* RESULTS */}
-    <div class="w-full max-w-md mx-auto p-4 bg-green-800 bg-opacity-20 rounded-lg shadow md:px-12 dark:bg-gray-800 dark:border-gray-700">
+    <div class="w-full mx-auto p-4 bg-white rounded-4xl mainShadow  md:px-12">
 
-   <div class="flow-root">
-        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+    <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase font-semibold text-gray-800 leading-tight">
+    <span className='font-extrabold text-green-25'> {props.t(subject)} </span>
+      {props.t("tutors for")}
+    <span className='font-extrabold text-green-25'> {props.t(topic)} </span>
+    {props.t("who speak")}
+    <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(props.language))} </span>
+    {props.t("on")}
+    <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(day))} </span>
+    {props.t("at")}
+    <span className='font-extrabold text-green-25'> {formatHours(hours)} </span>
+  </h1>
+   <div class="flow-root w-6/12 mx-auto">
+        <ul role="list" class="divide-y divide-gray-200">
           {results.length>0 ? 
           results.map((result) => {
           const id = result.id;  // instead of result.id
@@ -136,21 +135,21 @@ return(
                 <div class="flex items-center space-x-4">
                     <div class="flex-shrink-0">
                       {data.img ? 
-                      <img class="w-8 h-8 rounded-full" src={data.img} alt="Neil image" />
+                      <img class="w-8 h-8 rounded-full" src={data.img} alt="Tutor image" />
                       :
                       <AiOutlineUser size="24"/>
                       }
                         
                     </div>
                     <div class="flex-1 min-w-0">
-                        <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                        <p class="text-sm text-gray-900 truncate ">
                             {data.fName} {data.lName}
                         </p>
-                        <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate dark:text-gray-400 cursor-pointer">
+                        <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate cursor-pointer">
                             {props.t(data.workLocation)}
                         </a>
                     </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                    <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
                         
                     </div>
                 </div>

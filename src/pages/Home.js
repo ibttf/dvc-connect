@@ -5,7 +5,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";  // Assuming you've set up Firestore in firebase.js
 import EditProfile from "./EditProfile"
 import { AiOutlineSearch } from 'react-icons/ai';
-import translations from "../translations.js"
 const Home = (props) => {
   const [dayOfTheWeek, setDayOfTheWeek] = useState('Monday');
   const [hours,setHours]=useState("0900")
@@ -63,11 +62,13 @@ const Home = (props) => {
     <div className="lg:pb-24  lg:my-12 pb-12 my-6" onClick={()=>{
       setIsDayOfTheWeekDropdownVisible(false);
       setIsHoursDropdownVisible(false);
+      setIsSubjectDropdownVisible(false);
+      setIsTopicDropdownVisible(false)
     }}>
 
-      <div className="md:w-108 w-11/12 mx-auto shadow-xl bg-green-800 bg-opacity-50 pb-6 rounded-xl">
+      <div className="md:w-108 w-11/12 mx-auto bg-white md:py-8 py-4 rounded-3xl mainShadow">
         <div className="md:w-11/12 sm:w-10/12 w-9/12 flex justify-center mb-6">
-          <h2 class="md:ml-28 mx-auto w-fit md:text-xl xs:text-lg text-sm  text-green-800 md:pt-4 pt-6">
+          <h2 class={`${props.language=="spanish" ? "pl-6": "pl-20"} mr-auto w-fit md:text-xl xs:text-lg text-sm uppercase font-semibold text-gray-800 md:pt-4 pt-6`}>
             <span>{props.t("Find a Tutor Who Speaks")}</span>
             <div class="rw-words rw-words-1">
               <span>English</span>
@@ -79,15 +80,15 @@ const Home = (props) => {
         </div>
 
         <div className="h-fit ">
-          <div className="md:w-9/12 w-11/12 mx-auto grid grid-cols-1 grid-rows-2 lg:gap-6 gap-3">
-            <div className="grid grid-cols-4 items-center bg-green-50 lg:py-1 py-1 px-8 rounded-3xl shadow-lg">
-                <h1 className="md:text-md xs:text-xs text-xxs uppercase font-semibold text-right col-span-1 flex w-full">
+          <div className="md:w-9/12 w-11/12 mx-auto grid grid-cols-1 grid-rows-2 gap-3">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
+                <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full">
                 {props.t("Day")}:
                 </h1>
                 <div className="col-span-3">
                     <div className="relative">
                         <div 
-                            className=" block w-full md:text-md xs:text-xs text-xxs text-gray-900 py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                            className=" block w-full md:text-md text-sm text-gray-900 py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                             onClick={(e) => {e.stopPropagation();
                                               setIsHoursDropdownVisible(false);
                                               setIsDayOfTheWeekDropdownVisible(!isDayOfTheWeekDropdownVisible)}}
@@ -100,11 +101,11 @@ const Home = (props) => {
                             </span>
                         </div>
                         {isDayOfTheWeekDropdownVisible && (
-                            <div className="absolute w-full rounded mt-5 bg-green-50 z-10 text-gray-600">
+                            <div className="absolute w-full rounded mt-5 bg-white z-10 text-gray-600 border">
                                 {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map(day => (
                                     <div
                                         key={day}
-                                        className="py-2 px-4 hover:bg-gray-100 cursor-pointer  md:text-md xs:text-xs text-xxs"
+                                        className="py-2 px-4 hover:bg-gray-100 cursor-pointer  md:text-md text-sm"
                                         onClick={() => {
                                             setDayOfTheWeek(day);
                                             setIsDayOfTheWeekDropdownVisible(false);
@@ -121,14 +122,14 @@ const Home = (props) => {
 
 
 
-            <div className="grid grid-cols-4 items-center bg-green-50 lg:py-1 py-1 px-8 rounded-3xl shadow-lg">
-              <h1 className="md:text-md xs:text-xs text-xxs uppercase font-semibold text-right col-span-1 flex w-full ">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
+              <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full ">
               {props.t("During")}:
               </h1>
               <div className="col-span-3">
                   <div className="relative">
                       <div 
-                          className="md:text-md xs:text-xs text-xxs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                          className="md:text-md text-sm text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                           onClick={(e) => {e.stopPropagation(); setIsDayOfTheWeekDropdownVisible(false); setIsHoursDropdownVisible(!isHoursDropdownVisible);}}
                       >
                           {formatHour(hours)}
@@ -139,7 +140,7 @@ const Home = (props) => {
                           </span>
                       </div>
                       {isHoursDropdownVisible && (
-                          <div className="absolute border mx-auto grid md:grid-cols-4 grid-cols-2 gap-0 w-max rounded mt-5 bg-green-50 z-10 text-gray-600 whitespace-nowrap lg:text-lg md:text-md text-xxs">
+                          <div className="absolute border mx-auto grid md:grid-cols-4 grid-cols-2 gap-0 w-max rounded mt-5 bg-white z-10 text-gray-600 whitespace-nowrap lg:text-md md:text-md text-sm">
                               {["0900", "0930", "1000", "1030", "1100", "1130", "1200", "1230", "0100", "0130", "0200", "0230", "0300", "0330", "0400", "0430"].map(hour => (
                                   <div
                                       key={hour}
@@ -164,13 +165,13 @@ const Home = (props) => {
 
 
 
-            <div className="grid grid-cols-4 items-center bg-green-50 lg:py-1 py-1 px-8 rounded-3xl shadow-lg">
-              <h1 className="md:text-md xs:text-xs text-xxs uppercase font-semibold text-right col-span-1 flex w-full">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
+              <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full">
               {props.t("Subject")}:
               </h1>
               <div className="col-span-3 relative">
                   <div 
-                      className="md:text-md xs:text-xs text-xxs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                      className="md:text-md text-sm text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                       onClick={(e) => {
                           e.stopPropagation();
                           setIsTopicDropdownVisible(false);
@@ -185,7 +186,7 @@ const Home = (props) => {
                             </span>
                   </div>
                   {isSubjectDropdownVisible && (
-                      <div className="md:text-md xs:text-xs text-xxs absolute border mx-auto w-full rounded mt-5 bg-green-50 z-10 text-gray-600">
+                      <div className="md:text-md text-sm absolute border mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
                           {["Math", "English", "Science"].map(subject => (
                               <div
                                   key={subject}
@@ -204,13 +205,13 @@ const Home = (props) => {
               </div>
           </div>
 
-            <div className="grid grid-cols-4 items-center bg-green-50 lg:py-1 py-1 px-8 rounded-3xl shadow-lg">
-              <h1 className="md:text-md xs:text-xs text-xxs uppercase font-semibold text-right col-span-1 flex w-full">
+            <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
+              <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full">
               {props.t("Topic")}:
               </h1>
               <div className="col-span-3 relative">
                   <div 
-                      className="md:text-md xs:text-xs text-xxs text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
+                      className="md:text-md text-sm text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                       onClick={(e) => {
                           e.stopPropagation();
                           setIsSubjectDropdownVisible(false);
@@ -225,7 +226,7 @@ const Home = (props) => {
                             </span>
                   </div>
                   {isTopicDropdownVisible && (
-                      <div className="md:text-md xs:text-xs text-xxs absolute border mx-auto w-full rounded mt-5 bg-green-50 z-10 text-gray-600">
+                      <div className="md:text-md text-sm absolute border mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
                           {
                               {
                                   'Math': ["Any", "Algebra", "Trigonometry", "Geometry", "Pre-Calc", "Calc 1", "Calc 2", "Calc 3", "Differential Equations", "Discrete Mathematics"],
@@ -254,8 +255,8 @@ const Home = (props) => {
 
 
           </div>
-          <div className="w-full text-center md:mt-12 mt-6">
-            <Link to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} className="search-btn  shadow-lg grid grid-cols-8 items-center mx-auto text-lg font-semibold md:py-2 md:px-4 py-2 px-12 border-2 rounded-full border-green-700 bg-green-700 text-white hover:bg-green-900 hover:border-green-900 duration-100">
+          <div className="w-9/12 text-center md:mt-12 mt-6 mx-auto">
+            <Link to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} className="search-btn shadow-lg grid grid-cols-8 items-center mx-auto text-lg font-semibold md:py-2 md:px-4 py-2 px-12 border-2 rounded-full  bg-gray-950 text-white hover:bg-gray-800 duration-100">
               <AiOutlineSearch className="md:w-5 md:h-5 w-4 h-4 col-span-1"/><h2 className="text-center w-full col-span-7 md:text-md text-sm"> Search</h2>
             </Link>
           </div>

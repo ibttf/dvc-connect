@@ -14,7 +14,7 @@ const App = () => {
     return (translation[language][text])
 }
     return (
-      <div  className=" min-h-screen h-max">
+      <div  className=" min-h-screen h-max font-nuno bg-green-650">
         <Routes>
 
           <Route path="/about" element={

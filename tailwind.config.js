@@ -5,6 +5,7 @@ module.exports = {
   ],
   theme: 
   {
+
     borderWidth: {
       DEFAULT: '1px',
       '0': '0',
@@ -35,6 +36,30 @@ module.exports = {
     },
 
     extend: {
+      borderRadius: {
+      '4xl':"3rem"
+      },
+      colors: {
+        green:{
+          25: "#5BA547",
+          50: "#9fb12a",
+          100: "#dcfce7",
+          200: "#bbf7d0",
+          300: "#86efac",
+          400: "#4ade80",
+          500: "#22c55e",
+          600: "#16a34a",
+          650: "#74966C",
+          700: "#15803d",
+          800: "#166534",
+          900: "#14532d",
+          950: "#052e16",
+  
+        },
+      },
+      boxShadow: {
+        '3xl': '-10px 28px 32px 4px rgba(0, 0, 0, 0.3)',
+      },
       transitionProperty: {
         'border':"border",
         'scale':"scale"
@@ -84,13 +109,16 @@ module.exports = {
         '500':'5.00',
       },
       fontSize: {
-        xxxs: ['6px','8px'],
+        xxxs: ['7px','9px'],
         xxs: ['9px','12px'],
         xs: ['12px','16px'],
         sm: ['14px', '20px'],
-        md: ['16px', '24px'],
-        lg: ['20px', '28px'],
+        md: ['15px', '23px'],
+        lg: ['19px', '27px'],
         xl: ['24px', '32px'],
+      },
+      fontFamily: {
+        'nuno': ['Noto Sans', 'sans-serif']
       }
     },
   }

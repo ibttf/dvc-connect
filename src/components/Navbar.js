@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
 import { signOut} from "firebase/auth";
 import korea from "../styles/korea.png"
 import china from "../styles/china.png"
@@ -9,7 +8,6 @@ import logo from "../styles/dvc.png"
 import { auth } from '../config/firebase';
 
 const Navbar = (props) => {
-    const navigate=useNavigate();
     const [currentUser,setCurrentUser]=useState(null)
     const [isLanguageDropdownVisible,setIsLanguageDropdownVisible]=useState(false);
     const [isMobileDropdownVisible,setIsMobileDropdownVisible]=useState(false);
@@ -46,9 +44,9 @@ const Navbar = (props) => {
 
 
     return (
-    <>
+    <div className="shadow-sm bg-green-800 bg-opacity-40">
 
-    <nav onClick={(e)=>{setIsLanguageDropdownVisible(false); setIsMobileDropdownVisible(false)}} className="bg-white dark:bg-gray-900 shadow-sm">
+    <nav onClick={(e)=>{setIsLanguageDropdownVisible(false); setIsMobileDropdownVisible(false)}} className=" w-11/12 mx-auto font-medium ">
     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="/" className="flex items-center">
         <img
@@ -56,7 +54,7 @@ const Navbar = (props) => {
             className="md:h-8 xxs:h-4 h-3 md:mr-3 mr-1"
             alt="DVC Logo"
         />
-        <span className="text-green-800 self-center md:text-2xl xxs:text-sm text-xs font-semibold whitespace-nowrap dark:text-white">
+        <span className="text-green-800 self-center md:text-2xl xxs:text-sm text-xs font-semibold whitespace-nowrap ">
             Connect
         </span>
         </a>
@@ -64,14 +62,14 @@ const Navbar = (props) => {
         <button 
             type="button"
             data-dropdown-toggle="language-dropdown-menu"
-            className="inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 md:text-sm text-xs text-gray-800 dark:text-white rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
+            className="inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 md:text-sm text-xs text-green-950  rounded-lg cursor-pointer hover:bg-gray-100"
         >
 
             {displayLanguage(props.language)}
         </button>
         {/* Dropdown */}
         <div 
-            className={`z-50 ${isLanguageDropdownVisible ? "absolute top-12" : "hidden"} my-4 md:text-base text-sm list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700`}
+            className={`z-50 ${isLanguageDropdownVisible ? "absolute top-12" : "hidden"} my-4 md:text-base text-sm list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}
             id="language-dropdown-menu"
         >
             <ul className="py-2 font-medium" role="none">
@@ -79,7 +77,7 @@ const Navbar = (props) => {
                                 props.setLanguage("english")}}>
                 <a
                 href="#"
-                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 md:text-sm text-xs text-green-950 hover:bg-gray-100"
                 role="menuitem"
                 >
                 <div className="inline-flex items-center">
@@ -96,7 +94,7 @@ const Navbar = (props) => {
                                 props.setLanguage("spanish")}}>
                 <a
                 href="#"
-                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 md:text-sm text-xs text-green-950 hover:bg-gray-100"
                 role="menuitem"
                 >
                 <div className="inline-flex items-center">
@@ -111,7 +109,7 @@ const Navbar = (props) => {
                                 props.setLanguage("korean")}}>
                 <a
                 href="#"
-                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 md:text-sm text-xs text-green-950 hover:bg-gray-100"
                 role="menuitem"
                 >
                 <div className="inline-flex items-center">
@@ -127,7 +125,7 @@ const Navbar = (props) => {
                                 props.setLanguage("chinese")}}>
                 <a
                 href="#"
-                className="block px-4 py-2 md:text-sm text-xs text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-4 py-2 md:text-sm text-xs text-green-950 hover:bg-gray-100"
                 role="menuitem"
                 >
                 <div className="inline-flex items-center">
@@ -143,7 +141,7 @@ const Navbar = (props) => {
         <button onClick={(e)=>{e.stopPropagation(); setIsMobileDropdownVisible(!isMobileDropdownVisible)}}
             data-collapse-toggle="navbar-language"
             type="button"
-            className="inline-flex items-center p-2 md:w-10 md:h-10 w-8 h-8 justify-center md:text-sm text-xs text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            className="inline-flex items-center p-2 md:w-10 md:h-10 w-8 h-8 justify-center md:text-sm text-xs text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
             aria-controls="navbar-language"
             aria-expanded="false"
         >
@@ -169,11 +167,11 @@ const Navbar = (props) => {
         className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
         id="navbar-language"
         >
-        <ul className="flex flex-col font-medium  md:p-0 p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <ul className="flex flex-col font-medium  md:p-0 p-4 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 md">
             <li>
             <a
                 href="/"
-                className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0"
             >
                 Home
             </a>
@@ -181,7 +179,7 @@ const Navbar = (props) => {
             <li>
             <a
                 href="/resources"
-                className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0"
             >
                 Resources
             </a>
@@ -189,13 +187,13 @@ const Navbar = (props) => {
 
             {currentUser ? 
                 <li>
-                    <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                    <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                         Logout
                     </button>
                 </li>
                 :
                 <li>
-                    <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                    <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                     TutorZone
                     </a>
                 </li>
@@ -209,11 +207,11 @@ const Navbar = (props) => {
             className="items-center justify-between w-full md:hidden"
             id="navbar-language"
             >
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white md">
                 <li>
                 <a
                     href="/"
-                    className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0"
                 >
                     Home
                 </a>
@@ -221,20 +219,20 @@ const Navbar = (props) => {
                 <li>
                 <a
                     href="/resources"
-                    className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+                    className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0"
                 >
                     Resources
                 </a>
                 </li>
                 {currentUser ? 
                     <li>
-                        <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                             Logout
                         </button>
                     </li>
                     :
                     <li>
-                        <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-gray-800 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                        <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                         TutorZone
                         </a>
                     </li>
@@ -249,7 +247,7 @@ const Navbar = (props) => {
     </div>
     </nav>
 
-    </>
+    </div>
 
 );
     
