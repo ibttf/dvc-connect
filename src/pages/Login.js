@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import {db, auth} from '../config/firebase'
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -267,9 +267,9 @@ useEffect(() => {
                     onChange={(e) => setEmail(e.target.value)} 
                     id="email" 
                     name="email" 
-                    type="email" 
+                    type="" 
                     autoComplete="email" 
-                    required 
+                     
                 /> 
                 <label 
                     htmlFor="email" 

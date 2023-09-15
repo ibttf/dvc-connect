@@ -4,7 +4,10 @@ import "../styles/globals.css"
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";  // Assuming you've set up Firestore in firebase.js
 import EditProfile from "./EditProfile"
+import AdminEditProfile from "./AdminEditProfile"
 import { AiOutlineSearch } from 'react-icons/ai';
+
+
 const Home = (props) => {
   const [dayOfTheWeek, setDayOfTheWeek] = useState('Monday');
   const [hours,setHours]=useState("0900")
@@ -14,6 +17,8 @@ const Home = (props) => {
   const [selectedSubject, setSelectedSubject]=useState("Math");
   const [selectedTopic, setSelectedTopic]=useState("Any");
   const [userHasMatchingDoc, setUserHasMatchingDoc] = useState(false);
+  const [adminHasMatchingDoc,setAdminHasMatchingDoc]=useState(false);
+
 
 
   function formatHour(hour) {
@@ -28,6 +33,8 @@ const Home = (props) => {
       if (user) {
         // Check if a document exists for this user
         const userDocRef = doc(db, 'users', user.uid);
+        const adminDocRef=doc(db, 'admins', user.uid);
+        const adminDocSnapshot=await getDoc(adminDocRef)
         const docSnapshot = await getDoc(userDocRef);
         if (docSnapshot.exists()) {
   
@@ -35,9 +42,20 @@ const Home = (props) => {
         } else {
           setUserHasMatchingDoc(false);
         }
-      } else {
+        if (adminDocSnapshot.exists()) {
+  
+          setAdminHasMatchingDoc(true);
+        } else {
+          setAdminHasMatchingDoc(false);
+        }
+
+      } 
+      else {
         setUserHasMatchingDoc(false);
+        setAdminHasMatchingDoc(false);
       }
+
+      
     });
   
     return () => unsubscribe();  // Cleanup subscription on unmount
@@ -49,6 +67,12 @@ const Home = (props) => {
     return(
       <div>
         <EditProfile />
+      </div>
+    )
+  }else if (adminHasMatchingDoc){
+    return(
+      <div>
+        <AdminEditProfile />
       </div>
     )
   }

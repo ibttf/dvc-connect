@@ -7,9 +7,11 @@ import { useNavigate, Link } from "react-router-dom";
 
 function AdminLogin(props) {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("mathlab@email.com");
+  const [workLocation,setWorkLocation]=useState("")
   const [password, setPassword] = useState("");
   const [isLoading,setIsLoading]=useState(false);
+  
   const [errors,setErrors]=useState([])
 
     const handleLogin = async (e) => {
@@ -17,7 +19,8 @@ function AdminLogin(props) {
         setIsLoading(true);
         
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            console.log(email,password)
+            const userCredential = await signInWithEmailAndPassword(auth,  email, password)
                 .then(userCredential => {
                     console.log('User Credential:', userCredential);
                     localStorage.setItem('accessToken', userCredential.user.accessToken);
@@ -26,63 +29,20 @@ function AdminLogin(props) {
                 })
                 .catch(err => {
                     console.error("Login error:", err);
-                    setErrors(["Invalid email or password"]);
+                    setErrors(["Invalid password"]);
                     setIsLoading(false);
                 });
             console.log('User Credential:', userCredential);
             localStorage.setItem('accessToken', userCredential.user.accessToken);
             navigate("/")
         } catch (err) {
-            console.error("Login error:", err); // It's good to log the error for debugging
-            setErrors(["Invalid email or password"]);
+            console.error("Login error:", err);
+            setErrors(["Invalid password"]);
         } finally {
             setIsLoading(false);
         }
     };
 
-    async function handleSignup(e) {
-        e.preventDefault();
-        setIsLoading(true);
-
-    
-        try {
-            // Create user with email and password
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;
-    
-            // Store additional data in Firestore
-            // await setDoc(doc(db, 'admins', user.uid), {
-            //     location: "Math and Engineering Center",
-            //     email: email,
-            //     subjects: ["Math","Engineering","Architecture"],
-            //     tutorIds:[]
-            // });
-            // await setDoc(doc(db, 'admins', user.uid), {
-            //     location: "Math and Engineering Student Achievement Center",
-            //     email: email,
-            //     subjects: ["Math","Computer Science","Physics", "Chemistry", "Engineering"],
-            //     tutorIds:[]
-            // });
-            await setDoc(doc(db, 'admins', user.uid), {
-                location: "Disability Support Services Tutoring",
-                email: email,
-                subjects: ["Math","English","Biology", "Chemistry", "Physics", "Business","Accounting"],
-                tutorIds:[]
-            });
-    
-            // Save token to local storage
-            const token = await user.getIdToken();
-            localStorage.setItem('accessToken', token);
-    
-            navigate("/");
-            window.location.reload();
-        } catch (err) {
-            console.error("Error during signup:", err);
-            setErrors([err.message]);
-            setIsLoading(false);
-        }
-    }
- 
     
  
   return(
@@ -95,26 +55,29 @@ function AdminLogin(props) {
         
         {
         <div className="mt-5 p-8 rounded-xl md:w-8/12 w-full md:px-0 px-2 mx-auto">
-            <form onSubmit={handleSignup} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
             
-            <div className="h-12 pointer-events-none mt-2 text-md  leading-6">
-                <input 
-                    className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                    onChange={(e) => setEmail(e.target.value)} 
-                    id="email" 
-                    name="email" 
-                    type="email" 
-                    autoComplete="email" 
-                    required 
-                /> 
-                <label 
-                    htmlFor="email" 
-                    className={`block text-gray-700 relative ${email.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}
-                >
-                    Email address
-                </label>
-            </div>
-        
+            <div className="items-center w-full">
+                    <div className="relative">
+                        <select 
+                            className="md:text-md text-xs block appearance-none w-full bg-white border rounded p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                            value={email}
+                            onChange={(e) => {setEmail(e.target.value)}}
+                        >
+                            <option className="" value="mathlab@email.com">Math and Engineering Center</option>
+                            <option className="" value="mesa@email.com">Math and Engineering Student Achievement Center</option>
+                            <option className="" value="disabilitysupportservices@admin.com">Disability Support Services</option>
+                            <option className="" value="academicsupportcenter@admin.com">Academic Support Services</option>
+                            <option className="" value="physics@admin.com">Physics Lab</option>
+                            <option className="" value="english@admin.com">English Lab</option>
+                        </select>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M5.293 9.293L10 14l4.707-4.707a.999.999 0 0 0 0-1.414l-1.414-1.414a.999.999 0 0 0-1.414 0L10 10.586 7.121 7.707a.999.999 0 0 0-1.414 0L4.293 9.293a.999.999 0 0 0 0 1.414z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
 
             <div>
