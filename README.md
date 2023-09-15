@@ -57,7 +57,8 @@ npm start
 ## Usage
 
 <div style="width:400px ; height:400px">
-<img width="1668" alt="Screenshot 2023-09-14 at 3 16 42 PM" src="https://github.com/roylee0912/dvc-connect/assets/60560932/dff4aef7-5c88-462d-8cf7-b6139b220f0a">
+<img width="1668" alt="Screenshot 2023-09-14 at 3 17 15 PM" src="https://github.com/roylee0912/dvc-connect/assets/60560932/cea9150c-7d21-49dd-a4ff-a765e0b81744">
+
 
 
 
