@@ -11,14 +11,8 @@ const Home = (props) => {
   const [isDayOfTheWeekDropdownVisible,setIsDayOfTheWeekDropdownVisible]=useState(false);
   const [isHoursDropdownVisible,setIsHoursDropdownVisible]=useState(false);
   const [isSubjectDropdownVisible, setIsSubjectDropdownVisible]=useState(false);
-  const [isTopicDropdownVisible, setIsTopicDropdownVisible]=useState(false);
   const [selectedSubject, setSelectedSubject]=useState("Math");
   const [selectedTopic, setSelectedTopic]=useState("Any");
-
-
-
-
-
   const [userHasMatchingDoc, setUserHasMatchingDoc] = useState(false);
 
 
@@ -69,7 +63,6 @@ const Home = (props) => {
       setIsDayOfTheWeekDropdownVisible(false);
       setIsHoursDropdownVisible(false);
       setIsSubjectDropdownVisible(false);
-      setIsTopicDropdownVisible(false)
     }}>
 
       <div className="md:w-108 w-11/12 mx-auto bg-white md:py-8 py-4 rounded-3xl mainShadow">
@@ -180,7 +173,6 @@ const Home = (props) => {
                       className="md:text-md text-sm text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
                       onClick={(e) => {
                           e.stopPropagation();
-                          setIsTopicDropdownVisible(false);
                           setIsSubjectDropdownVisible(!isSubjectDropdownVisible);
                       }}
                   >
@@ -211,50 +203,6 @@ const Home = (props) => {
               </div>
           </div>
 
-            <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
-              <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full">
-              {props.t("Topic")}:
-              </h1>
-              <div className="col-span-3 relative">
-                  <div 
-                      className="md:text-md text-sm text-gray-900 block w-full py-3 px-4 pr-8 rounded leading-tight cursor-pointer"
-                      onClick={(e) => {
-                          e.stopPropagation();
-                          setIsSubjectDropdownVisible(false);
-                          setIsTopicDropdownVisible(!isTopicDropdownVisible);
-                      }}
-                  >
-                      {props.t(selectedTopic)}
-                      <span className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                                <svg className={`fill-current h-4 w-4 ${isTopicDropdownVisible ? "rotate-180" : ""} duration-300`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M5.293 9.293L10 14l4.707-4.707a.999.999 0 0 0 0-1.414l-.707-.707a.999.999 0 0 0-1.414 0L10 11.586 7.414 8.172a.999.999 0 0 0-1.414 0l-.707.707a.999.999 0 0 0 0 1.414z" />
-                                </svg>
-                            </span>
-                  </div>
-                  {isTopicDropdownVisible && (
-                      <div className="md:text-md text-sm absolute border mx-auto w-full rounded mt-5 bg-white z-10 text-gray-600">
-                          {
-                              {
-                                  'Math': ["Any", "Algebra", "Trigonometry", "Geometry", "Pre-Calc", "Calc 1", "Calc 2", "Calc 3", "Differential Equations", "Discrete Mathematics"],
-                                  'English': ["Any", "Reading", "Writing"],
-                                  'Science': ["Any", "Physics", "Chemistry", "Biology"]
-                              }[selectedSubject]?.map(topic => (
-                                  <div
-                                      key={topic}
-                                      className="py-2 px-4 hover:bg-gray-100 cursor-pointer text-left"
-                                      onClick={() => {
-                                          setSelectedTopic(topic);
-                                          setIsTopicDropdownVisible(false);
-                                      }}
-                                  >
-                                      {props.t(topic)}
-                                  </div>
-                              ))
-                          }
-                      </div>
-                  )}
-              </div>
-          </div>
 
 
 

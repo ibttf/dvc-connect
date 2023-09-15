@@ -3,7 +3,6 @@ import {db, auth} from '../config/firebase'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 
 function Login(props) {
@@ -15,17 +14,13 @@ function Login(props) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
+  const [isSubmitLoading,setIsSubmitLoading]=useState(false);
+
+
 
   const [workLocation, setWorkLocation] = useState('Math Lab');
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
   const[subjectsTaught,setSubjectsTaught]=useState([])
-  const [selectedTopics, setSelectedTopics] = useState([]);
-
-    const subjectMapping = {
-        Math: ["Algebra", "Trigonometry", "Geometry", "Pre-Calc", "Calc 1", "Calc 2", "Calc 3", "Differential Equations", "Discrete Mathematics"],
-        Science: ["Biology", "Chemistry", "Physics"],
-        English: ["Reading", "Writing"],
-    };
 
 
     const handleLanguageChange = (event) => {
@@ -49,14 +44,6 @@ function Login(props) {
     };
 
 
-    const handleTopicChange = (e) => {
-        const value = e.target.value;
-        if (e.target.checked) {
-          setSelectedTopics(prev => [...prev, value]);
-        } else {
-          setSelectedTopics(prev => prev.filter(topic => topic !== value));
-        }
-      };
 
     const [errors, setErrors] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -180,11 +167,11 @@ function Login(props) {
 
     async function handleSignup(e) {
         e.preventDefault();
-        setIsLoading(true);
+        setIsSubmitLoading(true);
     
         if (password !== passwordConfirmation) {
             setErrors(["Password does not match"]);
-            setIsLoading(false);
+            setIsSubmitLoading(false);
             return;
         }
     
@@ -202,7 +189,6 @@ function Login(props) {
                 languagesSpoken: languagesSpoken,
                 selectedCells: selectedCells,
                 subjectsTaught: subjectsTaught,
-                topicsTaught: selectedTopics,
             });
     
             // Save token to local storage
@@ -214,7 +200,7 @@ function Login(props) {
         } catch (err) {
             console.error("Error during signup:", err);
             setErrors([err.message]);
-            setIsLoading(false);
+            setIsSubmitLoading(false);
         }
     }
 
@@ -258,9 +244,12 @@ useEffect(() => {
 
     return () => unsubscribe();
 }, []);
+ if(!props.auth){
+    
+ }
   return(
     <div>
-        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white w-6/12 mx-auto my-12 rounded-4xl mainShadow">
+        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-4xl mainShadow">
         
         <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-gray-900">
             {showLogin ? 
@@ -317,7 +306,7 @@ useEffect(() => {
                 ))}
             </div>
             <div>
-                <button type="submit" className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isLoading? "Loading..." : "Sign in"}</button>
+                <button type="submit" className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isLoading? "Loading..." : "Sign in"}</button>
             </div>
             </form>
             <p className="mt-10 text-center md:text-sm text-xs">
@@ -334,10 +323,13 @@ useEffect(() => {
                 </>}
 
             </p>
+            <h3 onClick={()=>navigate("/admin-login")}className="text-center cursor-pointer text-sm text-gray-400 hover:text-gray-900">
+            Admin?
+        </h3>
 
         </div>:
         <div className="">
-            <ol class="flex items-center w-4/12 mx-auto md:my-4 my-2">
+            <ol class="flex items-center  md:w-4/12 w-9/12 mx-auto md:my-4 my-2">
                 <li class={`flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b ${step == 1 ? "after:border-green-25" : "after:border-gray-100"}  after:border-4 after:inline-block`}>
                     <span class={`flex items-center justify-center w-10 h-10 ${step == 1 ? "bg-green-25 opacity-90" : "bg-gray-100"}  rounded-full lg:h-12 lg:w-12 shrink-0`}>
                         <svg class={`w-3.5 h-3.5 ${step == 1 ? "text-gray-900" : "text-gray-500"} lg:w-4 lg:h-4 `} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
@@ -419,7 +411,7 @@ useEffect(() => {
                     ))}
                 </div>
                 <div>
-                    <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Next</button>
+                    <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Next</button>
                 </div>
             </form>
             <p className="mt-10 text-center text-sm text-gray-500">
@@ -434,11 +426,14 @@ useEffect(() => {
                 </>}
 
             </p>
+            <h3 onClick={()=>navigate("/admin-login")}className="text-center cursor-pointer text-sm text-gray-400 hover:text-gray-900">
+                Admin?
+            </h3>
         </div>
         )}
 
         {step === 2 && (
-            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl lg:w-6/12 md:7/12 w-80 mx-auto">
+            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl w-full mx-auto">
                 <form className="space-y-6">
                 <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
                     <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">I work in the: </h1>
@@ -485,37 +480,6 @@ useEffect(() => {
                     </div>
 
 
-
-                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800 md:text-md text-xxs">I am comfortable teaching: </h1>
-                        <div className="md:col-span-3 col-span-5 space-y-4">
-                            {Object.keys(subjectMapping).map(subject => (
-                                subjectsTaught.includes(subject) && (
-                                    <div key={subject} className="md:p-4 p-1 rounded shadow-sm bg-white">
-                                        <h2 className="md:text-md text-xs  text-gray-900 mb-3">{subject}</h2>
-                                        <div className="flex flex-wrap">
-                                            {subjectMapping[subject].map(topic => (
-                                                <label key={topic} className="md:text-md text-xs inline-flex items-center m-1">
-                                                    <input 
-                                                        type="checkbox" 
-                                                        className="hidden" 
-                                                        value={topic}
-                                                        checked={selectedTopics.includes(topic)}
-                                                        onChange={handleTopicChange}
-                                                    />
-                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 md:text-md text-xxs
-                                                        ${selectedTopics.includes(topic) ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'}
-                                                    `}>
-                                                        {topic}
-                                                    </span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )
-                            ))}
-                        </div>
-                    </div>
 
 
 
@@ -596,10 +560,10 @@ useEffect(() => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
-                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                             Back
                         </button>
-                        <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                        <button onClick={nextPage} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
                             Next
                         </button>
                     </div>
@@ -609,27 +573,21 @@ useEffect(() => {
         )}
 
         {step === 3 && (
-            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl shadow-lg lg:w-6/12 md:7/12 w-11/12 mx-auto text-center">
+            <div className="mt-5 md:border-4 border-2 border-green-600 p-8 rounded-xl shadow-lg w-full mx-auto text-center">
                 <form className="space-y-6">
-                    <h2 className="md:text-2xl text-md font-bold mb-4 underline">Confirm Information</h2>
-                    <p className="font-bold md:text-lg text-xs">Name: <span className="">{fName} {lName}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Email: <span className="">{email}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Work Location: <span className="">{workLocation}</span></p>
-                    <p className="font-bold md:text-lg text-xs">Subjects Taught: <span className="">{subjectsTaught.join(', ')}</span></p>
-                    <div className="font-bold md:text-lg text-xs mt-2">Topics:</div>
-                    <ul className=" text-gray-700 list-disc list-inside pl-5">
-                        {subjectsTaught.map(subject => (
-                            <li key={subject} className="text-left md:text-md text-xs">
-                                <span className="font-bold">{subject}:</span> {selectedTopics.filter(topic => subjectMapping[subject].includes(topic)).join(', ')}
-                            </li>
-                        ))}
-                    </ul>
-                    <p className="font-bold md:text-lg text-xs mt-2">Languages Spoken: <span className="">{languagesSpoken.join(', ')}</span></p>
-                    <p className="font-bold md:text-lg text-xs mt-2">Hours Worked:</p>
-                    <pre className="font-mono md:text-md text-xs text-gray-700 rounded-md p-2">{displaySelectedCells(selectedCells)}</pre>
-                    <div className="grid grid-cols-2 gap-4 mt-4">
-                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Back</button>
-                        <button onClick={(e)=>handleSignup(e)} className="flex w-full justify-center rounded-md bg-green-25 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Submit</button>
+                    <h2 className="md:text-xl text-md font-normal mb-4 underline">Confirm Information</h2>
+                    <p className="font-normal md:text-md text-xs">Name: <span className="font-bold">{fName} {lName}</span></p>
+                    <p className="font-normal md:text-md text-xs">Email: <span className="font-bold">{email}</span></p>
+                    <p className="font-normal md:text-md text-xs">Work Location: <span className="font-bold">{workLocation}</span></p>
+                    <p className="font-normal md:text-md text-xs">Subjects Taught: <span className="font-bold">{subjectsTaught.join(', ')}</span></p>
+                    <p className="font-normal md:text-md text-xs mt-2">Languages Spoken: <span className="font-bold">{languagesSpoken.join(', ')}</span></p>
+                    <div className="flex w-full justify-center">
+                        <p className="font-normal md:text-md text-xs mt-2">Hours Worked:</p>
+                        <pre className="font-bold font-sans md:text-md text-xs">{displaySelectedCells(selectedCells)}</pre>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                        <button onClick={prevPage} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Back</button>
+                        <button onClick={(e)=>handleSignup(e)} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isSubmitLoading ? "Loading": "Submit"}</button>
                     </div>
                 </form>
                 <div className="flex w-full justify-center items-center flex-wrap mt-4">
@@ -639,7 +597,8 @@ useEffect(() => {
                 </div>
             </div>
         )}
-    </div>
+        </div>
+        
         }
 
 

@@ -4,12 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { db, auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 
-function EditProfile() {
-    const subjectMapping = {
-        Math: ["Algebra", "Trigonometry", "Geometry", "Pre-Calc", "Calc 1", "Calc 2", "Calc 3", "Differential Equations", "Discrete Mathematics"],
-        Science: ["Biology", "Chemistry", "Physics"],
-        English: ["Reading", "Writing"],
-    };
+function EditProfile(props) {
 
     const navigate=useNavigate();
     const [fName,setFName]=useState("")
@@ -20,7 +15,6 @@ function EditProfile() {
     const [isLoading,setIsLoading]=useState(false);
     const [isDeleteLoading,setIsDeleteLoading]=useState(false);
     const[subjectsTaught,setSubjectsTaught]=useState([])
-    const [selectedTopics, setSelectedTopics] = useState([]);
     const [selectedCells, setSelectedCells] = useState({});
     const [showModal, setShowModal] = useState(false);
     const isDragging = useRef(false);
@@ -47,14 +41,6 @@ function EditProfile() {
         }
     };
 
-    const handleTopicChange = (e) => {
-        const value = e.target.value;
-        if (e.target.checked) {
-          setSelectedTopics(prev => [...prev, value]);
-        } else {
-          setSelectedTopics(prev => prev.filter(topic => topic !== value));
-        }
-      };
 
 
     const handleMouseDown = (timeLabel, day) => {
@@ -160,7 +146,6 @@ function EditProfile() {
                     setFName(userSnapshot.data().fName)
                     setLName(userSnapshot.data().lName)
                     setSubjectsTaught(userSnapshot.data().subjectsTaught || []);
-                    setSelectedTopics(userSnapshot.data().topicsTaught)
                 } else {
                     console.log("No such user!");
                 }
@@ -243,38 +228,6 @@ function EditProfile() {
                         </div>
                     </div>
 
-
-
-                    <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">I am comfortable teaching: </h1>
-                        <div className="md:col-span-3 col-span-5 space-y-4 md:text-md text-xxs">
-                            {Object.keys(subjectMapping).map(subject => (
-                                subjectsTaught.includes(subject) && (
-                                    <div key={subject} className="md:p-4  p-1 rounded shadow-sm bg-white">
-                                        <h2 className=" text-green-600 mb-3">{subject}</h2>
-                                        <div className="flex flex-wrap">
-                                            {subjectMapping[subject].map(topic => (
-                                                <label key={topic} className="inline-flex items-center m-1">
-                                                    <input 
-                                                        type="checkbox" 
-                                                        className="hidden" 
-                                                        value={topic}
-                                                        checked={selectedTopics.includes(topic)}
-                                                        onChange={handleTopicChange}
-                                                    />
-                                                    <span className={`cursor-pointer p-2 rounded transition-colors duration-300 md:text-xs text-xxxs
-                                                        ${selectedTopics.includes(topic) ? 'bg-green-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'}
-                                                    `}>
-                                                        {topic}
-                                                    </span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )
-                            ))}
-                        </div>
-                    </div>
 
 
 

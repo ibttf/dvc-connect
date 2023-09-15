@@ -115,8 +115,7 @@ return(
 
     <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase font-semibold text-gray-800 leading-tight">
     <span className='font-extrabold text-green-25'> {props.t(subject)} </span>
-      {props.t("tutors for")}
-    <span className='font-extrabold text-green-25'> {props.t(topic)} </span>
+      {props.t("tutors")}
     {props.t("who speak")}
     <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(props.language))} </span>
     {props.t("on")}
