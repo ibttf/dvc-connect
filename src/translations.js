@@ -81,7 +81,7 @@ const translation = {
         "Academic Support Center":"Academic Support Center",
         "Locations with": "Locations with",
         "No locations available": "No locations available",
-        
+        "Find a Tutor Today": "Find a Tutor Today",
 
     
     },
@@ -167,6 +167,7 @@ const translation = {
         "Academic Support Center": "Centro de Apoyo Académico",
         "Locations with": "Lugares con",
         "No locations available_es": "No hay lugares disponibles",
+        "Find a Tutor Today": "Encuentra un tutor hoy",
     },
     "korean": {
         // Due to the complexity and nuances of the Korean language, these translations might not be perfect.
@@ -250,7 +251,8 @@ const translation = {
         "Disability Support Services Center": "장애 지원 서비스 센터",
         "Academic Support Center": "학술 지원 센터",
         "Locations with": "위치",
-        "No locations available_ko": "사용 가능한 위치 없음"
+        "No locations available": "사용 가능한 위치 없음",
+        "Find a Tutor Today": "오늘 튜터를 찾아보세요",
     },
     "chinese": {
         // The translations will be in Simplified Chinese.
@@ -334,7 +336,8 @@ const translation = {
         "Disability Support Services Center": "残疾人支持服务中心",
         "Academic Support Center": "学术支持中心",
         "Locations with": "带有的地点",
-        "No locations available_zh": "没有可用的地点",
+        "No locations available": "没有可用的地点",
+        "Find a Tutor Today":  "今天找个家教",
     }
 }
 

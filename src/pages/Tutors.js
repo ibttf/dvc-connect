@@ -114,18 +114,18 @@ return(
   <div className="py-4 text-center text-xl">
 
     {/* RESULTS */}
-    <div class="w-full mx-auto p-4 bg-white rounded-4xl mainShadow  md:px-12"> 
+    <div class="w-full mx-auto p-4 bg-white rounded-xl shadow-xl  md:px-12"> 
 
-    <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase font-semibold text-gray-800 leading-tight">
-    {props.t("Locations with")}
-    <span className='font-extrabold text-green-25'> {props.t(subject)} </span>
-    {props.t("tutors")}
-    {props.t("who speak")}
-    <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(props.language))} </span>
-    {props.t("on")}
-    <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(day))} </span>
-    {props.t("at")}
-    <span className='font-extrabold text-green-25'> {formatHours(hours)} </span>
+    <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase text-gray-800 leading-relaxed tracking-tight font-sans">
+      {props.t("Locations with")}
+      <span className='font-semibold text-indigo-600'> {props.t(subject)} </span>
+      {props.t("tutors")}
+      {props.t("who speak")}
+      <span className='font-semibold text-indigo-600'> {props.t(capitalizeFirstLetter(props.language))} </span>
+      {props.t("on")}
+      <span className='font-semibold text-indigo-600'> {props.t(capitalizeFirstLetter(day))} </span>
+      {props.t("at")}
+      <span className='font-semibold text-indigo-600'> {formatHours(hours)} </span>
   </h1>
   <div class="flow-root w-6/12 mx-auto">
         <ul role="list" class="divide-y divide-gray-200">
@@ -140,7 +140,7 @@ return(
               </div>
             </li>
           )) :
-            <h1 className="md:text-md text-xs text-green-800 font-semibold">{props.t("No locations available")}</h1>
+            <h1 className="md:text-md text-xs text-indigo-800 font-semibold my-4">{props.t("No locations available")}</h1>
           }
         </ul>
       </div>

@@ -1,180 +1,97 @@
-import React, {useState, useEffect} from 'react';
-import {Routes, Route} from "react-router-dom"
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../config/firebase";
+
+
 import Home from '../pages/Home';
 import Tutors from '../pages/Tutors';
 import Login from '../pages/Login';
 import AdminLogin from '../pages/AdminLogin';
 import AdminEditTutor from '../pages/AdminEditTutor';
 import AdminCreateTutor from '../pages/AdminCreateTutor';
-import About from "../pages/About"
+import About from "../pages/About";
 import Navbar from './Navbar';
 import Resources from '../pages/Resources';
 import translation from '../translations';
-import EditProfile from "../pages/EditProfile"
-import AdminEditProfile from "../pages/AdminEditProfile"
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../config/firebase";  // Assuming you've set up Firestore in firebase.js
+import EditProfile from "../pages/EditProfile";
+import AdminEditProfile from "../pages/AdminEditProfile";
+import Typewriter from "./Typewriter"
+
 const App = () => {
   const [userHasMatchingDoc, setUserHasMatchingDoc] = useState(false);
-  const [adminHasMatchingDoc,setAdminHasMatchingDoc]=useState(false);
-  const [currentUser,setCurrentUser]=useState(false);
-  const [userId,setUserId]=useState("")
-  const [location,setLocation]=useState("")
+  const [adminHasMatchingDoc, setAdminHasMatchingDoc] = useState(false);
+  const [currentUser, setCurrentUser] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [location, setLocation] = useState("");
+  const [language, setLanguage] = useState("english");
+  const t = (text) => translation[language][text];
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        // Check if a document exists for this user
-        setUserId(user.uid)
+        setUserId(user.uid);
         const userDocRef = doc(db, 'users', user.uid);
-        const adminDocRef=doc(db, 'admins', user.uid);
-        const adminDocSnapshot=await getDoc(adminDocRef)
+        const adminDocRef = doc(db, 'admins', user.uid);
+        const adminDocSnapshot = await getDoc(adminDocRef);
         const docSnapshot = await getDoc(userDocRef);
-        if (docSnapshot.exists()) {
-          setUserHasMatchingDoc(true);
-          setCurrentUser(true)
-        } else {
-          setUserHasMatchingDoc(false);
-        }
+        
+        setUserHasMatchingDoc(docSnapshot.exists());
+        setCurrentUser(docSnapshot.exists() || adminDocSnapshot.exists());
+        setAdminHasMatchingDoc(adminDocSnapshot.exists());
+
         if (adminDocSnapshot.exists()) {
-          setCurrentUser(true)
-          setAdminHasMatchingDoc(true);
-          setLocation(adminDocSnapshot.data().location)
-        } else {
-          setAdminHasMatchingDoc(false);
+          setLocation(adminDocSnapshot.data().location);
         }
 
-      } 
-      else {
-        setCurrentUser(false)
+      } else {
+        setCurrentUser(false);
         setUserHasMatchingDoc(false);
         setAdminHasMatchingDoc(false);
       }
-
-      
     });
-  
-    return () => unsubscribe();  // Cleanup subscription on unmount
+
+    return () => unsubscribe();
   }, []);
 
-
-  const [language,setLanguage]=useState("english")
-  const t=(text)=>{
-    return (translation[language][text])
-  }
-
-  if(adminHasMatchingDoc){
-    // ADMIN LOGGED IN
+  if (adminHasMatchingDoc) {
     return (
-      <div  className=" min-h-screen h-max font-nuno bg-green-650">
+      <div className="h-full w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+        <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage} t={t} />
         <Routes>
-            <Route path="/create-tutor" element={
-              <div className="" >
-                <Navbar language={language} setLanguage={setLanguage}/>
-                <AdminCreateTutor location={location} adminUID={userId}/>
-                {/* <AdminEditTutor/> */}
-              </div>
-            }/>
-          <Route path="/edit-tutor/:tid" element={
-              <div className="" >
-                <Navbar language={language} setLanguage={setLanguage}/>
-                <AdminEditTutor/>
-              </div>
-            }/>
-          <Route path="/admin-login" element={
-              <div className="" >
-                <Navbar language={language} setLanguage={setLanguage}/>
-                <AdminLogin/>
-              </div>
-            }/>
-            <Route path="/resources" element={
-              <div className="" >
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <Resources language={language} t={t}/>
-              </div>
-            }/>
-            <Route path="*" element={
-              <div className="">
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <AdminEditProfile />
-              </div>
-            }/>
+          <Route path="/create-tutor" element={<AdminCreateTutor location={location} adminUID={userId} />} />
+          <Route path="/edit-tutor/:tid" element={<AdminEditTutor />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/resources" element={<Resources language={language} t={t} />} />
+          <Route path="*" element={<AdminEditProfile />} />
         </Routes>
-        </div>
+      </div>
     );
-  }else if (userHasMatchingDoc){
-    //TUTOR IS LOGGED IN
+  } else if (userHasMatchingDoc) {
     return (
-      <div  className=" min-h-screen h-max font-nuno bg-green-650">
+      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+        <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage} t={t} />
         <Routes>
-          <Route path="/admin-login" element={
-              <div className="" >
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <AdminLogin/>
-              </div>
-            }/>
-            <Route path="/about" element={
-              <div className="">
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <About language={language} />
-              </div>
-            }/>
-            <Route path="/resources" element={
-              <div className="" >
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <Resources language={language} t={t}/>
-              </div>
-            }/>
-            <Route path="*" element={
-              <div className="">  
-                <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage}/>
-                <EditProfile />
-              </div>
-            }/>
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/about" element={<About language={language} />} />
+          <Route path="/resources" element={<Resources language={language} t={t} />} />
+          <Route path="*" element={<EditProfile />} />
         </Routes>
-        </div>
+      </div>
     );
   }
 
-  //NO ONE IS LOGGED IN
-    return (
-      <div  className=" min-h-screen h-max font-nuno bg-green-650">
-        {
-          
-        }
+  return (
+    <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+        <Navbar language={language} setLanguage={setLanguage} t={t} />
         <Routes>
-          <Route path="/admin-login" element={
-              <div className="" >
-                <Navbar language={language} setLanguage={setLanguage} t={t}/>
-                <AdminLogin t={t}/>
-              </div>
-            }/>
-            <Route path="/resources" element={
-              <div className="" >
-                <Navbar language={language} setLanguage={setLanguage} t={t}/>
-                <Resources language={language}  t={t}/>
-              </div>
-            }/>
-            <Route path="/:day/:hours/:subject/:topic" element={
-              <div className="">
-                <Navbar language={language} setLanguage={setLanguage} t={t}/>
-                <Tutors key={language} language={language} t={t}/>
-              </div>
-            }/>
-            <Route path="/tutor-login" element={
-              <div className="">
-                <Navbar language={language} setLanguage={setLanguage} t={t}/>
-                <Login t={t}/>
-              </div>
-            }/>
-            <Route path="*" element={
-              <div className="">
-                <Navbar language={language} setLanguage={setLanguage} t={t}/>
-                <Home language={language}  t={t} userHasMatchingDoc={userHasMatchingDoc} adminHasMatchingDoc={adminHasMatchingDoc}/>
-              </div>
-            }/>
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/resources" element={<Resources language={language} t={t} />} />
+          <Route path="/:day/:hours/:subject/:topic" element={<Tutors key={language} language={language} t={t} />} />
+          <Route path="/tutor-login" element={<Login />} />
+          <Route path="*" element={<Home language={language} t={t} userHasMatchingDoc={userHasMatchingDoc} adminHasMatchingDoc={adminHasMatchingDoc} />} />
         </Routes>
-        </div>    
+    </div>
   );
 }
 
