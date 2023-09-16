@@ -38,7 +38,7 @@ const Home = (props) => {
 
       <div className="md:w-108 w-11/12 mx-auto bg-white md:py-8 py-4 rounded-3xl mainShadow">
         <div className="md:w-11/12 sm:w-10/12 w-9/12 flex justify-center mb-6">
-          <h2 class={`${props.language=="spanish" ? "pl-6": "pl-20"} mr-auto w-fit md:text-xl xs:text-lg text-sm uppercase font-semibold text-gray-800 md:pt-4 pt-6`}>
+          <h2 class={`${props.language=="spanish" ? "pl-6": "pl-20"} mr-auto w-fit md:text-xl xs:text-lg text-sm font-semibold text-gray-800 `}>
             <span>{props.t("Find a Tutor Who Speaks")}</span>
             <div class="rw-words rw-words-1">
               <span>English</span>

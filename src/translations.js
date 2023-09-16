@@ -72,7 +72,17 @@ const translation = {
         "Furniture Rental Packages (Cort)": "Furniture Rental Packages (Cort)",
         "Hotels": "Hotels",
         "FAQ": "FAQ",
-        "F-1 Student Frequently Asked Questions": "F-1 Student Frequently Asked Questions"
+        "F-1 Student Frequently Asked Questions": "F-1 Student Frequently Asked Questions",
+        "Math and Engineering Student Achievement Center":"Math and Engineering Student Achievement Center",
+        "Math and Engineering Center":"Math and Engineering Center",
+        "English Lab":"English Lab",
+        "Physics Lab": "Physics Lab",
+        "Disability Support Services Center":"Disability Support Services Center",
+        "Academic Support Center":"Academic Support Center",
+        "Locations with": "Locations with",
+        "No locations available": "No locations available",
+        
+
     
     },
     "spanish": {
@@ -148,7 +158,15 @@ const translation = {
         "Furniture Rental Packages (Cort)": "Paquetes de Alquiler de Muebles (Cort)",
         "Hotels": "Hoteles",
         "FAQ": "Preguntas Frecuentes",
-        "F-1 Student Frequently Asked Questions": "Preguntas Frecuentes de Estudiantes F-1"
+        "F-1 Student Frequently Asked Questions": "Preguntas Frecuentes de Estudiantes F-1",
+        "Math and Engineering Student Achievement Center": "Centro de Logros de Estudiantes de Matemáticas e Ingeniería",
+        "Math and Engineering Center": "Centro de Matemáticas e Ingeniería",
+        "English Lab": "Laboratorio de Inglés",
+        "Physics Lab": "Laboratorio de Física",
+        "Disability Support Services Center": "Centro de Servicios de Apoyo para Discapacitados",
+        "Academic Support Center": "Centro de Apoyo Académico",
+        "Locations with": "Lugares con",
+        "No locations available_es": "No hay lugares disponibles",
     },
     "korean": {
         // Due to the complexity and nuances of the Korean language, these translations might not be perfect.
@@ -224,7 +242,15 @@ const translation = {
         "Furniture Rental Packages (Cort)": "가구 렌탈 패키지 (Cort)",
         "Hotels": "호텔",
         "FAQ": "자주 묻는 질문",
-        "F-1 Student Frequently Asked Questions": "F-1 학생 자주 묻는 질문"
+        "F-1 Student Frequently Asked Questions": "F-1 학생 자주 묻는 질문",
+        "Math and Engineering Student Achievement Center": "수학 및 엔지니어링 학생 성취 센터",
+        "Math and Engineering Center": "수학 및 엔지니어링 센터",
+        "English Lab": "영어 연구실",
+        "Physics Lab": "물리학 연구실",
+        "Disability Support Services Center": "장애 지원 서비스 센터",
+        "Academic Support Center": "학술 지원 센터",
+        "Locations with": "위치",
+        "No locations available_ko": "사용 가능한 위치 없음"
     },
     "chinese": {
         // The translations will be in Simplified Chinese.
@@ -300,7 +326,15 @@ const translation = {
         "Furniture Rental Packages (Cort)": "家具租赁套餐 (Cort)",
         "Hotels": "酒店",
         "FAQ": "常见问题",
-        "F-1 Student Frequently Asked Questions": "F-1学生常见问题"
+        "F-1 Student Frequently Asked Questions": "F-1学生常见问题",
+        "Math and Engineering Student Achievement Center": "数学与工程学生成就中心",
+        "Math and Engineering Center": "数学与工程中心",
+        "English Lab": "英语实验室",
+        "Physics Lab": "物理实验室",
+        "Disability Support Services Center": "残疾人支持服务中心",
+        "Academic Support Center": "学术支持中心",
+        "Locations with": "带有的地点",
+        "No locations available_zh": "没有可用的地点",
     }
 }
 

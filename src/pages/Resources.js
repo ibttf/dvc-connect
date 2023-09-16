@@ -139,7 +139,7 @@ const Resources = (props) => {
       {Object.keys(sections).map(sectionName => (
         <div key={sectionName} className="mb-6">
           <h2 
-            className="flex justify-between text-lg font-semibold text-green-800 opacity-80 hover:opacity-100 duration-100 cursor-pointer mb-2" 
+            className="flex justify-between text-lg font-semibold text-gray-800 opacity-80 hover:opacity-100 duration-100 cursor-pointer mb-2" 
             onClick={() => toggleSection(sectionName)}>
             {props.t(sectionName)}
             <AiOutlineArrowDown className="duration-200" style={displayArrowDirection(sectionName)}/>

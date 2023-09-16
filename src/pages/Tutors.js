@@ -90,8 +90,11 @@ useEffect(() => {
               return false;
           });
 
-          // Set results
-          setResults(matchingDocs);
+           // Collect unique workLocations
+            const uniqueWorkLocations = Array.from(new Set(matchingDocs.map(doc => doc.data().workLocation)));
+
+            // Set results
+            setResults(uniqueWorkLocations);
           
 
       } catch (error) {
@@ -111,11 +114,12 @@ return(
   <div className="py-4 text-center text-xl">
 
     {/* RESULTS */}
-    <div class="w-full mx-auto p-4 bg-white rounded-4xl mainShadow  md:px-12">
+    <div class="w-full mx-auto p-4 bg-white rounded-4xl mainShadow  md:px-12"> 
 
     <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase font-semibold text-gray-800 leading-tight">
+    {props.t("Locations with")}
     <span className='font-extrabold text-green-25'> {props.t(subject)} </span>
-      {props.t("tutors")}
+    {props.t("tutors")}
     {props.t("who speak")}
     <span className='font-extrabold text-green-25'> {props.t(capitalizeFirstLetter(props.language))} </span>
     {props.t("on")}
@@ -123,43 +127,23 @@ return(
     {props.t("at")}
     <span className='font-extrabold text-green-25'> {formatHours(hours)} </span>
   </h1>
-   <div class="flow-root w-6/12 mx-auto">
+  <div class="flow-root w-6/12 mx-auto">
         <ul role="list" class="divide-y divide-gray-200">
-          {results.length>0 ? 
-          results.map((result) => {
-          const id = result.id;  // instead of result.id
-          const data = result.data();  // instead of result.data
-          return(
-            <li key={id} className="py-3 sm:py-4">
-                <div class="flex items-center space-x-4">
-                    <div class="flex-shrink-0">
-                      {data.img ? 
-                      <img class="w-8 h-8 rounded-full" src={data.img} alt="Tutor image" />
-                      :
-                      <AiOutlineUser size="24"/>
-                      }
-                        
-                    </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm text-gray-900 truncate ">
-                            {data.fName} {data.lName}
-                        </p>
-                        <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate cursor-pointer">
-                            {props.t(data.workLocation)}
-                        </a>
-                    </div>
-                    <div class="inline-flex items-center text-base font-semibold text-gray-900 ">
-                        
-                    </div>
+          {results.length > 0 ? results.map((workLocation, index) => (
+            <li key={index} className="py-3 sm:py-4">
+              <div class="flex items-center space-x-4">
+                <div class="flex-1 min-w-0">
+                  <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate cursor-pointer">
+                    {props.t(workLocation) ? props.t(workLocation) : workLocation}
+                  </a>
                 </div>
+              </div>
             </li>
-          )}
-        ): 
-        <h1 className="md:text-md text-xs text-green-800 font-semibold">{props.t("No tutors available")}</h1>
-        }
-
+          )) :
+            <h1 className="md:text-md text-xs text-green-800 font-semibold">{props.t("No locations available")}</h1>
+          }
         </ul>
-   </div>
+      </div>
 </div>
     <div className="space-y-4">
       <ul>
