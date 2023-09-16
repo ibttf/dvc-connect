@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
-import { AiOutlineUser } from 'react-icons/ai';
+import Loading from './Loading';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
 
@@ -10,6 +10,7 @@ const Tutors = (props) => {
   let { day, hours, subject, topic } = useParams();
 
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -100,11 +101,14 @@ useEffect(() => {
       } catch (error) {
           console.error('Error querying Firestore:', error);
       }
+      setLoading(false);
   };
 
   fetchData();
 }, []);
-
+if (loading) {
+  return <Loading />;
+}
 return(
 <div className="pb-24">
 
