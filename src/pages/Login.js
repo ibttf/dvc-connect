@@ -254,7 +254,7 @@ useEffect(() => {
     <div>
         <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-xl shadow-xl">
         
-        <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-gray-900 w-fit mx-auto md:px-4 px-2 capitalize border-b-4 border-indigo-500">
             {showLogin ? 
             "Log In":
             "Create an Account"}
@@ -309,7 +309,7 @@ useEffect(() => {
                 ))}
             </div>
             <div>
-                <button type="submit" className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isLoading? "Loading..." : "Sign in"}</button>
+                <button type="submit" className="flex w-full justify-center rounded-md bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-800 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{isLoading? "Loading..." : "Sign in"}</button>
             </div>
             </form>
             <p className="mt-10 text-center md:text-sm text-xs">

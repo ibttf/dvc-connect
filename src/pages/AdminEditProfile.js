@@ -134,11 +134,11 @@ function AdminEditProfile(props) {
                     return(
                         <li 
                             key={tutor.id} 
-                            className="p-3 bg-gray-50 border rounded-lg cursor-pointer hover:bg-green-25 hover:shadow-md focus:bg-green-25 focus:outline-none transition-all duration-200 flex items-center justify-between"
+                            className="p-3 bg-gray-50 border rounded-lg cursor-pointer hover:bg-indigo-300 hover:shadow-md focus:bg-indigo-400 focus:outline-none transition-all duration-200 flex items-center justify-between"
                             onClick={() => navigate(`/edit-tutor/${tutor.id}`)}
                         >
                             <div className="flex items-center space-x-3">
-                                <AiOutlineUser className="h-8 w-8 text-gray-100 p-1 bg-green-25 rounded-full"/> 
+                                <AiOutlineUser className="h-8 w-8 text-gray-100 p-1 bg-indigo-400 rounded-full"/> 
                                 <span className="text-gray-700 font-medium md:text-md text-xs">
                                     {tutor.fName} {tutor.lName}
                                 </span>
@@ -154,11 +154,11 @@ function AdminEditProfile(props) {
                 <button 
                     onClick={() => navigate('/create-tutor')} 
                     title="Add Tutor"
-                    className="peer mt-4 flex items-center justify-center w-12 h-12 bg-green-25 border-2 border-green-25 text-white rounded-full hover:bg-white hover:text-green-25 hover:border-green-25 focus:outline-none focus:ring focus:ring-green-200 transition-all duration-200"
+                    className="peer mt-4 flex items-center justify-center w-12 h-12 bg-indigo-400 border-2 border-indigo-400 text-white rounded-full hover:bg-white hover:text-indigo-400 hover:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-200 transition-all duration-200"
                 >
                     <AiOutlinePlus className="text-xl"/>
                 </button>
-                <div className="peer-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-2 px-2 py-1 text-xs text-white bg-green-25 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">Add Tutor</div>
+                <div className="peer-hover:block hidden absolute bottom-full left-1/2 transform -translate-x-1/2 translate-y-2 px-2 py-1 text-xs text-white bg-indigo-400 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200">Add Tutor</div>
                 
             </div>
         </div>

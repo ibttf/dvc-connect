@@ -131,7 +131,7 @@ const Resources = (props) => {
   return(
   <div className="md:w-8/12 w-11/12 lg:my-12 my-6 mx-auto shadow-xl rounded-xl bg-white">
   <div className="w-full flex justify-center mb-6 flex-col">
-    <h2 className="mx-auto w-fit md:text-xl xs:text-lg text-sm font-semibold text-gray-800 md:my-4 my-2 capitalize">
+    <h2 className="mx-auto w-fit md:text-xl text-lg font-semibold text-gray-800 md:my-4 my-2 md:px-4 px-2 capitalize border-b-4 border-indigo-500">
       {props.t("Resources")}
     </h2>
     <div className="p-5 w-9/12 mx-auto">
@@ -139,7 +139,7 @@ const Resources = (props) => {
       {Object.keys(sections).map(sectionName => (
         <div key={sectionName} className="mb-6">
           <h2 
-            className="flex justify-between text-lg font-semibold text-gray-800 opacity-80 hover:opacity-100 duration-100 cursor-pointer mb-2" 
+            className="flex justify-between md:text-lg text-md font-semibold text-gray-800 opacity-80 hover:opacity-100 duration-100 mb-2" 
             onClick={() => toggleSection(sectionName)}>
             {props.t(sectionName)}
             <AiOutlineArrowDown className="duration-200" style={displayArrowDirection(sectionName)}/>
