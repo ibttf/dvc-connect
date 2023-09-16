@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {db, auth} from '../config/firebase'
 import { onAuthStateChanged } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc, updateDoc, arrayUnion, getDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc, arrayUnion, getDoc, addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 
@@ -11,16 +10,12 @@ function AdminCreateTutor(props) {
   const [fName,setFName]=useState("")
   const [lName,setLName]=useState("")
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const [isSubmitLoading,setIsSubmitLoading]=useState(false);
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
   const[subjectsTaught,setSubjectsTaught]=useState([])
 
-  const [passwordError, setPasswordError] = useState(true);
   const [emailError, setEmailError] = useState(false);
-  const [passwordConfirmError, setPasswordConfirmError] = useState(true);
 
 
     // Checking the email format
@@ -32,24 +27,7 @@ function AdminCreateTutor(props) {
         }
     }, [email]);
 
-    // Password validation
-    useEffect(() => {
-        const hasUpperCase = /[A-Z]/.test(password);
-        if (password.length >= 6 && hasUpperCase) {
-            setPasswordError(false);
-        } else {
-            setPasswordError(true);
-        }
-    }, [password]);
 
-    // Password confirmation
-    useEffect(() => {
-        if (passwordConfirmation !== password) {
-            setPasswordConfirmError(true);
-        } else {
-            setPasswordConfirmError(false);
-        }
-    }, [password, passwordConfirmation]);
 
 
 
@@ -114,19 +92,9 @@ function AdminCreateTutor(props) {
         e.preventDefault();
         setIsSubmitLoading(true);
     
-        if (password !== passwordConfirmation) {
-            setErrors(["Password does not match"]);
-            setIsSubmitLoading(false);
-            return;
-        }
-    
         try {
-            // Create user with email and password
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const user = userCredential.user;   
-    
-            // Store additional data in Firestore for the tutor
-            await setDoc(doc(db, 'users', user.uid), {
+            // Add a new document to the 'users' collection and let Firestore auto-generate the ID
+            const userDocRef = await addDoc(collection(db, 'users'), {
                 email: email,
                 fName: fName,
                 lName: lName,
@@ -136,21 +104,24 @@ function AdminCreateTutor(props) {
                 subjectsTaught: subjectsTaught,
             });
     
+            // Get the generated ID
+            const userId = userDocRef.id;
+    
             // Update the admin's list of tutor IDs
-            const adminRef = doc(db, 'admins', props.adminUID); 
+            const adminRef = doc(db, 'admins', props.adminUID);
     
             // Get the current tutorIds from the admin document
             const adminDoc = await getDoc(adminRef);
             let currentTutorIds = adminDoc.data().tutorIds || [];
     
-            if (!currentTutorIds.includes(user.uid)) {
-                currentTutorIds.push(user.uid);
+            if (!currentTutorIds.includes(userId)) {
+                currentTutorIds.push(userId);
                 await updateDoc(adminRef, { tutorIds: currentTutorIds });
             }
     
             // Fetch and log the updated document for verification
             const updatedAdminDoc = await getDoc(adminRef);
-            console.log("Updated admin doc:", updatedAdminDoc.data());
+            navigate("/")
     
         } catch (err) {
             console.error("Error during signup:", err);
@@ -158,8 +129,8 @@ function AdminCreateTutor(props) {
             setIsSubmitLoading(false);
         }
     }
-
-
+    
+    
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -240,44 +211,6 @@ function AdminCreateTutor(props) {
                 {email.length > 0 && emailError && <div className="text-red-600 mt-2">Email does not end in @4cd.insite.edu</div>}
             </div>
 
-            {/* Password Input */}
-            <div>
-                <div className={`h-12 pointer-events-none mt-2 text-md leading-6 ${password.length > 0 && passwordError ? "border-red-500" : "border-gray-500"}`}>
-                    <input 
-                        className={`peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 ${password.length > 0 ? (passwordError ? "border-red-500" : "border-gray-900") : "border-gray-500"} focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6`}
-                        onChange={(e) => setPassword(e.target.value)} 
-                        id="password" 
-                        name="password" 
-                        type="password" 
-                        autoComplete="password" 
-                        required 
-                    /> 
-                    <label htmlFor="password" className={`block text-gray-700 relative ${password.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Password</label> 
-                </div>
-                {password.length > 0 && passwordError && (
-                    <ul className="text-red-600 mt-2">
-                        <li>{password.length >= 6 ? "✓" : "✗"} At least 6 characters long</li>
-                        <li>{/[A-Z]/.test(password) ? "✓" : "✗"} Contains at least one uppercase letter</li>
-                    </ul>
-                )}
-            </div>
-
-            {/* Password Confirmation Input */}
-            <div>
-                <div className={`h-12 pointer-events-none mt-2 text-md leading-6 ${passwordConfirmation.length > 0 && passwordConfirmError ? "border-red-500" : "border-gray-500"}`}>
-                    <input 
-                        className={`peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 ${passwordConfirmError ? "border-red-500" : "border-gray-500"} focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6`}
-                        onChange={(e) => setPasswordConfirmation(e.target.value)} 
-                        id="passwordConfirmation" 
-                        name="passwordConfirmation" 
-                        type="password" 
-                        autoComplete="passwordConfirmation" 
-                        required 
-                    /> 
-                    <label htmlFor="passwordConfirmation" className={`block text-gray-700 relative ${passwordConfirmation.length > 0 ? "-top-14 text-xs" : "peer-focus:-top-14 peer-focus:text-xs -top-7"} duration-300`}>Confirm Password</label>
-                </div>
-                {passwordConfirmation.length > 0 && passwordConfirmError && <div className="text-red-600 mt-2">Passwords do not match</div>}
-            </div>
 
             <div className="flex w-full justify-center items-center flex-wrap">
                 {errors.map((err, index) => (

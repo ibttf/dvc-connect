@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { getFirestore, updateDoc, doc, getDoc, deleteDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../config/firebase";
-import { signOut } from "firebase/auth";
 
 function AdminEditTutor(props) {
     const { tid }=useParams();

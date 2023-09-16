@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { getFirestore, updateDoc, doc, getDoc, deleteDoc, arrayRemove } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../config/firebase";
-import { signOut, updateEmail  } from "firebase/auth";
 import {AiOutlineUser, AiOutlineDelete, AiOutlinePlus} from "react-icons/ai"
 function AdminEditProfile(props) {
 

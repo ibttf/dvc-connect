@@ -75,7 +75,7 @@ const Navbar = (props) => {
                             </div>
                         </button>
                                 :
-                            <a href="/tutor-login" className="ml-4 block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
+                            <a href="/login" className="ml-4 block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
                                         <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
                                             <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
                                         </div>
@@ -106,7 +106,7 @@ const Navbar = (props) => {
                                 </button>
                             </li> :
                             <li>
-                                <a href="/tutor-login" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                <a href="/login" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
                                 <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
                                     <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
                                 </div>
