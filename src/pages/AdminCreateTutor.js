@@ -173,7 +173,7 @@ function AdminCreateTutor(props) {
     }, []);
     return (
         <div>
-        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-4xl mainShadow">
+        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-xl shadow-xl">
             <h3 className="text-gray-400 md:text-xs text-xxs hover:text-gray-800 cursor-pointer md:pl-4 pl-6" onClick={()=>navigate("/")}>
                 &lt; Back to Tutors
             </h3>

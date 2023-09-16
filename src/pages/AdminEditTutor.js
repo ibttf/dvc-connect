@@ -124,7 +124,7 @@ function AdminEditTutor(props) {
 
   return(
    
-    <div className="bg-white shadow-3xl mb-12 md:mt-5 mt-2 md:p-8 p-3 rounded-4xl lg:w-6/12 md:7/12 w-10/12 mx-auto ">
+    <div className="bg-white shadow-3xl mb-12 md:mt-5 mt-2 md:p-8 p-3 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto ">
         <h3 className="text-gray-400 md:text-xs text-xxs hover:text-gray-800 cursor-pointer md:pl-4 pl-6" onClick={()=>navigate("/")}>
             &lt; Back to Tutors
         </h3>
@@ -152,7 +152,7 @@ function AdminEditTutor(props) {
 
 
                     <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">I teach: </h1>
+                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">They teach: </h1>
                         <div className="flex flex-wrap md:col-span-3 col-span-5 items-center md:text-md text-xxs">
                             {["Math", "English", "Science"].map(subject => (
                                 <label key={subject} className="inline-flex items-center m-1 ">
@@ -177,7 +177,7 @@ function AdminEditTutor(props) {
 
 
             <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">I can speak: </h1>
+                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">They can speak: </h1>
                         <div className="flex flex-wrap md:col-span-3 col-span-5 items-center md:text-md text-xxs">
                             {["Chinese", "Korean", "Spanish"].map(language => (
                                 <label key={language} className="inline-flex items-center m-1 ">

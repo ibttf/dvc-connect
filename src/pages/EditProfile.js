@@ -164,7 +164,7 @@ function EditProfile(props) {
 
   return(
    
-    <div className="bg-white shadow-3xl mb-12 md:mt-5 mt-2 md:p-8 p-3 rounded-4xl lg:w-6/12 md:7/12 w-10/12 mx-auto ">
+    <div className="bg-white shadow-3xl mb-12 md:mt-5 mt-2 md:p-8 p-3 rounded-xl lg:w-6/12 md:7/12 w-10/12 mx-auto ">
         <h1 className="font-bold text-center md:text-xl xs:text-lg text-sm uppercased mb-4 text-gray-900">
             Hi, {fName} {lName}
         </h1>

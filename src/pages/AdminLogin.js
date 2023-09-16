@@ -47,7 +47,7 @@ function AdminLogin(props) {
  
   return(
     <div>
-        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-4xl mainShadow">
+        <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-xl shadow-xl">
         
         <h2 className="text-center md:text-2xl text-md font-bold leading-9 tracking-tight text-gray-900">
             Admin Log in

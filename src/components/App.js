@@ -16,9 +16,10 @@ import Resources from '../pages/Resources';
 import translation from '../translations';
 import EditProfile from "../pages/EditProfile";
 import AdminEditProfile from "../pages/AdminEditProfile";
-import Typewriter from "./Typewriter"
+import Loading from "../pages/Loading"
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   const [userHasMatchingDoc, setUserHasMatchingDoc] = useState(false);
   const [adminHasMatchingDoc, setAdminHasMatchingDoc] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
@@ -49,14 +50,25 @@ const App = () => {
         setUserHasMatchingDoc(false);
         setAdminHasMatchingDoc(false);
       }
+      setLoading(false);
     });
+    
 
     return () => unsubscribe();
   }, []);
 
+
+  if (loading) {
+    return (
+      <div className="fixed min-h-screen flex items-center justify-center w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+        <Loading />
+      </div>
+    );
+  }
+
   if (adminHasMatchingDoc) {
     return (
-      <div className="h-full w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+      <div className="min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
         <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage} t={t} />
         <Routes>
           <Route path="/create-tutor" element={<AdminCreateTutor location={location} adminUID={userId} />} />
@@ -69,7 +81,7 @@ const App = () => {
     );
   } else if (userHasMatchingDoc) {
     return (
-      <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+      <div className="fixed min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
         <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage} t={t} />
         <Routes>
           <Route path="/admin-login" element={<AdminLogin />} />
@@ -82,7 +94,7 @@ const App = () => {
   }
 
   return (
-    <div className="fixed h-screen w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+    <div className="fixed min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
         <Navbar language={language} setLanguage={setLanguage} t={t} />
         <Routes>
           <Route path="/admin-login" element={<AdminLogin />} />
