@@ -112,6 +112,11 @@ function AdminLogin(props) {
         </div>
         
         }
+        <div className="w-full text-center">
+            <h3 onClick={()=>navigate("/tutor-login")}className="cursor-pointer text-sm text-gray-400 hover:text-gray-800 w-fit mx-auto">
+                Back to Tutor Login
+            </h3>
+        </div>
     </div>
 </div>
   )

@@ -8,7 +8,6 @@ import logo from "../styles/dvc.png"
 import { auth } from '../config/firebase';
 
 const Navbar = (props) => {
-    const [currentUser,setCurrentUser]=useState(null)
     const [isLanguageDropdownVisible,setIsLanguageDropdownVisible]=useState(false);
     const [isMobileDropdownVisible,setIsMobileDropdownVisible]=useState(false);
     useEffect(() => {
@@ -23,21 +22,8 @@ const Navbar = (props) => {
         // Set initial state based on window size
         handleResize();
       
-        // Add event listener
-        window.addEventListener('resize', handleResize);
-      
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-          if (user) {
-            setCurrentUser(user);
-          } else {
-            setCurrentUser(null);
-          }
-        });
-      
-        // Cleanup event listener and subscription on unmount
         return () => {
           window.removeEventListener('resize', handleResize);
-          unsubscribe();
         };
       
       }, []);
@@ -185,7 +171,7 @@ const Navbar = (props) => {
             </a>
             </li>
 
-            {currentUser ? 
+            {props.currentUser ? 
                 <li>
                     <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                         Logout
@@ -224,7 +210,7 @@ const Navbar = (props) => {
                     Resources
                 </a>
                 </li>
-                {currentUser ? 
+                {props.currentUser ? 
                     <li>
                         <button onClick={()=>{signOut(auth); localStorage.clear()}} className="block py-2 pl-3 pr-4 text-green-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-green-900 md:p-0">
                             Logout

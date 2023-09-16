@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "../styles/globals.css"
-import { doc, getDoc } from "firebase/firestore";
-import { auth, db } from "../config/firebase";  // Assuming you've set up Firestore in firebase.js
-import EditProfile from "./EditProfile"
-import AdminEditProfile from "./AdminEditProfile"
+
 import { AiOutlineSearch } from 'react-icons/ai';
 
 
@@ -16,8 +13,6 @@ const Home = (props) => {
   const [isSubjectDropdownVisible, setIsSubjectDropdownVisible]=useState(false);
   const [selectedSubject, setSelectedSubject]=useState("Math");
   const [selectedTopic, setSelectedTopic]=useState("Any");
-  const [userHasMatchingDoc, setUserHasMatchingDoc] = useState(false);
-  const [adminHasMatchingDoc,setAdminHasMatchingDoc]=useState(false);
 
 
 
@@ -28,54 +23,6 @@ const Home = (props) => {
   }
 
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        // Check if a document exists for this user
-        const userDocRef = doc(db, 'users', user.uid);
-        const adminDocRef=doc(db, 'admins', user.uid);
-        const adminDocSnapshot=await getDoc(adminDocRef)
-        const docSnapshot = await getDoc(userDocRef);
-        if (docSnapshot.exists()) {
-  
-          setUserHasMatchingDoc(true);
-        } else {
-          setUserHasMatchingDoc(false);
-        }
-        if (adminDocSnapshot.exists()) {
-  
-          setAdminHasMatchingDoc(true);
-        } else {
-          setAdminHasMatchingDoc(false);
-        }
-
-      } 
-      else {
-        setUserHasMatchingDoc(false);
-        setAdminHasMatchingDoc(false);
-      }
-
-      
-    });
-  
-    return () => unsubscribe();  // Cleanup subscription on unmount
-  }, []);
-
-
-
-  if (userHasMatchingDoc){
-    return(
-      <div>
-        <EditProfile />
-      </div>
-    )
-  }else if (adminHasMatchingDoc){
-    return(
-      <div>
-        <AdminEditProfile />
-      </div>
-    )
-  }
   return(
     <div className="lg:pb-24  lg:my-12 pb-12 my-6"     
     style={{
@@ -183,11 +130,6 @@ const Home = (props) => {
           </div>
 
 
-
-
-
-
-
             <div className="grid grid-cols-4 items-center bg-white lg:py-0 px-8">
               <h1 className="md:text-md text-sm uppercase font-semibold text-right col-span-1 flex w-full">
               {props.t("Subject")}:
@@ -228,12 +170,8 @@ const Home = (props) => {
           </div>
 
 
-
-
-
-
           </div>
-          <div className="w-9/12 text-center md:mt-12 mt-6 mx-auto">
+          <div className="w-9/12 text-center mt-6 mx-auto">
             <Link to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} className="search-btn shadow-lg grid grid-cols-8 items-center mx-auto text-lg font-semibold md:py-2 md:px-4 py-2 px-12 border-2 rounded-full  bg-gray-950 text-white hover:bg-gray-800 duration-100">
               <AiOutlineSearch className="md:w-5 md:h-5 w-4 h-4 col-span-1"/><h2 className="text-center w-full col-span-7 md:text-md text-sm"> Search</h2>
             </Link>
