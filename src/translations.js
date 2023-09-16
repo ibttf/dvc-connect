@@ -82,6 +82,7 @@ const translation = {
         "Locations with": "Locations with",
         "No locations available": "No locations available",
         "Find a Tutor Today": "Find a Tutor Today",
+        "English":"English"
 
     
     },
@@ -168,9 +169,9 @@ const translation = {
         "Locations with": "Lugares con",
         "No locations available_es": "No hay lugares disponibles",
         "Find a Tutor Today": "Encuentra un tutor hoy",
+        "Spanish":"Español",
     },
     "korean": {
-        // Due to the complexity and nuances of the Korean language, these translations might not be perfect.
         "Home": "홈",
         "About": "소개",
         "TutorZone": "튜터존",
@@ -253,6 +254,7 @@ const translation = {
         "Locations with": "위치",
         "No locations available": "사용 가능한 위치 없음",
         "Find a Tutor Today": "오늘 튜터를 찾아보세요",
+        "Korean":"한국",
     },
     "chinese": {
         // The translations will be in Simplified Chinese.
@@ -338,6 +340,7 @@ const translation = {
         "Locations with": "带有的地点",
         "No locations available": "没有可用的地点",
         "Find a Tutor Today":  "今天找个家教",
+        "Chinese":"中文 (繁體)"
     }
 }
 
