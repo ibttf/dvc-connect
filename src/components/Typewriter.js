@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from "react"
+
 
 const Typewriter = ({ data, pausePeriod = 200 }) => {
   const [txt, setTxt] = useState('');
@@ -6,6 +7,7 @@ const Typewriter = ({ data, pausePeriod = 200 }) => {
   const loopNumRef = useRef(0);
   const charIndexRef = useRef(0);
   const isDeletingRef = useRef(false);
+  const timeoutRef = useRef(null);
 
   useEffect(() => {
     const tick = () => {
@@ -32,15 +34,15 @@ const Typewriter = ({ data, pausePeriod = 200 }) => {
         }
       }
 
-      setTimeout(tick, delta);
+      timeoutRef.current = setTimeout(tick, delta);
     };
 
     tick();
 
-    // Clean-up function to clear timeout if component is unmounted.
+    // Clean-up function to clear timeout if component is unmounted or rerenders.
     return () => {
-      if (tick) {
-        clearTimeout(tick);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
   }, [data, pausePeriod]);

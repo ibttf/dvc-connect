@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../config/firebase';
 import { useParams } from 'react-router-dom';
 import Loading from './Loading';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-
+import { collection,  getDocs, query, where } from 'firebase/firestore';
+import {AiTwotoneHome} from "react-icons/ai"
 
 const Tutors = (props) => {
   // Extract route parameters using useParams
@@ -113,9 +113,9 @@ return(
   <div className="pb-24">
     <div className="lg:w-8/12 w-11/12 mx-auto my-10">
       <div className="text-center text-xl space-y-6">
-        <h1 className="text-2xl font-medium text-gray-800">
+        <h1 className="md:text-2xl text-lg font-medium text-gray-800">
           {props.t("Locations with")} 
-          <span className="font-semibold text-gray-900"> {props.t(subject)} </span>
+          <span className="font-semibold t``ext-gray-900"> {props.t(subject)} </span>
           {props.t("tutors")} {props.t("who speak")}
           <span className="font-semibold text-gray-900"> {props.t(capitalizeFirstLetter(props.language))} </span>
           {props.t("on")} 
@@ -129,9 +129,8 @@ return(
             {results.length > 0 ? results.map((workLocation, index) => (
               <li key={index} className="flex items-center py-3 px-6">
    
-                <svg className="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 21a1 1 0 001 1h16a1 1 0 001-1v-8a1 1 0 00-1-1h-4V7a4 4 0 00-8 0v5H4a1 1 0 00-1 1v8z"></path></svg>
-                
-                <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" rel="noopener noreferrer" className="flex-grow text-lg text-gray-700 hover:text-indigo-600">
+                <AiTwotoneHome className="w-5 h-5" />
+                <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" rel="noopener noreferrer" className="mx-auto md:text-lg text-md text-gray-700 hover:text-indigo-600">
                   {props.t(workLocation) ? props.t(workLocation) : workLocation}
                 </a>
               </li>

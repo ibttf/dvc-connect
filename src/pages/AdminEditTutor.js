@@ -137,21 +137,21 @@ function AdminEditTutor(props) {
         </h2>
         <form className="space-y-6">
             <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
-                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">First Name: </h1>
+                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-indigo-800">First Name: </h1>
                 <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={fName} onChange={(e)=>setFName(e.target.value)}></input>
             </div>
             <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
-                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">Last Name: </h1>
+                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-indigo-800">Last Name: </h1>
                 <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={lName} onChange={(e)=>setLName(e.target.value)}></input>
             </div>
             <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
-                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">Email: </h1>
+                <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-indigo-800">Email: </h1>
                 <input className="border rounded mt-2 p-2 w-full md:col-span-3 col-span-5 md:text-md text-xxs" type="text" value={email} onChange={(e)=>setEmail(e.target.value)}></input>
             </div>
 
 
                     <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">They teach: </h1>
+                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-indigo-800">They teach: </h1>
                         <div className="flex flex-wrap md:col-span-3 col-span-5 items-center md:text-md text-xxs">
                             {["Math", "English", "Science"].map(subject => (
                                 <label key={subject} className="inline-flex items-center m-1 ">
@@ -163,7 +163,7 @@ function AdminEditTutor(props) {
                                         onChange={handleSubjectsTaughtChange}
                                     />
                                     <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
-                                        ${subjectsTaught.includes(subject) ? 'bg-green-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
+                                        ${subjectsTaught.includes(subject) ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
                                     `}>
                                         {subject}
                                     </span>
@@ -176,7 +176,7 @@ function AdminEditTutor(props) {
 
 
             <div className="grid md:grid-cols-4 grid-cols-6 grid-rows-1 items-center gap-4 w-full">
-                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-green-800">They can speak: </h1>
+                        <h1 className="lg:text-lg md:text-md text-xxs col-span-1 font-semibold text-indigo-800">They can speak: </h1>
                         <div className="flex flex-wrap md:col-span-3 col-span-5 items-center md:text-md text-xxs">
                             {["Chinese", "Korean", "Spanish"].map(language => (
                                 <label key={language} className="inline-flex items-center m-1 ">
@@ -188,7 +188,7 @@ function AdminEditTutor(props) {
                                         onChange={handleLanguageChange}
                                     />
                                     <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
-                                        ${languagesSpoken.includes(language) ? 'bg-green-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
+                                        ${languagesSpoken.includes(language) ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
                                     `}>
                                         {language}
                                     </span>
@@ -198,7 +198,7 @@ function AdminEditTutor(props) {
                     </div>
 
                     <div className="grid md:grid-cols-4 grid-cols-6 items-center gap-4 w-full">
-                        <h1 className="col-span-1 font-semibold text-green-800 lg:text-lg md:text-md text-xxs">Hours Available: </h1>
+                        <h1 className="col-span-1 font-semibold text-indigo-800 lg:text-lg md:text-md text-xxs">Hours Available: </h1>
                         <div className="grid grid-cols-5 gap-4 mt-4 md:md:col-span-3 col-span-5 lg:text-md text-xs" onMouseUp={handleMouseUp}>
                             <div></div>
                             {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
@@ -220,7 +220,7 @@ function AdminEditTutor(props) {
                                         {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
                                             <div 
                                                 key={day} 
-                                                className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${selectedCells[`${day}-${timeLabel}`] ? 'bg-green-400' : 'bg-white hover:bg-gray-100'}`}
+                                                className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${selectedCells[`${day}-${timeLabel}`] ? 'bg-indigo-400' : 'bg-white hover:bg-gray-100'}`}
                                                 onMouseDown={() => handleMouseDown(timeLabel, day)}
                                                 onMouseEnter={() => handleMouseEnter(timeLabel, day)}
                                             ></div>
@@ -235,7 +235,7 @@ function AdminEditTutor(props) {
 
 
             <div className="w-full grid md:gap-0 ">
-                <button type="button" onClick={handleEditProfile} className="md:text-md text-xxs flex md:w-10/12 w-10/12 mx-auto justify-center rounded-lg bg-green-600 md:px-3 md:py-2 font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">
+                <button type="button" onClick={handleEditProfile} className="md:text-md text-xxs flex md:w-10/12 w-10/12 mx-auto justify-center rounded-lg bg-indigo-600 md:px-3 md:py-2 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-700 duration-200">
                     {isLoading ? "Loading" : "Submit Changes"}
                     </button>
             </div>
