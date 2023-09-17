@@ -80,7 +80,7 @@ const Navbar = (props) => {
                             
                             <div className="flex items-center">
                                 <a href="/" className="flex items-center mr-6">
-                                    <img src={logo} className="h-8 md:mr-3 mr-1" alt="DVC Logo" />
+                                    <img src={logo} className="md:h-8 h-6 md:mr-3 mr-1" alt="DVC Logo" />
                                     <span className="text-green-800 self-center text-2xl font-semibold whitespace-nowrap ">Connect</span>
                                 </a>
                                 <ul className="hidden md:flex flex-col md:flex-row md:space-x-8">
@@ -101,7 +101,7 @@ const Navbar = (props) => {
                         <button
                             type="button"
                             data-dropdown-toggle="language-dropdown-menu"
-                            className={`border shadow-md hover:scale-105 transition-all ease-in duration-100 z-50 inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
+                            className={` z-50 inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
                         >
                             {displayLanguage(props.language)} 
                             <IoMdArrowDropdown className={`w-5 h-5 ${isLanguageDropdownVisible ? "rotate-180" : ""} duration-200`}/>
