@@ -110,53 +110,39 @@ if (loading) {
   return <Loading />;
 }
 return(
-<div className="pb-24">
-
-
-<div className="lg:w-8/12 w-11/12 mx-auto my-6 ">
-
-  <div className="py-4 text-center text-xl">
-
-    {/* RESULTS */}
-    <div class="w-full mx-auto p-4 bg-white rounded-xl shadow-xl  md:px-12"> 
-
-    <h1 className="mx-auto md:w-fit w-11/12 md:text-lg xs:text-lg xs:text-sm text-xs uppercase text-gray-800 leading-relaxed tracking-tight font-sans">
-      {props.t("Locations with")}
-      <span className='font-semibold text-indigo-600'> {props.t(subject)} </span>
-      {props.t("tutors")}
-      {props.t("who speak")}
-      <span className='font-semibold text-indigo-600'> {props.t(capitalizeFirstLetter(props.language))} </span>
-      {props.t("on")}
-      <span className='font-semibold text-indigo-600'> {props.t(capitalizeFirstLetter(day))} </span>
-      {props.t("at")}
-      <span className='font-semibold text-indigo-600'> {formatHours(hours)} </span>
-  </h1>
-  <div class="flow-root w-6/12 mx-auto">
-        <ul role="list" class="divide-y divide-gray-200">
-          {results.length > 0 ? results.map((workLocation, index) => (
-            <li key={index} className="py-3 sm:py-4">
-              <div class="flex items-center space-x-4">
-                <div class="flex-1 min-w-0">
-                  <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" class="text-sm text-gray-500 truncate cursor-pointer">
-                    {props.t(workLocation) ? props.t(workLocation) : workLocation}
-                  </a>
-                </div>
-              </div>
-            </li>
-          )) :
-            <h1 className="md:text-md text-xs text-indigo-800 font-semibold my-4">{props.t("No locations available")}</h1>
-          }
-        </ul>
+  <div className="pb-24">
+    <div className="lg:w-8/12 w-11/12 mx-auto my-10">
+      <div className="text-center text-xl space-y-6">
+        <h1 className="text-2xl font-medium text-gray-800">
+          {props.t("Locations with")} 
+          <span className="font-semibold text-gray-900"> {props.t(subject)} </span>
+          {props.t("tutors")} {props.t("who speak")}
+          <span className="font-semibold text-gray-900"> {props.t(capitalizeFirstLetter(props.language))} </span>
+          {props.t("on")} 
+          <span className="font-semibold text-gray-900"> {props.t(capitalizeFirstLetter(day))} </span>
+          {props.t("at")} 
+          <span className="font-semibold text-gray-900"> {formatHours(hours)} </span>
+        </h1>
+        
+        <div className="mt-4 bg-white rounded-lg shadow-md">
+          <ul role="list" className="divide-y divide-gray-200 md:w-6/12 mx-auto">
+            {results.length > 0 ? results.map((workLocation, index) => (
+              <li key={index} className="flex items-center py-3 px-6">
+   
+                <svg className="w-5 h-5 mr-3 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 21a1 1 0 001 1h16a1 1 0 001-1v-8a1 1 0 00-1-1h-4V7a4 4 0 00-8 0v5H4a1 1 0 00-1 1v8z"></path></svg>
+                
+                <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" rel="noopener noreferrer" className="flex-grow text-lg text-gray-700 hover:text-indigo-600">
+                  {props.t(workLocation) ? props.t(workLocation) : workLocation}
+                </a>
+              </li>
+            )) :
+              <li className="text-lg text-gray-700 text-center py-3">{props.t("No locations available")}</li>
+            }
+          </ul>
+        </div>
       </div>
-</div>
-    <div className="space-y-4">
-      <ul>
-
-      </ul>
     </div>
   </div>
-</div>
-</div>
 
 )
 }

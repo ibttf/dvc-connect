@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, updateDoc, doc, getDoc, deleteDoc, arrayRemove } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { getAuth, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from 'firebase/auth';
 import { db, auth } from "../config/firebase";
 import {AiOutlineUser, AiOutlineDelete, AiOutlinePlus} from "react-icons/ai"
 function AdminEditProfile(props) {
@@ -10,7 +11,46 @@ function AdminEditProfile(props) {
     const [tutorsData, setTutorsData] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedTutorId, setSelectedTutorId] = useState(null);
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
+
+    const handleUpdatePassword = async (e) => {
+        e.preventDefault();
+
+        if (newPassword !== passwordConfirmation) {
+            alert("New password and password confirmation do not match!");
+            return;
+        }
+
+        const auth = getAuth();
+        const user = auth.currentUser;
+        console.log(currentPassword,newPassword,passwordConfirmation)
+        if (user && user.email) {
+            const credential = EmailAuthProvider.credential(
+                user.email,
+                currentPassword // Current Password
+            );
+
+            try {
+                // Re-authenticate user
+                await reauthenticateWithCredential(user, credential);
+
+                // Update the password
+                await updatePassword(user, newPassword);
+
+                alert('Password updated successfully');
+                setCurrentPassword('');
+                setNewPassword('');
+                setPasswordConfirmation('');
+            } catch (error) {
+                alert('Error updating password: ' + error.message);
+            }
+        } else {
+            alert('Error: Unable to fetch user details or user email.');
+        }
+    }
 
 
 
@@ -40,7 +80,6 @@ function AdminEditProfile(props) {
         }
     }
     
-    
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async (user) => {
@@ -50,6 +89,7 @@ function AdminEditProfile(props) {
                 const userDocSnapshot = await getDoc(userDocRef);
     
                 if (userDocSnapshot.exists()) {
+                    setLocation(userDocSnapshot.data().location)
                     const fetchedTutorIds = await userDocSnapshot.data().tutorIds;
                     const fetchedTutorsData = [];
                     if (fetchedTutorIds && Array.isArray(fetchedTutorIds)) {
@@ -58,6 +98,7 @@ function AdminEditProfile(props) {
                             const tutorSnapshot = await getDoc(tutorDocRef);
                             if (tutorSnapshot.exists()) {
                                 fetchedTutorsData.push({ ...tutorSnapshot.data(), id });
+                                
                             }
                         }
                     }
@@ -75,37 +116,6 @@ function AdminEditProfile(props) {
         return () => unsubscribe();
     }, []);
     
-    
-    
-    
-    
-
-
-    //get info based on use effect and use that to display what we currently have
-
-    useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(async (user) => {
-            if (user) {
-                const db = getFirestore();
-                const uid = user.uid;  // Get UID from auth token
-                const userDocRef = doc(db, 'admins', uid);
-                const userSnapshot = await getDoc(userDocRef);
-
-                if (userSnapshot.exists()) {
-                    setLocation(userSnapshot.data().location)
-                } else {
-                    console.log("No such user!");
-                }
-            } else {
-                console.log("No user is signed in");
-            }
-        });
-
-
-
-    // Cleanup the listener on component unmount
-    return () => unsubscribe();
-}, []);
 
 
 
@@ -118,6 +128,42 @@ function AdminEditProfile(props) {
         <form className="space-y-6">
 
 
+        <div className="flex items-center justify-center bg-gray-100 border rounded-xl">
+            <div className="p-6 space-y-4 bg-white shadow-md rounded-lg w-full">
+                <h1 className="flex flex-col items-center justify-center font-semibold text-center md:text-lg text-sm uppercase mb-4 text-gray-700 border-b pb-2">
+                    Update Password
+                </h1>
+                <form onSubmit={(e)=>handleUpdatePassword(e)} className="space-y-4">
+                    <input
+                        type="password"
+                        placeholder="Current Password"
+                        value={currentPassword}
+                        onChange={e => setCurrentPassword(e.target.value)}
+                        className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-200 focus:outline-none"
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="New Password"
+                        value={newPassword}
+                        onChange={e => setNewPassword(e.target.value)}
+                        className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-200 focus:outline-none"
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Confirm New Password"
+                        value={passwordConfirmation}
+                        onChange={e => setPasswordConfirmation(e.target.value)}
+                        className="w-full px-3 py-2 border rounded-md focus:ring focus:ring-indigo-200 focus:outline-none"
+                        required
+                    />
+                    <button type="button" onClick={e=>handleUpdatePassword(e)}  className="w-full px-3 py-2 bg-indigo-400 text-white rounded-md hover:bg-indigo-500">
+                        Update
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <div className="bg-white rounded-lg shadow-lg border p-4">
             <h2 className="flex flex-col items-center justify-center font-semibold text-center md:text-lg text-sm uppercase mb-4 text-gray-700 border-b pb-2">

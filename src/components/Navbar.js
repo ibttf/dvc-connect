@@ -6,7 +6,7 @@ import us from "../styles/us.png";
 import mexico from "../styles/mexico.png";
 import logo from "../styles/dvc.png";
 import { auth } from '../config/firebase';
-import {AiOutlineUser} from "react-icons/ai"
+import {AiOutlineUser,AiOutlineHome,AiOutlineBook} from "react-icons/ai"
 import {FaBars} from "react-icons/fa"
 import {RxExit} from "react-icons/rx"
 
@@ -20,9 +20,11 @@ const Navbar = (props) => {
                 setIsMobileDropdownVisible(false);
             }
         };
-
-        handleResize();
-
+    
+        // Attach the resize event listener to the window.
+        window.addEventListener('resize', handleResize);
+    
+        // Detach the resize event listener when the component unmounts.
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -47,17 +49,17 @@ const Navbar = (props) => {
                                 </li>
                             </ul>
                         </div>
-                        <div className="hidden md:flex items-center">
+                        <div className="flex items-center">
                             <div onClick={(e) => { e.stopPropagation(); setIsLanguageDropdownVisible(!isLanguageDropdownVisible) }}>
                                 <button
                                     type="button"
                                     data-dropdown-toggle="language-dropdown-menu"
-                                    className="inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 md:text-sm text-xs text-gray-950  rounded-lg cursor-pointer hover:bg-gray-100"
+                                    className="inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950  rounded-lg cursor-pointer hover:bg-gray-100"
                                 >
                                     {displayLanguage(props.language)}
                                 </button>
                                 <div
-                                    className={`z-50 ${isLanguageDropdownVisible ? "absolute top-12" : "hidden"} my-4 md:text-base text-sm list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}
+                                    className={`z-50 ${isLanguageDropdownVisible ? "absolute top-12" : "hidden"} my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow`}
                                     id="language-dropdown-menu"
                                 >
                                     <ul className="py-2 font-medium" role="none">
@@ -69,53 +71,68 @@ const Navbar = (props) => {
                                 </div>
                             </div>
                             {props.currentUser ?
-                        <button onClick={() => { signOut(auth); localStorage.clear() }} className="ml-4 block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">
-                            <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
-                                <RxExit style={{ fontSize: '24px', color: '#FF0000' }} />
-                            </div>
-                        </button>
-                                :
-                            <a href="/login" className="ml-4 block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
-                                        <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
-                                            <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
-                                        </div>
-                            </a>
-                            }
-                        </div>
-                    
-                <div className="md:hidden flex items-center">
-                    <button onClick={(e) => { e.stopPropagation(); setIsMobileDropdownVisible(!isMobileDropdownVisible) }}>
-                        <FaBars className={`${isMobileDropdownVisible ? "-rotate-90" : ""} duration-200`}/>
-                    </button>
-                </div>
-                </div>
-                <div className={`md:hidden ${isMobileDropdownVisible ? "block" : "hidden"}`}>
-                    <ul>
-                        <li>
-                            <a href="/" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">Home</a>
-                        </li>
-                        <li>
-                            <a href="/resources" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">Resources</a>
-                        </li>
-                         {props.currentUser ? 
-                            <li>
-                                <button onClick={() => { signOut(auth); localStorage.clear() }} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                <button onClick={() => { signOut(auth); localStorage.clear() }} className="hidden md:block ml-4 py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">
                                     <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
                                         <RxExit style={{ fontSize: '24px', color: '#FF0000' }} />
                                     </div>
                                 </button>
-                            </li> :
+                                    :
+                                <a href="/login" className="ml-4 hidden md:block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
+                                            <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
+                                                <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
+                                            </div>
+                                </a>
+                            }
+                        <div className="md:hidden flex items-center">
+                            <button onClick={(e) => { e.stopPropagation(); setIsMobileDropdownVisible(!isMobileDropdownVisible) }}>
+                                <FaBars className={`${isMobileDropdownVisible ? "-rotate-90" : ""} w-5 h-5 text-gray-800 duration-200`}/>
+                            </button>
+                        </div>
+                        </div>
+                    
+
+                    </div>
+
+
+                    <div className={`absolute top-12 right-4 z-50 bg-white shadow-lg rounded-lg w-64 ${isMobileDropdownVisible ? "block" : "hidden"}`}>
+                        <ul>
                             <li>
-                                <a href="/login" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
-                                <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
-                                    <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
-                                </div>
+                                <a href="/" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                    <div className="flex items-center">
+                                        <AiOutlineHome style={{ fontSize: '24px', color: '#333' }} />
+                                        <span className="ml-2 text-sm font-semibold">Home</span>
+                                    </div>
                                 </a>
                             </li>
-                        }
-                        {/* ... Language options for mobile ... */}
-                    </ul>
-                </div>
+                            <li>
+                                <a href="/resources" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                    <div className="flex items-center">
+                                        <AiOutlineBook style={{ fontSize: '24px', color: '#333' }} />
+                                        <span className="ml-2 text-sm font-semibold">Resources</span>
+                                    </div>
+                                </a>
+                            </li>
+                            {props.currentUser ? 
+                                <li>
+                                    <button onClick={() => { signOut(auth); localStorage.clear() }} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                        <div className="flex items-center ">
+                                            <RxExit style={{ fontSize: '24px', color: 'red' }} />
+                                            <span className="ml-2 text-sm font-semibold">Logout</span>
+                                        </div>
+                                    </button>
+                                </li> :
+                                <li>
+                                    <a href="/login" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                        <div className="flex items-center">
+                                            <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
+                                            <span className="ml-2 text-sm font-semibold">Login</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
             </nav>
         </div>
     );

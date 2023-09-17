@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import {db, auth} from '../config/firebase'
 import { onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, updateDoc, arrayUnion, getDoc, addDoc, collection } from "firebase/firestore";
+import { doc, updateDoc, getDoc, addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 
@@ -240,7 +240,7 @@ function AdminCreateTutor(props) {
                                     onChange={handleSubjectsTaughtChange}
                                 />
                                 <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
-                                    ${subjectsTaught.includes(subject) ? 'bg-green-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
+                                    ${subjectsTaught.includes(subject) ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
                                 `}>
                                     {subject}
                                 </span>
@@ -262,7 +262,7 @@ function AdminCreateTutor(props) {
                                     onChange={handleLanguageChange}
                                 />
                                 <span className={`cursor-pointer p-2 rounded transition-colors duration-300 
-                                    ${languagesSpoken.includes(language) ? 'bg-green-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
+                                    ${languagesSpoken.includes(language) ? 'bg-indigo-600 text-white' : 'bg-white hover:bg-gray-100 text-gray-800'}
                                 `}>
                                     {language}
                                 </span>
@@ -270,7 +270,6 @@ function AdminCreateTutor(props) {
                         ))}
                     </div>
                 </div>
-
 
 
 
@@ -297,11 +296,11 @@ function AdminCreateTutor(props) {
 
                             return (
                                 <React.Fragment key={timeLabel}>
-                                    <div className="md:text-md text-xxs font-semibold text-gray-600">{timeLabel}</div>
+                                    <div className="md:text-md text-xxs font-semibold text-gray-600 mb-reduced">{timeLabel}</div>
                                     {["Monday", "Tuesday", "Wednesday", "Thursday"].map(day => (
                                         <div 
                                             key={day} 
-                                            className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer ${selectedCells[`${day}-${timeLabel}`] ? 'bg-green-400' : 'bg-white hover:bg-gray-100'}`}
+                                            className={`w-10 h-10 border rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer cell-space ${selectedCells[`${day}-${timeLabel}`] ? 'bg-indigo-400' : 'bg-white hover:bg-gray-100'}`}
                                             onMouseDown={() => handleMouseDown(timeLabel, day)}
                                             onMouseEnter={() => handleMouseEnter(timeLabel, day)}
                                         ></div>
@@ -310,13 +309,16 @@ function AdminCreateTutor(props) {
                             );
                         })}
                     </div>
-
                 </div>
+
+
+
+
             </form>
             
         </div>
         <div className="grid mt-8">
-            <button onClick={(e)=>createNewTutor(e)} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">{isSubmitLoading ? "Loading": "Submit"}</button>
+            <button onClick={(e)=>createNewTutor(e)} className="flex w-full justify-center rounded-md bg-gray-900 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{isSubmitLoading ? "Loading": "Submit"}</button>
         </div>
 
         </div>
