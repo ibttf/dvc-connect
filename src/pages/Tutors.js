@@ -111,7 +111,7 @@ if (loading) {
 }
 return(
   <div className="pb-24">
-    <div className="lg:w-8/12 w-11/12 mx-auto my-10">
+    <div className="lg:w-6/12 w-11/12 mx-auto my-10">
       <div className="text-center text-xl space-y-6">
         <h1 className="md:text-2xl text-lg font-medium text-gray-800">
           {props.t("Locations with")} 
@@ -125,17 +125,17 @@ return(
         </h1>
         
         <div className="mt-4 bg-white rounded-lg shadow-md">
-          <ul role="list" className="divide-y divide-gray-200 md:w-6/12 mx-auto">
+          <ul role="list" className="divide-y divide-gray-200  mx-auto">
             {results.length > 0 ? results.map((workLocation, index) => (
               <li key={index} className="flex items-center py-3 px-6">
    
                 <AiTwotoneHome className="w-5 h-5" />
-                <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" rel="noopener noreferrer" className="mx-auto md:text-lg text-md text-gray-700 hover:text-indigo-600">
+                <a href="https://www.dvc.edu/about/campuses/maps.html" target="_blank" rel="noopener noreferrer" className=" ml-4 md:text-lg text-md text-gray-700 hover:text-indigo-600">
                   {props.t(workLocation) ? props.t(workLocation) : workLocation}
                 </a>
               </li>
             )) :
-              <li className="text-lg text-gray-700 text-center py-3">{props.t("No locations available")}</li>
+              <li className="text-lg text-gray-700 text-left py-3">{props.t("No locations available")}</li>
             }
           </ul>
         </div>

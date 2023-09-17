@@ -44,7 +44,7 @@ const Navbar = (props) => {
     }, []);
 
     return (
-        <div className="relative">
+        <div className="relative ">
             {/* {showPopup && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 z-10 flex justify-end items-start pt-16 pr-10">
                     <div
@@ -101,7 +101,7 @@ const Navbar = (props) => {
                         <button
                             type="button"
                             data-dropdown-toggle="language-dropdown-menu"
-                            className={`z-50 inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
+                            className={`border shadow-md hover:scale-105 transition-all ease-in duration-100 z-50 inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
                         >
                             {displayLanguage(props.language)} 
                             <IoMdArrowDropdown className={`w-5 h-5 ${isLanguageDropdownVisible ? "rotate-180" : ""} duration-200`}/>

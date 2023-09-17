@@ -107,7 +107,7 @@ function AdminLogin(props) {
             <div>
                 <button 
                     type="submit" 
-                    className="flex w-full justify-center rounded-md bg-indigo-600 hover:bg-indigo-700 focus:bg-indigo-800 opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    className="flex w-full justify-center rounded-md bg-indigo-600 hover:bg-indigo-700  opacity-90 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100">
                     {isLoading ? "Loading..." : "Sign in"}
                 </button>
             </div>
