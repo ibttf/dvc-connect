@@ -75,13 +75,13 @@ const Navbar = (props) => {
                             setIsLanguageDropdownVisible(false);
                             setIsMobileDropdownVisible(false);
                         }}
-                        className="w-11/12 mx-auto font-medium">
+                        className="md:w-11/12 mx-auto font-medium">
                         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                             
                             <div className="flex items-center">
-                                <a href="/" className="flex items-center mr-6">
+                                <a href="/" className="flex items-center md:mr-6">
                                     <img src={logo} className="md:h-8 h-6 md:mr-3 mr-1" alt="DVC Logo" />
-                                    <span className="text-green-800 self-center text-2xl font-semibold whitespace-nowrap ">Connect</span>
+                                    <span className="text-green-800 self-center md:text-2xl text-xl font-semibold whitespace-nowrap ">Connect</span>
                                 </a>
                                 <ul className="hidden md:flex flex-col md:flex-row md:space-x-8">
                                     <li>
@@ -101,10 +101,10 @@ const Navbar = (props) => {
                         <button
                             type="button"
                             data-dropdown-toggle="language-dropdown-menu"
-                            className={` z-50 inline-flex items-center font-medium justify-center xxs:px-4 px-2 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
+                            className={` z-50 inline-flex items-center font-medium justify-center xxs:px-4 md:px-2 px-1 py-2 text-ss text-gray-950 rounded-lg cursor-pointer ${showPopup ? 'bg-gray-100' : ''} hover:bg-gray-100`}
                         >
                             {displayLanguage(props.language)} 
-                            <IoMdArrowDropdown className={`w-5 h-5 ${isLanguageDropdownVisible ? "rotate-180" : ""} duration-200`}/>
+                            <IoMdArrowDropdown className={`md:w-5 md:h-5 w-4 h-4 ${isLanguageDropdownVisible ? "rotate-180" : ""} duration-200`}/>
                         </button>
 
 
