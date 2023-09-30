@@ -5,12 +5,10 @@ import "../styles/globals.css"
 import { AiOutlineSearch } from 'react-icons/ai';
 
 const PreHome = (props) => {
-    const [school, setSchool] = useState("Laney");
-    const [isSchoolDropdownVisible, setIsSchoolDropdownVisible] = useState(true);
 
     return (
-        <div className="lg:pb-24 lg:my-12 pb-12 my-6 flex flex-col justify-center" style={{height: "80vh"}} onClick={() => setIsSchoolDropdownVisible(false)}>
-            
+        <div className="pb-48 lg:pb-12 my-6 flex flex-col justify-center lg:h-1000 h-full  ">
+
             {/* Title */}
             <h1 className="animate-fade-up bg-gradient-to-br from-black to-stone-500 bg-clip-text text-center font-display text-4xl font-bold tracking-[-0.02em] text-transparent drop-shadow-sm md:text-7xl md:leading-[5rem]" style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}>
                 <span className="inline-block vertical-align-top max-w-1024px">
