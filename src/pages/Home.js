@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Typewriter from "../components/Typewriter"
 import "../styles/globals.css"
 
@@ -14,7 +14,7 @@ const Home = (props) => {
   const [isSubjectDropdownVisible, setIsSubjectDropdownVisible]=useState(false);
   const [selectedSubject, setSelectedSubject]=useState("Math");
   const [selectedTopic, setSelectedTopic]=useState("Any");
-
+  const {school}=useParams();
 
 
   function formatHour(hour) {
@@ -178,7 +178,7 @@ const Home = (props) => {
         </div>
 
         <Link 
-          to={`/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} 
+          to={`/${school}/${dayOfTheWeek}/${hours}/${selectedSubject}/${selectedTopic}`} 
           className="md:w-32 mx-auto inline-flex items-center px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-indigo-200 active:bg-indigo-800 transition duration-300"
         >
           <AiOutlineSearch className="w-5 h-5 mr-2" />

@@ -99,10 +99,10 @@ const Navbar = (props) => {
                                 </a>
                                 <ul className="hidden md:flex flex-col md:flex-row md:space-x-8">
                                     <li>
-                                        <a href="/" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">Home</a>
+                                        <a href={`/${school}`} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">Home</a>
                                     </li>
                                     <li>
-                                        <a href="/resources" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">Resources</a>
+                                        <a href={`/${school}/resources`} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-base text-sm md:hover:text-gray-900 md:p-0">Resources</a>
                                     </li>
                                 </ul>
                             </div>
@@ -141,7 +141,7 @@ const Navbar = (props) => {
                                         </div>
                                     </button>
                                         :
-                                    <a href="/login" className="ml-4 hidden md:block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
+                                    <a href={`/${school}/login`} className="ml-4 hidden md:block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0">
                                                 <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
                                                     <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
                                                 </div>
@@ -161,7 +161,7 @@ const Navbar = (props) => {
                         <div className={`absolute top-12 right-4 z-50 bg-white shadow-lg rounded-lg w-64 ${isMobileDropdownVisible ? "block" : "hidden"}`}>
                             <ul>
                                 <li>
-                                    <a href="/" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                    <a href={`/${school}`} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
                                         <div className="flex items-center">
                                             <AiOutlineHome style={{ fontSize: '24px', color: '#333' }} />
                                             <span className="ml-2 text-sm font-semibold">Home</span>
@@ -169,7 +169,7 @@ const Navbar = (props) => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/resources" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                    <a href={`/${school}/resources`} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
                                         <div className="flex items-center">
                                             <AiOutlineBook style={{ fontSize: '24px', color: '#333' }} />
                                             <span className="ml-2 text-sm font-semibold">Resources</span>
@@ -186,7 +186,7 @@ const Navbar = (props) => {
                                         </button>
                                     </li> :
                                     <li>
-                                        <a href="/login" className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
+                                        <a href={`/${school}/login`} className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100">
                                             <div className="flex items-center">
                                                 <AiOutlineUser style={{ fontSize: '24px', color: '#333' }} />
                                                 <span className="ml-2 text-sm font-semibold">Login</span>
