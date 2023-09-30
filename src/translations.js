@@ -81,6 +81,8 @@ const translation = {
         "Academic Support Center":"Academic Support Center",
         "Locations with": "Locations with",
         "No locations available": "No locations available",
+        "Tutors":"Tutors",
+        "What School Do You Go To?":"What School Do You Go To?",
         "Find a Tutor Today": "Find a Tutor Today",
         "English":"English"
 
@@ -168,6 +170,8 @@ const translation = {
         "Academic Support Center": "Centro de Apoyo Académico",
         "Locations with": "Lugares con",
         "No locations available_es": "No hay lugares disponibles",
+        "Tutors":"Tutors",
+        "What School Do You Go To?":"What School Do You Go To?",
         "Find a Tutor Today": "Encuentra un tutor hoy",
         "Spanish":"Español",
     },
@@ -253,6 +257,8 @@ const translation = {
         "Academic Support Center": "학술 지원 센터",
         "Locations with": "위치",
         "No locations available": "사용 가능한 위치 없음",
+        "Tutors":"Tutors",
+        "What School Do You Go To?":"What School Do You Go To?",
         "Find a Tutor Today": "오늘 튜터를 찾아보세요",
         "Korean":"한국",
     },
@@ -339,6 +345,8 @@ const translation = {
         "Academic Support Center": "学术支持中心",
         "Locations with": "带有的地点",
         "No locations available": "没有可用的地点",
+        "Tutors":"Tutors",
+        "What School Do You Go To?":"What School Do You Go To?",
         "Find a Tutor Today":  "今天找个家教",
         "Chinese":"中文 (繁體)"
     }

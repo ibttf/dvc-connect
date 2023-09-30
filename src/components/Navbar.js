@@ -10,13 +10,14 @@ import {AiOutlineUser,AiOutlineHome,AiOutlineBook} from "react-icons/ai"
 import {IoMdArrowDropdown} from "react-icons/io"
 import {FaBars} from "react-icons/fa"
 import {RxExit} from "react-icons/rx"
+import { useParams } from 'react-router-dom';
 
 const Navbar = (props) => {
     const [isLanguageDropdownVisible, setIsLanguageDropdownVisible] = useState(false);
     const [isMobileDropdownVisible, setIsMobileDropdownVisible] = useState(false);
     const [showPopup, setShowPopup] = useState(false);
     const [hasToggledLanguage, setHasToggledLanguage] = useState(false);
-    
+    const {school}=useParams();
 
 
     // Hide popup when the language is toggled
@@ -25,6 +26,16 @@ const Navbar = (props) => {
             setShowPopup(false);
         }
     }, [hasToggledLanguage]);
+
+    const schoolsDict={
+            'Laney': 'Laney',
+            'Diablo Valley College - Pleasant Hill': 'DVC - Pleasant Hill',
+            'Diablo Valley College - San Ramon': 'DVC - San Ramon',
+            'Berkeley City College': 'BCC',
+            'College of Alameda': 'COA',
+            'Merritt College': 'MC',
+            'Contra Costa': 'CC'
+    }
 
 
     useEffect(() => {
@@ -80,8 +91,11 @@ const Navbar = (props) => {
                             
                             <div className="flex items-center">
                                 <a href="/" className="flex items-center md:mr-6">
-                                    <img src={logo} className="md:h-8 h-6 md:mr-3 mr-1" alt="DVC Logo" />
-                                    <span className="text-green-800 self-center md:text-2xl text-xl font-semibold whitespace-nowrap ">Connect</span>
+                                    {/* <img src={logo} className="md:h-8 h-6 md:mr-3 mr-1" alt="DVC Logo" /> */}
+                                    <h1 className="text-green-800 self-center md:text-2xl text-xl font-semibold whitespace-nowrap">    
+                                        {schoolsDict[school]}
+                                    </h1>
+                                    <span className="ml-1 text-green-800 self-center md:text-2xl text-xl font-semibold whitespace-nowrap ">Connect</span>
                                 </a>
                                 <ul className="hidden md:flex flex-col md:flex-row md:space-x-8">
                                     <li>

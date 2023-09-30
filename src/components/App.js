@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
 
-
+import PreHome from "../pages/PreHome"
 import Home from '../pages/Home';
 import Tutors from '../pages/Tutors';
 import AdminLogin from '../pages/AdminLogin';
@@ -63,10 +63,10 @@ const App = () => {
       <div className="min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
         <Navbar currentUser={currentUser} language={language} setLanguage={setLanguage} t={t} />
         <Routes>
-          <Route path="/create-tutor" element={<AdminCreateTutor location={location} adminUID={userId} />} />
-          <Route path="/edit-tutor/:tid" element={<AdminEditTutor />} />
-          <Route path="/login" element={<AdminLogin />} />
-          <Route path="/resources" element={<Resources language={language} t={t} />} />
+          <Route path="/:school/create-tutor" element={<AdminCreateTutor location={location} adminUID={userId} />} />
+          <Route path="/:school/edit-tutor/:tid" element={<AdminEditTutor />} />
+          <Route path="/:school/login" element={<AdminLogin />} />
+          <Route path="/:school/resources" element={<Resources language={language} t={t} />} />
           <Route path="*" element={<AdminEditProfile />} />
         </Routes>
       </div>
@@ -74,15 +74,40 @@ const App = () => {
   }
 
   return (
-    <div className="fixed min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
-        <Navbar language={language} setLanguage={setLanguage} t={t} />
-        <Routes>
-          <Route path="/resources" element={<Resources language={language} t={t} />} />
-          <Route path="/:day/:hours/:subject/:topic" element={<Tutors key={language} language={language} t={t} />} />
-          <Route path="/login" element={<AdminLogin />} />
-          <Route path="*" element={<Home language={language} t={t} adminHasMatchingDoc={adminHasMatchingDoc} />} />
-        </Routes>
-    </div>
+<div className="fixed min-h-screen overflow-y-auto w-full bg-gradient-to-br from-indigo-50 via-white to-cyan-100">
+    <Routes>
+        <Route path="/:school/resources" element={
+            <>
+                <Navbar language={language} setLanguage={setLanguage} t={t} />
+                <Resources language={language} t={t} />
+            </>
+        } />
+        
+        <Route path="/:school/:day/:hours/:subject/:topic" element={
+            <>
+                <Navbar language={language} setLanguage={setLanguage} t={t} />
+                <Tutors key={language} language={language} t={t} />
+            </>
+        } />
+        
+        <Route path="/:school/login" element={
+            <>
+                <Navbar language={language} setLanguage={setLanguage} t={t} />
+                <AdminLogin />
+            </>
+        } />
+        
+        <Route path="/:school/" element={
+            <>
+                <Navbar language={language} setLanguage={setLanguage} t={t} />
+                <Home language={language} t={t} adminHasMatchingDoc={adminHasMatchingDoc} />
+            </>
+        } />
+        
+        <Route path="*" element={<PreHome language={language} t={t}/>} />
+    </Routes>
+</div>
+
   );
 }
 
