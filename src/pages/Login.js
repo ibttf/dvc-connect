@@ -22,9 +22,9 @@ function TutorLogin(props) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [workLocation, setWorkLocation] = useState(
-    "Academic Support Center - Pleasant Hill"
-  );
+  const [workLocation, setWorkLocation] = useState([
+    "Academic Support Center - Pleasant Hill",
+  ]);
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
   const [subjectsTaught, setSubjectsTaught] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -208,10 +208,12 @@ function TutorLogin(props) {
       });
 
       // Add user to the admins document
-      const adminId = centers[workLocation];
-      const adminDocRef = doc(db, "admins", adminId);
-      await updateDoc(adminDocRef, {
-        tutorIds: arrayUnion(user.uid),
+      workLocation.forEach((location) => {
+        const adminId = centers[location];
+        const adminDocRef = doc(db, "admins", adminId);
+        updateDoc(adminDocRef, {
+          tutorIds: arrayUnion(user.uid),
+        });
       });
 
       // Save token to local storage

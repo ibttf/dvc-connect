@@ -30,7 +30,15 @@ export default function LoginStep3({
           Email: <span className="font-bold">{email}</span>
         </p>
         <p className="font-normal md:text-md text-xs">
-          Work Location: <span className="font-bold">{workLocation}</span>
+          Work Location:{" "}
+          <span className="font-bold">
+            {workLocation.map((location, index) => {
+              if (index !== workLocation.length - 1) {
+                return <span>{location + ", "}</span>;
+              }
+              return <span>{location}</span>;
+            })}
+          </span>
         </p>
         <p className="font-normal md:text-md text-xs">
           Subjects Taught:{" "}
