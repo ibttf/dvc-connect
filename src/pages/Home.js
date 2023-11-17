@@ -194,23 +194,105 @@ const Home = (props) => {
                 </svg>
               </button>
               {isSubjectDropdownVisible && (
-                <div className="absolute mt-1 w-full shadow-lg bg-white border border-gray-300 rounded z-10">
-                  {["Any Subject", "Math", "English", "Science"].map(
-                    (subject) => (
-                      <button
-                        key={subject}
-                        className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
-                        onClick={() => {
-                          setSelectedSubject(subject);
-                          setIsSubjectDropdownVisible(false);
-                        }}
-                      >
-                        {props.t(subject)}
-                      </button>
-                    )
-                  )}
+                <div className="whitespace-nowrap absolute mt-1 w-108 shadow-lg bg-white border border-gray-300 rounded z-10 grid grid-cols-3 gap-2">
+                  {[
+                    "Any Subject",
+                    "Accounting",
+                    "Administration Justice",
+                    "Anthropology",
+                    "Biology",
+                    "Business",
+                    "Chemistry",
+                    "Communication",
+                    "Computer Science",
+                    "Early Childhood Education",
+                    "Economics",
+                    "Engineering",
+                    "English",
+                    "Ethnic Studies",
+                    "History",
+                    "Math",
+                    "Political Science",
+                    "Psychology",
+                    "Sociology",
+                    "Spanish",
+                    "Statistics",
+                    "Oceanography",
+                    "Physics",
+                    "Drama",
+                    "French",
+                    "Humanities",
+                    "Japanese",
+                    "Music",
+                    "Philosophy",
+                    "Russian",
+                    "Kinesiology",
+                    "Nutrition",
+                    "Social Justice",
+                  ].map((subject) => (
+                    <button
+                      key={subject}
+                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                      onClick={() => {
+                        setSelectedSubject(subject);
+                        setIsSubjectDropdownVisible(false);
+                      }}
+                    >
+                      {props.t(subject)}
+                    </button>
+                  ))}
                 </div>
               )}
+              {/* {isSubjectDropdownVisible && (
+                <div className="absolute mt-1 w-full shadow-lg bg-white border border-gray-300 rounded z-10">
+                  {[
+                    "Any Subject",
+                    "Accounting",
+                    "Administration Justice",
+                    "Anthropology",
+                    "Biology",
+                    "Business",
+                    "Chemistry",
+                    "Communication",
+                    "Computer Science",
+                    "Early Childhood Education",
+                    "Economics",
+                    "Engineering",
+                    "English",
+                    "Ethnic Studies",
+                    "History",
+                    "Math",
+                    "Political Science",
+                    "Psychology",
+                    "Sociology",
+                    "Spanish",
+                    "Statistics",
+                    "Oceanography",
+                    "Physics",
+                    "Drama",
+                    "French",
+                    "Humanities",
+                    "Japanese",
+                    "Music",
+                    "Philosophy",
+                    "Russian",
+                    "Kinesiology",
+                    "Nutrition",
+                    "Social Justice",
+                  ].map((subject) => (
+                    <button
+                      key={subject}
+                      className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                      onClick={() => {
+                        setSelectedSubject(subject);
+                        setIsSubjectDropdownVisible(false);
+                      }}
+                    >
+                      {props.t(subject)}
+                    </button>
+                  ))}
+                </div>
+              )} */}
             </div>
           </div>
         </div>
