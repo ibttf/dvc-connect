@@ -1,17 +1,14 @@
 import React, { useState } from "react";
-import { auth, db } from "../config/firebase";
-import {
-  signInWithEmailAndPassword,
-  getAuth,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { auth } from "../config/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
 
 function AdminLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("mathlab@email.com");
+  const [email, setEmail] = useState(
+    "academicsupportcenterpleasanthill@email.com"
+  );
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -50,24 +47,24 @@ function AdminLogin() {
     }
   };
 
-  async function handleCreateNewTutor() {
-    try {
-      // Create a new document in the "admins" collection for the existing user
-      const adminDocRef = doc(db, "admins", "fAQVaeQ883OU9gD4HMYw3py15CT2");
-      await setDoc(adminDocRef, {
-        // Add any additional fields you want in the document here
-        email: "academicsupportcentersanramon@email.com",
-        location: "Academic Support Center - San Ramon",
-      });
+  // async function handleCreateNewTutor() {
+  //   try {
+  //     // Create a new document in the "admins" collection for the existing user
+  //     const adminDocRef = doc(db, "admins", "fAQVaeQ883OU9gD4HMYw3py15CT2");
+  //     await setDoc(adminDocRef, {
+  //       // Add any additional fields you want in the document here
+  //       email: "academicsupportcentersanramon@email.com",
+  //       location: "Academic Support Center - San Ramon",
+  //     });
 
-      console.log(
-        "Admin doc created for existing user: ",
-        "fAQVaeQ883OU9gD4HMYw3py15CT2"
-      );
-    } catch (error) {
-      console.error("Error creating admin doc: ", error);
-    }
-  }
+  //     console.log(
+  //       "Admin doc created for existing user: ",
+  //       "fAQVaeQ883OU9gD4HMYw3py15CT2"
+  //     );
+  //   } catch (error) {
+  //     console.error("Error creating admin doc: ", error);
+  //   }
+  // }
   return (
     <div>
       <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-xl shadow-xl">
