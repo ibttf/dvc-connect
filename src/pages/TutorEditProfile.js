@@ -5,12 +5,25 @@ import {
   doc,
   getDoc,
   deleteDoc,
+  arrayUnion,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { db, auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
 
 function EditProfile(props) {
+  const centers = {
+    "Academic Support Center - Pleasant Hill": "OVctTrvYOIbCzkXZ9fYEi8G6pLl2",
+    "Academic Support Center - San Ramon": "fAQVaeQ883OU9gD4HMYw3py15CT2",
+    "Arts, Communication, and Language Student Center":
+      "DOpiKtcPRuXg9DufqWFcjyHdKvv2",
+    "Business, Computer Science, and Culinary Center":
+      "5R5kbP3wUgVKyBzLKvzFE0r3E3l2",
+    "DSS/EOPS Program": "13h98N3cUvT0PzBvRkTcM6EZ4om2",
+    "Math and Engineering Student Center": "27mNdSgpfucZ7fL9cEFHsqqPCN03",
+    "Science and Health Student Center": "Zmomain2bmQP25hPCT2MvIPUidF2",
+    "Social Science Health Center": "l8m6tEzvTQeWbRpCfDcDyys89hG3",
+  };
   const navigate = useNavigate();
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
@@ -90,7 +103,6 @@ function EditProfile(props) {
   async function handleEditProfile(e) {
     e.preventDefault();
     setIsLoading(true);
-
     const user = auth.currentUser; // Get the current authenticated user
 
     if (!user) {
@@ -108,7 +120,18 @@ function EditProfile(props) {
       languagesSpoken: languagesSpoken,
       selectedCells: selectedCells,
     });
-
+    // Add user to the admins document
+    console.log(workLocation);
+    workLocation.forEach((location) => {
+      if (centers[location] !== null) {
+        const adminId = centers[location];
+        console.log(location, centers[location], adminId, user.uid);
+        const adminDocRef = doc(db, "admins", adminId);
+        updateDoc(adminDocRef, {
+          tutorIds: arrayUnion(user.uid),
+        });
+      }
+    });
     // Save token to local storage
     const token = await user.getIdToken();
     localStorage.setItem("accessToken", token);
@@ -122,7 +145,6 @@ function EditProfile(props) {
 
     try {
       const user = auth.currentUser;
-      console.log(user);
       if (user) {
         const uid = user.uid;
 

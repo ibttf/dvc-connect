@@ -22,9 +22,7 @@ function TutorLogin(props) {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [workLocation, setWorkLocation] = useState([
-    "Academic Support Center - Pleasant Hill",
-  ]);
+  const [workLocation, setWorkLocation] = useState([]);
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
   const [subjectsTaught, setSubjectsTaught] = useState([]);
   const [errors, setErrors] = useState([]);
@@ -33,16 +31,16 @@ function TutorLogin(props) {
   const [selectedCells, setSelectedCells] = useState({});
   const isDragging = useRef(false);
   const centers = {
-    "Academic Support Center - Pleasant Hill": "6xAzSeVByHNot38OuJTuhM96Od42",
+    "Academic Support Center - Pleasant Hill": "OVctTrvYOIbCzkXZ9fYEi8G6pLl2",
     "Academic Support Center - San Ramon": "fAQVaeQ883OU9gD4HMYw3py15CT2",
     "Arts, Communication, and Language Student Center":
       "DOpiKtcPRuXg9DufqWFcjyHdKvv2",
     "Business, Computer Science, and Culinary Center":
       "5R5kbP3wUgVKyBzLKvzFE0r3E3l2",
     "DSS/EOPS Program": "13h98N3cUvT0PzBvRkTcM6EZ4om2",
-    "Math and Engineering Student Center": "2GmGMvfsM9S6pRZnwZ2f4ghExoB3",
+    "Math and Engineering Student Center": "27mNdSgpfucZ7fL9cEFHsqqPCN03",
     "Science and Health Student Center": "Zmomain2bmQP25hPCT2MvIPUidF2",
-    "Social Science Health Center": "a5zMCNorDfPNcDMYmdeVUNfjoei2",
+    "Social Science Health Center": "l8m6tEzvTQeWbRpCfDcDyys89hG3",
   };
 
   const handleLanguageChange = (event) => {
@@ -206,15 +204,19 @@ function TutorLogin(props) {
         selectedCells: selectedCells,
         subjectsTaught: subjectsTaught,
       });
-
       // Add user to the admins document
-      workLocation.forEach((location) => {
-        const adminId = centers[location];
-        const adminDocRef = doc(db, "admins", adminId);
-        updateDoc(adminDocRef, {
-          tutorIds: arrayUnion(user.uid),
-        });
-      });
+      await Promise.all(
+        workLocation.map(async (location) => {
+          if (centers[location] !== null) {
+            const adminId = centers[location];
+            console.log(location, centers[location], adminId, user.uid);
+            const adminDocRef = doc(db, "admins", adminId);
+            return updateDoc(adminDocRef, {
+              tutorIds: arrayUnion(user.uid),
+            });
+          }
+        })
+      );
 
       // Save token to local storage
       const token = await user.getIdToken();
