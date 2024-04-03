@@ -6,7 +6,7 @@ import us from "../styles/us.png";
 import mexico from "../styles/mexico.png";
 import logo from "../styles/dvc.png";
 import { auth } from "../config/firebase";
-import { AiOutlineUser, AiOutlineHome, AiOutlineBook } from "react-icons/ai";
+import { AiOutlineHome, AiOutlineBook } from "react-icons/ai";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaBars } from "react-icons/fa";
 import { RxExit } from "react-icons/rx";
@@ -133,16 +133,7 @@ const Navbar = (props) => {
                     </div>
                   </button>
                 ) : (
-                  <a
-                    href="/login"
-                    className="ml-4 hidden md:block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100 md:hover:bg-transparent md:text-sm text-sm md:hover:text-gray-900 md:p-0"
-                  >
-                    <div className="cursor-pointer hover:bg-gray-200 p-2 rounded-full transition duration-300 ease-in-out">
-                      <AiOutlineUser
-                        style={{ fontSize: "24px", color: "#333" }}
-                      />
-                    </div>
-                  </a>
+                  <></>
                 )}
                 <div className="md:hidden flex items-center">
                   <button
@@ -213,21 +204,7 @@ const Navbar = (props) => {
                     </button>
                   </li>
                 ) : (
-                  <li>
-                    <a
-                      href="/login"
-                      className="block py-2 pl-3 pr-4 text-gray-950 rounded hover:bg-gray-100"
-                    >
-                      <div className="flex items-center">
-                        <AiOutlineUser
-                          style={{ fontSize: "24px", color: "#333" }}
-                        />
-                        <span className="ml-2 text-sm font-semibold">
-                          Login
-                        </span>
-                      </div>
-                    </a>
-                  </li>
+                  <></>
                 )}
               </ul>
             </div>
