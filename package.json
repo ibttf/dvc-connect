@@ -8,7 +8,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.0.18",
     "@mapbox/mapbox-sdk": "^0.15.3",
     "@mapbox/search-js-react": "^1.0.0-beta.17",

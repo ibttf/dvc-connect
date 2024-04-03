@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import Loading from "./Loading";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import { AiTwotoneHome } from "react-icons/ai";
+import { collection, query, getDocs, where } from "firebase/firestore";
 
 const Tutors = (props) => {
   // Extract route parameters using useParams

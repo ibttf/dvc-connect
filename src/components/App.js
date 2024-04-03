@@ -31,6 +31,7 @@ const App = () => {
         setUserId(user.uid);
 
         const adminDocRef = doc(db, "admins", user.uid);
+
         const adminDocSnapshot = await getDoc(adminDocRef);
 
         const userDocRef = doc(db, "users", user.uid);

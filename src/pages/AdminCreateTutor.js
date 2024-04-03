@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { db, auth } from "../config/firebase";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 import { doc, updateDoc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
@@ -15,8 +11,8 @@ function AdminCreateTutor(props) {
   const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [location, setLocation] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
   const [subjectsTaught, setSubjectsTaught] = useState([]);
@@ -100,6 +96,7 @@ function AdminCreateTutor(props) {
         email,
         password
       );
+
       const user = userCredential.user;
 
       // Add a new document to the 'users' collection with the generated ID
@@ -107,10 +104,13 @@ function AdminCreateTutor(props) {
         email: email,
         fName: fName,
         lName: lName,
-        workLocation: props.location,
-        languagesSpoken: languagesSpoken,
-        selectedCells: selectedCells,
-        subjectsTaught: subjectsTaught,
+        schedule: {
+          [location]: {
+            languages: languagesSpoken,
+            subjects: subjectsTaught,
+            schedule: selectedCells,
+          },
+        },
       });
 
       // Update the admin's list of tutor IDs
@@ -133,16 +133,21 @@ function AdminCreateTutor(props) {
     }
   }
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        console.log("User is logged in");
-      } else {
-        console.log("User is not logged in");
+        const uid = user.uid;
+        const adminDocRef = doc(db, "admins", uid);
+        const adminDocSnapshot = await getDoc(adminDocRef);
+
+        if (adminDocSnapshot.exists()) {
+          setLocation(adminDocSnapshot.data().location);
+        }
       }
     });
 
-    return () => unsubscribe();
+    return unsubscribe;
   }, []);
+
   return (
     <div>
       <div className="flex min-h-full flex-col justify-center px-6 py-6 lg:px-8 bg-white md:w-6/12 w-11/12 mx-auto my-12 md:mb-48 rounded-xl shadow-xl">

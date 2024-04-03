@@ -43,7 +43,6 @@ const Navbar = (props) => {
 
   return (
     <div className="relative ">
-      {console.log(props)}
       <div className={`relative opacity-100`}>
         <div className="opacity-100">
           <nav

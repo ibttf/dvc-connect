@@ -9,6 +9,7 @@ import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import LoginStep from "../components/LoginStep";
 import LoginStep1 from "../components/LoginStep1";
+import LoginStep2Pre from "../components/LoginStep2Pre";
 import LoginStep2 from "../components/LoginStep2";
 import LoginStep3 from "../components/LoginStep3";
 
@@ -21,78 +22,24 @@ function TutorLogin(props) {
   const [emailError, setEmailError] = useState(false);
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
-  const [workLocation, setWorkLocation] = useState([]);
+
+  const [workSchedule, setWorkSchedule] = useState({});
   const [languagesSpoken, setLanguagesSpoken] = useState([]);
-  const [subjectsTaught, setSubjectsTaught] = useState([]);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState(1);
-  const [selectedCells, setSelectedCells] = useState({});
-  const isDragging = useRef(false);
+
   const centers = {
-    "Academic Support Center - Pleasant Hill": "OVctTrvYOIbCzkXZ9fYEi8G6pLl2",
+    "Academic Support Center - Pleasant Hill": "4acM6zLf3DdL3saL1EZS7Yt8HS02",
     "Academic Support Center - San Ramon": "fAQVaeQ883OU9gD4HMYw3py15CT2",
     "Arts, Communication, and Language Student Center":
       "DOpiKtcPRuXg9DufqWFcjyHdKvv2",
     "Business, Computer Science, and Culinary Center":
-      "5R5kbP3wUgVKyBzLKvzFE0r3E3l2",
-    "DSS/EOPS Program": "13h98N3cUvT0PzBvRkTcM6EZ4om2",
-    "Math and Engineering Student Center": "27mNdSgpfucZ7fL9cEFHsqqPCN03",
-    "Science and Health Student Center": "Zmomain2bmQP25hPCT2MvIPUidF2",
-    "Social Science Health Center": "l8m6tEzvTQeWbRpCfDcDyys89hG3",
-  };
-
-  const handleLanguageChange = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked && !languagesSpoken.includes(value)) {
-      setLanguagesSpoken((prevLanguages) => [...prevLanguages, value]);
-    } else if (!checked && languagesSpoken.includes(value)) {
-      setLanguagesSpoken((prevLanguages) =>
-        prevLanguages.filter((lang) => lang !== value)
-      );
-    }
-  };
-
-  const handleSubjectsTaughtChange = (event) => {
-    const { value, checked } = event.target;
-
-    if (checked && !subjectsTaught.includes(value)) {
-      setSubjectsTaught((prevSubjectsTaught) => [...prevSubjectsTaught, value]);
-    } else if (!checked && subjectsTaught.includes(value)) {
-      setSubjectsTaught((prevSubjectsTaught) =>
-        prevSubjectsTaught.filter((subj) => subj !== value)
-      );
-    }
-  };
-
-  const handleMouseDown = (timeLabel, day) => {
-    isDragging.current = true;
-    toggleSelection(timeLabel, day);
-  };
-
-  const handleMouseEnter = (timeLabel, day) => {
-    if (isDragging.current) {
-      toggleSelection(timeLabel, day);
-    }
-  };
-
-  const handleMouseUp = () => {
-    isDragging.current = false;
-  };
-
-  const toggleSelection = (timeLabel, day) => {
-    setSelectedCells((prev) => {
-      const key = `${day}-${timeLabel}`;
-      if (prev[key]) {
-        const newSelection = { ...prev };
-        delete newSelection[key];
-        return newSelection;
-      } else {
-        return { ...prev, [key]: true };
-      }
-    });
+      "2L1vchFOiPYFJaB4E9r9YZWNvZ82",
+    "Math and Engineering Student Center": "aGdIjNimQ8cNkWRnE1RluTIuWOs1",
+    "Science and Health Student Center": "ih7BKlRlPzc6hJ8D2Xs1fNitYPI3",
+    " Health Center": "ZrxjwiWtF0bYKBjpB9DP4CQjIBG2",
+    "Disability and Support Services/EOPS": "jRmyzCabqIWe6u8JHduVzoYDSQE2",
   };
 
   function displaySelectedCells(selectedCells) {
@@ -175,62 +122,6 @@ function TutorLogin(props) {
     }
   };
 
-  async function handleSignup(e) {
-    e.preventDefault();
-    setIsSubmitLoading(true);
-
-    if (password !== passwordConfirmation) {
-      setErrors(["Password does not match"]);
-      setIsSubmitLoading(false);
-      return;
-    }
-
-    try {
-      // Create user with email and password
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-
-      // Store additional data in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        email: email,
-        fName: fName,
-        lName: lName,
-        workLocation: workLocation,
-        languagesSpoken: languagesSpoken,
-        selectedCells: selectedCells,
-        subjectsTaught: subjectsTaught,
-      });
-      // Add user to the admins document
-      await Promise.all(
-        workLocation.map(async (location) => {
-          if (centers[location] !== null) {
-            const adminId = centers[location];
-            console.log(location, centers[location], adminId, user.uid);
-            const adminDocRef = doc(db, "admins", adminId);
-            return updateDoc(adminDocRef, {
-              tutorIds: arrayUnion(user.uid),
-            });
-          }
-        })
-      );
-
-      // Save token to local storage
-      const token = await user.getIdToken();
-      localStorage.setItem("accessToken", token);
-
-      navigate("/");
-      window.location.reload();
-    } catch (err) {
-      console.error("Error during signup:", err);
-      setErrors([err.message]);
-      setIsSubmitLoading(false);
-    }
-  }
-
   const nextPage = (e) => {
     e.preventDefault();
 
@@ -291,10 +182,11 @@ function TutorLogin(props) {
                 <div className="h-12 pointer-events-none mt-2 text-md  leading-6">
                   <input
                     className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onInput={(e) => setEmail(e.target.value)}
                     id="email"
                     name="email"
                     type=""
+                    defaultValue={email}
                     autoComplete="email"
                   />
                   <label
@@ -314,11 +206,12 @@ function TutorLogin(props) {
                 <div className="h-12 pointer-events-none mt-2 text-md  leading-6">
                   <input
                     className=" peer pointer-events-auto block w-full py-1.5 font-normal text-gray-900 border-b-2 border-0 border-gray-500 focus:border-gray-900 focus:ring-0 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onInput={(e) => setPassword(e.target.value)}
                     id="password"
                     name="password"
                     type="password"
                     autoComplete="password"
+                    defaultValue={password}
                     required
                   />
                   <label
@@ -415,20 +308,14 @@ function TutorLogin(props) {
             )}
 
             {step === 2 && (
-              <LoginStep2
-                workLocation={workLocation}
-                setWorkLocation={setWorkLocation}
-                subjectsTaught={subjectsTaught}
+              <LoginStep2Pre
+                centers={centers}
                 languagesSpoken={languagesSpoken}
-                selectedCells={selectedCells}
                 nextPage={nextPage}
                 prevPage={prevPage}
                 errors={errors}
-                handleSubjectsTaughtChange={handleSubjectsTaughtChange}
-                handleLanguageChange={handleLanguageChange}
-                handleMouseUp={handleMouseUp}
-                handleMouseDown={handleMouseDown}
-                handleMouseEnter={handleMouseEnter}
+                workSchedule={workSchedule}
+                setWorkSchedule={setWorkSchedule}
               />
             )}
 
@@ -437,14 +324,11 @@ function TutorLogin(props) {
                 fName={fName}
                 lName={lName}
                 email={email}
-                workLocation={workLocation}
-                subjectsTaught={subjectsTaught}
-                languagesSpoken={languagesSpoken}
-                selectedCells={selectedCells}
+                password={password}
+                passwordConfirmation={passwordConfirmation}
+                centers={centers}
+                workSchedule={workSchedule}
                 prevPage={prevPage}
-                errors={errors}
-                handleSignup={handleSignup}
-                isSubmitLoading={isSubmitLoading}
                 displaySelectedCells={displaySelectedCells}
               />
             )}
