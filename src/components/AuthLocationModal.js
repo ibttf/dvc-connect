@@ -286,7 +286,7 @@ export default function AuthLocationModal({
                           });
                           closeModal();
                         }}
-                        className="flex w-fit mx-auto justify-center rounded-md bg-gray-900 opacity-90 px-3 py-5 text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="flex w-fit mx-auto justify-center rounded-md bg-gray-900 opacity-90 px-3 py-2 md:py-5 text-xs md:text-sm font-semibold leading-6 text-white shadow-sm hover:opacity-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         Save Changes
                       </button>

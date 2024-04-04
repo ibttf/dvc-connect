@@ -160,13 +160,13 @@ export default function TutorEditProfile({}) {
         <div className="bg-white rounded-lg shadow-lg border p-4">
           <h2
             onClick={() => navigate("/")}
-            className="flex justify-left items-center w- full text-gray-500 hover:text-black cursor-pointer"
+            className="md:text-md text-xs sm:mb-0 mb-4 flex justify-left items-center w- full text-gray-500 hover:text-black cursor-pointer"
           >
-            <AiOutlineLeft className="mr-3" />
+            <AiOutlineLeft className="mr-3 md:text-md text-sm" />
             {"    "}
             Back to All Tutors
           </h2>
-          <h1 className="font-bold text-center md:text-xl xs:text-lg text-sm uppercased mb-4 text-gray-900">
+          <h1 className="font-bold text-center md:text-xl xs:text-lg text-sm  mb-4 text-gray-900">
             {fName} {lName}'s Schedule at <br></br>
             <span className="text-indigo-400">{location}</span>
           </h1>

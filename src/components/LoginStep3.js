@@ -50,7 +50,7 @@ export default function LoginStep3({
       });
       // Add user to the admins document
       await Promise.all(
-        workSchedule.map(async (location) => {
+        Object.keys(workSchedule).map(async (location) => {
           if (centers[location] !== null) {
             const adminId = centers[location];
             const adminDocRef = doc(db, "admins", adminId);

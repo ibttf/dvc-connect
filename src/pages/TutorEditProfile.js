@@ -194,9 +194,9 @@ export default function TutorEditProfile({}) {
                   setIsLocationDropdownVisible(!isLocationDropdownVisible);
                 }}
                 title="Add location"
-                className="peer mt-4 flex items-center justify-center w-12 h-12 bg-indigo-400 border-2 border-indigo-400 text-white rounded-full hover:bg-white hover:text-indigo-400 hover:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-200 transition-all duration-200"
+                className="peer mt-4 flex items-center justify-center w-8 h-8 md:w-12 md:h-12 bg-indigo-400 border-2 border-indigo-400 text-white rounded-full hover:bg-white hover:text-indigo-400 hover:border-indigo-400 focus:outline-none focus:ring focus:ring-indigo-200 transition-all duration-200"
               >
-                <AiOutlinePlus className="text-xl" />
+                <AiOutlinePlus className="md:text-xl" />
               </button>
             ) : (
               <></>
