@@ -60,9 +60,6 @@ const Navbar = (props) => {
                     className="md:h-8 h-6 md:mr-3 mr-1"
                     alt="DVC Logo"
                   />
-                  <span className="text-green-800 self-center md:text-2xl text-xl font-semibold whitespace-nowrap ">
-                    Connect
-                  </span>
                 </a>
                 <ul className="hidden md:flex flex-col md:flex-row md:space-x-8">
                   <li>

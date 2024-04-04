@@ -3,7 +3,7 @@ import { db } from "../config/firebase";
 import { useParams } from "react-router-dom";
 import Loading from "./Loading";
 import { AiTwotoneHome } from "react-icons/ai";
-import { collection, query, getDocs, where } from "firebase/firestore";
+import { collection, query, getDocs, where, doc } from "firebase/firestore";
 
 const Tutors = (props) => {
   // Extract route parameters using useParams
@@ -50,58 +50,55 @@ const Tutors = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(day, hours, subject);
-
         let timeSlot = parseHoursToTimeSlots(hours);
 
         let formattedLanguage = capitalizeFirstLetter(props.language);
         let formattedSubject = capitalizeFirstLetter(subject);
-        if (formattedLanguage === "English") {
-          formattedLanguage = "";
-        }
+
         const formattedDay = capitalizeFirstLetter(day);
 
         // Fetch documents based on the language
 
-        let languageQuery = collection(db, "users");
-        if (formattedLanguage !== "") {
-          languageQuery = query(
-            languageQuery,
-            where("languagesSpoken", "array-contains", formattedLanguage)
-          );
-        }
-        const languageResults = await getDocs(languageQuery);
-        const languageDocs = languageResults.docs;
+        let usersCollection = collection(db, "users");
+        const userSnapshot = await getDocs(usersCollection);
+        const userDocs = userSnapshot.docs;
 
-        // Subject Filter
-        const subjectResults = languageDocs.filter((doc) => {
+        const matchingLocations = [];
+        console.log(formattedLanguage, formattedDay, timeSlot);
+        userDocs.forEach((doc) => {
           const data = doc.data();
-          if (subject === "Any Subject") {
-            return true;
-          }
-          return (
-            data &&
-            data.subjectsTaught &&
-            data.subjectsTaught.includes(formattedSubject)
-          );
-        });
-        // Availability Filter
-        const matchingDocs = subjectResults.filter((doc) => {
-          const data = doc.data();
-          if (hours == "Any Time") {
-            return true;
-          }
-          const keyExists = `${formattedDay}-${timeSlot}` in data.selectedCells;
-          if (keyExists) {
-            return data.selectedCells[`${formattedDay}-${timeSlot}`];
-          }
-          return false;
+          Object.keys(data.schedule).forEach((location) => {
+            const locationData = data.schedule[location];
+            if (
+              locationData.languages.includes(formattedLanguage) ||
+              formattedLanguage == "English"
+            ) {
+              if (
+                locationData.subjects.includes(formattedSubject) ||
+                formattedSubject == "Any Subject"
+              ) {
+                if (
+                  Object.keys(locationData.schedule).some((key) =>
+                    key.startsWith(formattedDay)
+                  ) ||
+                  formattedDay == "Any Day"
+                ) {
+                  if (
+                    Object.keys(locationData.schedule).some((key) =>
+                      key.includes(timeSlot)
+                    ) ||
+                    hours == "Any Time"
+                  ) {
+                    matchingLocations.push(location);
+                  }
+                }
+              }
+            }
+          });
         });
 
         // Collect unique workLocations
-        const uniqueWorkLocations = Array.from(
-          new Set(matchingDocs.map((doc) => doc.data().workLocation))
-        );
+        const uniqueWorkLocations = Array.from(new Set(matchingLocations));
 
         // Set results
         setResults(uniqueWorkLocations);
