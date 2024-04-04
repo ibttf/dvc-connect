@@ -128,16 +128,6 @@ export default function LoginStep3({
           </button>
         </div>
       </form>
-      <div className="flex w-full justify-center items-center flex-wrap mt-4">
-        {errors.map((err, index) => (
-          <div
-            key={index}
-            className="text-red-600 py-2 px-3 bg-red-100 rounded-md"
-          >
-            {err}
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
